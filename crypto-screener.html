@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crypto Pro Screener | Top 100 Coins (10m Auto-Refresh)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+:root {
+ --bg: #0b0e14; --card: #151a23; --line: #2b3342; --tx: #e2e8f0; --mut: #8b96a5;
+ --g: #0ecb81; --r: #f6465d; --y: #f0b90b; --b: #2962ff; --bg-hov: #1c222d;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--tx); font: 13px/1.5 'Inter', sans-serif; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 20px 15px 50px; }
+h1 { font-size: 22px; margin: 0 0 5px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(41, 98, 255, 0.3); }
+.mut { color: var(--mut); } .sm { font-size: 12px; }
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 15px 0; background: var(--card); padding: 12px; border-radius: 10px; border: 1px solid var(--line); }
+button, select, input { background: var(--bg); color: var(--tx); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; transition: all 0.2s; }
+button { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+button:hover { border-color: var(--b); background: var(--bg-hov); }
+button.on { background: rgba(41, 98, 255, 0.15); border-color: var(--b); color: #82a5ff; }
+button.bu.on { background: rgba(14, 203, 129, 0.15); border-color: var(--g); color: var(--g); }
+button.be.on { background: rgba(246, 70, 93, 0.15); border-color: var(--r); color: var(--r); }
+label.f { display: flex; flex-direction: column; font-size: 11px; color: var(--mut); gap: 4px; }
+select:focus { outline: none; border-color: var(--b); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 15px 0; }
+.st { background: linear-gradient(180deg, var(--card) 0%, var(--bg) 100%); border: 1px solid var(--line); border-radius: 10px; padding: 12px; text-align: center; }
+.st b { display: block; font-size: 20px; color: #fff; margin-bottom: 2px; }
+.st span { color: var(--mut); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+.status { padding: 10px 15px; border-radius: 8px; background: rgba(41, 98, 255, 0.1); border: 1px solid rgba(41, 98, 255, 0.3); margin: 10px 0; font-size: 13px; color: #82a5ff; font-weight: 600; display: flex; justify-content: space-between; }
+.status.err { background: rgba(246, 70, 93, 0.1); border-color: rgba(246, 70, 93, 0.3); color: var(--r); }
+.tw { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 900px; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th { background: var(--card); color: var(--mut); font-weight: 600; font-size: 11px; text-transform: uppercase; cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 10; }
+th:hover { color: #fff; } th.s { color: var(--b); }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--card); z-index: 11; }
+td:first-child { font-weight: 600; }
+td:first-child a { color: #fff; text-decoration: none; } td:first-child a:hover { color: var(--b); }
+.pos { color: var(--g); } .neg { color: var(--r); } .hot { color: var(--y); font-weight: 700; }
+.badge-g { background: rgba(14,203,129,0.15); color: var(--g); padding: 3px 6px; border-radius: 4px; font-weight: 600; }
+.badge-r { background: rgba(246,70,93,0.15); color: var(--r); padding: 3px 6px; border-radius: 4px; font-weight: 600; }
+.empty { padding: 30px; text-align: center; color: var(--mut); font-size: 14px; }
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 15px 0; }
+.bx { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
+.bx .r { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.bx .r:last-child { border-bottom: none; }
+.bx .r a { font-weight: 600; color: #fff; text-decoration: none; }
+.foot { margin-top: 20px; font-size: 12px; color: var(--mut); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Crypto Pro Screener ⚡</h1>
+<div class="mut sm">Live 5-min RSI, EMA & Volatility Tracker (Top 100 Coins • Refreshes every 10 mins)</div>
+
+<div class="boxes" id="boxes"></div>
+
+<div class="bar" id="mode">
+ <button id="mBull" class="on bu">🟢 Bullish Screener</button>
+ <button id="mBear" class="be">🔴 Bearish Screener</button>
+</div>
+
+<div class="bar">
+ <label class="f">Exchange
+  <select id="ex"><option value="binance">Binance Futures</option><option value="bybit">Bybit Futures</option></select></label>
+ <label class="f">Min 24h Vol
+  <select id="mv"><option value="5">$5M</option><option value="10">$10M</option><option value="20" selected>$20M</option><option value="50">$50M</option></select></label>
+ <label class="f">Top N
+  <select id="tn"><option>10</option><option>20</option><option selected>30</option><option>50</option><option>100</option></select></label>
+ <label class="f">Volatile (×Avg)
+  <select id="xm"><option value="1">1.0×</option><option value="1.5" selected>1.5×</option><option value="2">2.0×</option></select></label>
+ <span style="flex:1"></span>
+ <button id="rf">🔄 Refresh Now</button>
+ <button id="au" class="on">⏱ Auto 10m: ON</button>
+</div>
+
+<div class="bar" id="views">
+ <button data-v="intra">24h Top Gainers</button>
+ <button data-v="combo">Strong + Volatile</button>
+ <button data-v="vol">Intraday Volatile</button>
+ <button data-v="oversold" class="bu on">🟢 RSI < 30 (Oversold)</button>
+ <button data-v="overbought" class="be">🔴 RSI > 70 (Overbought)</button>
+ <span style="flex:1"></span>
+ <button id="cp">📋 Copy TV List</button>
+</div>
+
+<div class="status" id="status"><span>Ready to load...</span><span></span></div>
+<div class="stats" id="stats"></div>
+<div class="tw" id="tbl"><div class="empty">Loading market data... Please wait a few seconds.</div></div>
+
+<div class="foot">Data: Direct Exchange API. Note: Processing limited to Top 100 coins.</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const DAY = 864e5;
+const TEN_MIN = 600000; // 10 minutes in milliseconds
+
+const EX = {
+ binance: {
+  name: 'Binance', pre: 'BINANCE',
+  async tickers() {
+   const r = await fetch('https://fapi.binance.com/fapi/v1/ticker/24hr'); if(!r.ok) throw new Error('HTTP '+r.status); const a = await r.json();
+   return a.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('_')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.priceChangePercent, h: +x.highPrice, l: +x.lowPrice, v: +x.quoteVolume}));
+  },
+  async klines1d(s) {
+   const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${s}&interval=1d&limit=40`); if(!r.ok) return []; const a = await r.json();
+   return a.map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
+  },
+  async klines5m(s) {
+   const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${s}&interval=5m&limit=100`); if(!r.ok) return []; const a = await r.json();
+   return a.map(k => ({c: +k[4]}));
+  }
+ },
+ bybit: {
+  name: 'Bybit', pre: 'BYBIT',
+  async tickers() {
+   const r = await fetch('https://api.bybit.com/v5/market/tickers?category=linear'); if(!r.ok) throw new Error('HTTP '+r.status); const j = await r.json();
+   return j.result.list.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('-')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.price24hPcnt*100, h: +x.highPrice24h, l: +x.lowPrice24h, v: +x.turnover24h}));
+  },
+  async klines1d(s) {
+   const r = await fetch(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${s}&interval=D&limit=40`); if(!r.ok) return []; const j = await r.json();
+   return j.result.list.slice().reverse().map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
+  },
+  async klines5m(s) {
+   const r = await fetch(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${s}&interval=5&limit=100`); if(!r.ok) return []; const j = await r.json();
+   return j.result.list.slice().reverse().map(k => ({c: +k[4]}));
+  }
+ }
+};
+
+let MODE = 'bull', VIEW = 'oversold', SORT = {k: 'rsi', d: 1}, ROWS = [], AUTO = true, busy = false;
+let KC1D = {}, KC5M = {};
+const SET = {ex: 'binance', mv: '20', tn: '30', xm: '1.5'};
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_pro') || '{}')) } catch(e) {}
+['ex','mv','tn','xm'].forEach(k => { $(k).value = SET[k] || $(k).value; $(k).onchange = () => { SET[k] = $(k).value; localStorage.setItem('cvs_pro', JSON.stringify(SET)); k==='ex'||k==='mv'?load():render(); }});
+
+const f1 = v => v == null ? '—' : (+v).toFixed(1);
+const px = v => v == null ? '—' : (+v).toPrecision(5).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+const pc = v => v == null ? '—' : `<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${(+v).toFixed(1)}%</span>`;
+const timeStr = () => new Date().toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', second:'2-digit'});
+function starts() { const n = new Date(), d = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()); return {today: d, week: d-7*DAY}; }
+
+function setStatus(msg, perc = '') {
+ const el = $('status');
+ if (msg.includes('Error') || msg.includes('failed')) { el.className = 'status err'; el.innerHTML = `<span>${msg}</span><span></span>`; return; }
+ el.className = 'status';
+ el.innerHTML = `<span>⏳ ${msg}</span><span>${perc ? perc + '%' : ''}</span>`;
+ if(perc === 100 || msg.includes('Updated')) el.innerHTML = `<span>✅ ${msg}</span><span></span>`;
+}
+
+// Optimized Pool (Concurrency = 5 to avoid IP Ban)
+async function pool(items, concurrency, fn, onProgress) {
+ let i = 0, done = 0;
+ await Promise.all(Array.from({length: concurrency}, async () => {
+  while (i < items.length) { 
+   const item = items[i++]; 
+   try { await fn(item); } catch(e){} 
+   done++; 
+   if(onProgress) onProgress(done, items.length); 
+  }
+ }));
+}
+
+function calcRSI(closes, period=14) {
+ if(closes.length <= period) return null;
+ let gains = 0, losses = 0;
+ for(let i=1; i<=period; i++) {
+  let diff = closes[i] - closes[i-1];
+  if(diff > 0) gains += diff; else losses -= diff;
+ }
+ let avgG = gains / period, avgL = losses / period;
+ if(avgL === 0) return 100;
+ let rsi = 100 - (100 / (1 + (avgG / avgL)));
+ for(let i=period+1; i<closes.length; i++) {
+  let diff = closes[i] - closes[i-1];
+  let gain = diff > 0 ? diff : 0; let loss = diff < 0 ? -diff : 0;
+  avgG = (avgG * (period - 1) + gain) / period; avgL = (avgL * (period - 1) + loss) / period;
+  if(avgL === 0) rsi = 100; else rsi = 100 - (100 / (1 + (avgG / avgL)));
+ }
+ return rsi;
+}
+
+function calcEMA(closes, period=20) {
+ if(closes.length < period) return null;
+ const k = 2 / (period + 1);
+ let ema = closes.slice(0, period).reduce((a, b) => a + b, 0) / period; 
+ for(let i=period; i<closes.length; i++) { ema = (closes[i] * k) + (ema * (1 - k)); }
+ return ema;
+}
+
+function computeMetrics(t, k1d, k5m, S) {
+ const done = k1d.filter(k => k.t < S.today).slice(-14);
+ const ar = done.length >= 7 ? done.reduce((a,k) => a+(k.h-k.l)/k.l*100, 0)/done.length : null;
+ const r24 = t.l > 0 ? (t.h-t.l)/t.l*100 : null;
+ const td = k1d.find(k => k.t === S.today);
+ const wk = k1d.find(k => k.t === S.week);
+ const closes = k5m.map(x => x.c);
+ return {
+  s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch,
+  td: td ? (t.p/td.o-1)*100 : null, w: wk ? (t.p/wk.o-1)*100 : null,
+  r24, ar, x: (ar && r24 != null) ? r24/ar : null,
+  rsi: calcRSI(closes, 14), ema20: calcEMA(closes, 20), v: t.v/1e6
+ };
+}
+
+async function load() {
+ if(busy) return; busy = true; const ex = EX[SET.ex], S = starts(), now = Date.now();
+ try {
+  setStatus(`Fetching Market Overview...`);
+  const all = await ex.tickers();
+  
+  let el = all.filter(t => t.v >= SET.mv * 1e6 && t.p > 0).sort((a, b) => b.v - a.v).slice(0, 100);
+
+  const need1d = el.filter(t => { const c = KC1D[SET.ex+t.s]; return !c || c.day !== S.today; });
+  if(need1d.length) {
+   await pool(need1d, 5, async t => { KC1D[SET.ex+t.s] = {day: S.today, k: await ex.klines1d(t.s)}; },
+    (d, n) => setStatus(`Loading Daily Data...`, Math.round((d/n)*100)));
+  }
+
+  // Ensure it forces a refresh if data is older than 9.5 minutes
+  const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
+  if(need5m.length) {
+   await pool(need5m, 5, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
+    (d, n) => setStatus(`Calculating Live RSI/EMA...`, Math.round((d/n)*100)));
+  }
+
+  ROWS = el.filter(t => KC1D[SET.ex+t.s] && KC5M[SET.ex+t.s]).map(t => computeMetrics(t, KC1D[SET.ex+t.s].k, KC5M[SET.ex+t.s].k, S));
+  setStatus(`Updated: ${timeStr()} | Analyzed Top ${ROWS.length} High-Vol Coins`);
+  render();
+ } catch(e) {
+  setStatus('Data load failed: ' + e.message, true);
+ } finally { busy = false; }
+}
+
+function dirD() { return MODE === 'bear' ? -1 : 1; }
+function defSort() {
+ const D = dirD();
+ const smap = { intra: {k:'ch', d:-D}, combo: {k:'x', d:-D}, vol: {k:'x', d:-D}, oversold: {k:'rsi', d:1}, overbought: {k:'rsi', d:-1} };
+ return smap[VIEW] || {k:'ch', d:-1};
+}
+
+function pick() {
+ const N = +SET.tn, xm = +SET.xm, D = dirD();
+ const dirOk = v => v != null && (D > 0 ? v > 0 : v < 0);
+ let a = [];
+
+ if(VIEW === 'intra') a = ROWS.filter(r => r.ch != null).sort((p,q) => D*(q.ch-p.ch)).slice(0, N);
+ else if(VIEW === 'vol') a = ROWS.filter(r => r.x != null && dirOk(r.ch)).sort((p,q) => q.x-p.x).slice(0, N);
+ else if(VIEW === 'oversold') a = ROWS.filter(r => r.rsi != null && r.rsi <= 30).sort((p,q) => p.rsi - q.rsi).slice(0, N);
+ else if(VIEW === 'overbought') a = ROWS.filter(r => r.rsi != null && r.rsi >= 70).sort((p,q) => q.rsi - p.rsi).slice(0, N);
+ else {
+  const W = new Set(ROWS.filter(r => r.w != null).sort((p,q) => D*(q.w-p.w)).slice(0, N).map(r => r.s));
+  a = ROWS.filter(r => W.has(r.s) && r.x != null && r.x >= xm);
+ }
+
+ const {k, d} = SORT;
+ return a.sort((p,q) => { const A = p[k], B = q[k]; if(A==null) return 1; if(B==null) return -1; return typeof A==='string' ? d*A.localeCompare(B) : d*(A-B); });
+}
+
+function boxes() {
+ const mk = (title, key, dir, cls) => {
+  const a = ROWS.filter(r => r[key] != null).sort((p,q) => dir*(q[key]-p[key])).slice(0, 4);
+  return `<div class="bx ${cls}"><h3>${title}</h3>` + a.map(r => `<div class="r"><a target="_blank" href="https://www.tradingview.com/chart/?symbol=${EX[SET.ex].pre}:${r.s}.P">${r.base}</a>${pc(r[key])}</div>`).join('') + `</div>`;
+ };
+ $('boxes').innerHTML = mk('🚀 Top Gainers (24h)','ch',1,'up') + mk('🩸 Top Losers (24h)','ch',-1,'dn') + mk('📈 High RSI (Overbought)','rsi',1,'dn') + mk('📉 Low RSI (Oversold)','rsi',-1,'up');
+}
+
+const COLS = [['base','Coin'], ['p','Price'], ['ch','24h %'], ['rsi','RSI (5m)'], ['ema20','EMA (20) 5m'], ['x','Volatility (×Avg)'], ['td','Today %'], ['w','7D %'], ['v','Vol 24h $M']];
+
+function formatRSI(v) {
+ if(v == null) return '—';
+ let val = v.toFixed(1);
+ if(v <= 30) return `<span class="badge-g">${val}</span>`;
+ if(v >= 70) return `<span class="badge-r">${val}</span>`;
+ return val;
+}
+
+function formatEMA(p, ema) {
+ if(p == null || ema == null) return '—';
+ let diff = ((p - ema) / ema) * 100;
+ let color = diff >= 0 ? 'pos' : 'neg';
+ return `<span>${px(ema)}</span> <span class="${color} sm">(${diff>0?'+':''}${diff.toFixed(2)}%)</span>`;
+}
+
+function render() {
+ if(!ROWS.length) { $('tbl').innerHTML = '<div class="empty">No data loaded yet.</div>'; return; }
+ const os = ROWS.filter(r => r.rsi != null && r.rsi <= 30).length;
+ const ob = ROWS.filter(r => r.rsi != null && r.rsi >= 70).length;
+ 
+ $('stats').innerHTML = `
+  <div class="st"><b>${ROWS.length}</b><span>Coins Analyzed</span></div>
+  <div class="st"><b>${os}</b><span style="color:var(--g)">Oversold (RSI<30)</span></div>
+  <div class="st"><b>${ob}</b><span style="color:var(--r)">Overbought (RSI>70)</span></div>
+ `;
+ boxes();
+ const a = pick(), pre = EX[SET.ex].pre;
+ if(!a.length) { $('tbl').innerHTML = '<div class="empty">No coins match this filter currently.</div>'; return; }
+ 
+ let h = '<table><thead><tr>' + COLS.map(c => `<th data-k="${c[0]}" class="${SORT.k===c[0]?'s':''}">${c[1]}${SORT.k===c[0]?(SORT.d<0?' ▼':' ▲'):''}</th>`).join('') + '</tr></thead><tbody>';
+ for(const r of a) {
+  h += `<tr>
+   <td><a target="_blank" href="https://www.tradingview.com/chart/?symbol=${pre}:${r.s}.P">${r.base}</a></td>
+   <td>${px(r.p)}</td>
+   <td>${pc(r.ch)}</td>
+   <td>${formatRSI(r.rsi)}</td>
+   <td>${formatEMA(r.p, r.ema20)}</td>
+   <td class="${r.x>=SET.xm?'hot':''}">${r.x==null?'—':r.x.toFixed(2)+'×'}</td>
+   <td>${pc(r.td)}</td>
+   <td>${pc(r.w)}</td>
+   <td>${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
+  </tr>`;
+ }
+ $('tbl').innerHTML = h + '</tbody></table>';
+ $('tbl').querySelectorAll('th').forEach(th => th.onclick = () => {
+  const k = th.dataset.k; SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi' ? 1 : -1}; render();
+ });
+}
+
+document.querySelectorAll('#views [data-v]').forEach(b => b.onclick = () => {
+ VIEW = b.dataset.v; 
+ document.querySelectorAll('#views [data-v]').forEach(x => x.classList.remove('on', 'bu', 'be'));
+ b.classList.add('on');
+ if(VIEW === 'oversold') b.classList.add('bu');
+ if(VIEW === 'overbought') b.classList.add('be');
+ SORT = defSort(); render();
+});
+
+$('mBull').onclick = () => { MODE = 'bull'; $('mBull').classList.add('on'); $('mBear').classList.remove('on'); SORT = defSort(); render(); };
+$('mBear').onclick = () => { MODE = 'bear'; $('mBear').classList.add('on'); $('mBull').classList.remove('on'); SORT = defSort(); render(); };
+
+$('cp').onclick = async () => {
+ const t = pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(',');
+ if(!t) return;
+ try { await navigator.clipboard.writeText(t); } catch(e) {
+  const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+ }
+ $('cp').textContent = '📋 Copied ✓'; setTimeout(() => $('cp').textContent = '📋 Copy TV List', 1500);
+};
+
+$('rf').onclick = load;
+$('au').onclick = () => { AUTO = !AUTO; $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); $('au').classList.toggle('on', AUTO); };
+
+setInterval(() => { if(AUTO && !document.hidden) load(); }, TEN_MIN);
+load();
+</script>
+</body>
+</html>
