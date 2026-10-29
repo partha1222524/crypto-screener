@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto AI Screener | Premium Strategy Dashboard</title>
+<title>Crypto Master Screener | AI & Performance Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -15,81 +15,89 @@
  --y: #f59e0b; --accent: #8b5cf6;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background-color: var(--bg); background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08), transparent 60%); color: var(--tx); font: 14px/1.5 'Outfit', sans-serif; min-height: 100vh; }
-.main-layout { display: flex; flex-direction: column; gap: 20px; max-width: 1420px; margin: 0 auto; padding: 30px 20px 60px; }
-@media(min-width: 1024px) { .main-layout { flex-direction: row; align-items: flex-start; } .left-content { flex: 1; min-width: 0; } .right-sidebar { width: 340px; flex-shrink: 0; position: sticky; top: 30px; } }
+body { margin: 0; background-color: var(--bg); background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05), transparent 60%); color: var(--tx); font: 14px/1.5 'Outfit', sans-serif; min-height: 100vh; }
+.main-layout { display: flex; flex-direction: column; gap: 20px; max-width: 98%; margin: 0 auto; padding: 20px 10px 60px; }
+@media(min-width: 1200px) { .main-layout { flex-direction: row; align-items: flex-start; } .left-content { flex: 1; min-width: 0; } .right-sidebar { width: 350px; flex-shrink: 0; position: sticky; top: 20px; } }
 
-h1 { font-size: 32px; margin: 0 0 8px; font-weight: 700; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-.desc { color: var(--mut); font-size: 14px; margin-bottom: 25px; }
+h1 { font-size: 28px; margin: 0 0 5px; font-weight: 700; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+.desc { color: var(--mut); font-size: 13px; margin-bottom: 20px; }
 
 /* Glassmorphism Classes */
 .glass { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 12px; }
-.glass-panel { padding: 15px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+.glass-panel { padding: 12px 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 
 /* Buttons & Inputs */
-button, select { background: rgba(255,255,255,0.05); color: var(--tx); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; font-family: inherit; font-weight: 500; font-size: 13px; transition: all 0.3s ease; outline: none; }
+button, select { background: rgba(255,255,255,0.05); color: var(--tx); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-weight: 500; font-size: 12px; transition: all 0.3s ease; outline: none; }
 button { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 button:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
-button.on { background: rgba(59, 130, 246, 0.15); border-color: var(--b); color: #60a5fa; box-shadow: 0 0 15px rgba(59, 130, 246, 0.15); }
-label.f { display: flex; flex-direction: column; font-size: 12px; color: var(--mut); gap: 6px; font-weight: 500; }
-select { padding: 8px 12px; cursor: pointer; }
+button.on { background: rgba(59, 130, 246, 0.15); border-color: var(--b); color: #60a5fa; box-shadow: 0 0 10px rgba(59, 130, 246, 0.15); }
+button.bu.on { background: var(--g-glow); border-color: var(--g); color: var(--g); }
+button.be.on { background: var(--r-glow); border-color: var(--r); color: var(--r); }
+label.f { display: flex; flex-direction: column; font-size: 11px; color: var(--mut); gap: 4px; font-weight: 500; }
+select { padding: 7px 10px; cursor: pointer; }
+.btn-group { display: flex; gap: 8px; align-items: center; border-right: 1px solid var(--line); padding-right: 10px; margin-right: 5px; }
+.btn-group:last-child { border-right: none; }
+
+/* Performance Boxes */
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 15px; }
+.bx { padding: 12px; position: relative; overflow: hidden; }
+.bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
+.bx .r { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.bx .r:last-child { border-bottom: none; }
+.bx .r a { font-weight: 600; color: #fff; text-decoration: none; }
 
 /* Dashboard Stats */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
-.st { padding: 20px; text-align: left; position: relative; overflow: hidden; transition: transform 0.3s; }
-.st:hover { transform: translateY(-2px); }
-.st::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background: var(--mut); border-radius: 4px 0 0 4px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 15px; }
+.st { padding: 15px; text-align: left; position: relative; overflow: hidden; }
+.st::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--mut); border-radius: 4px 0 0 4px; }
 .st.s-1::before { background: var(--g); } .st.s-2::before { background: var(--b); } .st.s-3::before { background: var(--y); }
-.st span { display: block; color: var(--mut); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-.st b { font-size: 26px; color: #fff; line-height: 1; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.st span { display: block; color: var(--mut); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.st b { font-size: 22px; color: #fff; line-height: 1; font-weight: 600; display: flex; align-items: center; gap: 8px; }
 
 /* Table Design */
-.tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin-top: 10px; }
-table { border-collapse: collapse; width: 100%; min-width: 1050px; text-align: right; }
-th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
-th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+.tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin-top: 10px; border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 1400px; text-align: right; }
+th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-size: 13px; }
+th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
 th:hover { color: #fff; } th.s { color: var(--b); }
 th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 11; }
-td:first-child { background: var(--surface); backdrop-filter: blur(12px); font-weight: 600; font-size: 15px; }
+td:first-child { background: var(--surface); backdrop-filter: blur(12px); font-weight: 600; font-size: 14px; border-right: 1px solid var(--line); }
 tr:hover td { background: rgba(255,255,255,0.03); }
 td:first-child a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
 td:first-child a:hover { color: var(--b); }
 
-/* Badges for Strategies */
-.pos { color: var(--g); } .neg { color: var(--r); }
-.badge { padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; }
+/* Badges & Utilities */
+.pos { color: var(--g); } .neg { color: var(--r); } .hot { color: var(--y); font-weight: 700; }
+.badge { padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; }
 .badge-g { background: var(--g-glow); color: var(--g); border: 1px solid rgba(16,185,129,0.3); }
 .badge-r { background: var(--r-glow); color: var(--r); border: 1px solid rgba(239,68,68,0.3); }
 .badge-b { background: var(--b-glow); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
 .badge-n { background: rgba(255,255,255,0.05); color: var(--mut); border: 1px solid rgba(255,255,255,0.1); }
 .pulse { animation: pulse 2s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
-/* Sidebar Accordion (Strategies) */
-.sb-title { font-size: 18px; font-weight: 600; margin: 0 0 15px; color: #fff; display: flex; align-items: center; gap: 8px; }
-.sb-title i { font-size: 20px; }
+/* Sidebar Accordion */
+.sb-title { font-size: 17px; font-weight: 600; margin: 0 0 15px; color: #fff; display: flex; align-items: center; gap: 8px; }
 .acc-item { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,0.02); overflow: hidden; transition: all 0.3s ease; }
-.acc-btn { width: 100%; text-align: left; background: none; border: none; padding: 12px 15px; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-radius: 10px; }
+.acc-btn { width: 100%; text-align: left; background: none; border: none; padding: 12px; font-size: 13px; font-weight: 600; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
 .acc-btn:hover { background: rgba(255,255,255,0.05); }
-.acc-btn .ico { color: var(--mut); font-size: 16px; transition: transform 0.3s; }
+.acc-btn .ico { color: var(--mut); font-size: 14px; transition: transform 0.3s; }
 .acc-item.active .acc-btn .ico { transform: rotate(45deg); color: var(--b); }
 .acc-item.active { border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); }
-.acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 15px; font-size: 13px; color: var(--mut); line-height: 1.6; }
-.acc-item.active .acc-content { max-height: 500px; padding: 0 15px 15px; }
-.acc-content p { margin: 5px 0 10px; }
+.acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 12px; font-size: 12px; color: var(--mut); line-height: 1.6; }
+.acc-item.active .acc-content { max-height: 500px; padding: 0 12px 12px; }
 .acc-content ul { padding-left: 15px; margin: 5px 0; }
-.acc-content li { margin-bottom: 6px; }
-.acc-content strong { color: #fff; }
-.safe-combo { background: rgba(255, 255, 255, 0.05); border-left: 3px solid var(--b); padding: 10px 12px; border-radius: 4px; margin-top: 10px; color: #e4e4e7; font-size: 12px; }
+.safe-combo { background: rgba(255, 255, 255, 0.05); border-left: 3px solid var(--b); padding: 8px 10px; border-radius: 4px; margin-top: 10px; color: #e4e4e7; }
 
-/* Utilities */
+/* Status Bar & Misc */
 .flex-spacer { flex: 1; }
-.empty { padding: 50px; text-align: center; color: var(--mut); font-size: 15px; }
-.status-bar { display: flex; justify-content: space-between; padding: 12px 20px; font-size: 13px; color: var(--b); font-weight: 500; }
+.empty { padding: 40px; text-align: center; color: var(--mut); font-size: 14px; }
+.status-bar { display: flex; justify-content: space-between; padding: 10px 15px; font-size: 12px; color: var(--b); font-weight: 500; }
 .status-bar.err { color: var(--r); }
-.foot { margin-top: 30px; font-size: 13px; color: var(--mut); text-align: center; }
+.foot { margin-top: 20px; font-size: 12px; color: var(--mut); text-align: center; }
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
@@ -100,8 +108,19 @@ td:first-child a:hover { color: var(--b); }
 <div class="main-layout">
  
  <div class="left-content">
-  <h1>Crypto AI Screener</h1>
-  <div class="desc">Pro Trading Terminal • Intraday VWAP, EMA & RSI Confluence</div>
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
+   <div>
+    <h1>Crypto Master Screener</h1>
+    <div class="desc">Ultimate Dashboard • All Features & AI Strategies Integrated</div>
+   </div>
+   <div class="btn-group" id="mode" style="border:none;">
+    <button id="mBull" class="on bu">🟢 Bullish Mode</button>
+    <button id="mBear" class="be">🔴 Bearish Mode</button>
+   </div>
+  </div>
+
+  <!-- Performance Boxes -->
+  <div class="boxes" id="boxes"></div>
 
   <!-- Stats Row -->
   <div class="stats" id="stats">
@@ -114,13 +133,16 @@ td:first-child a:hover { color: var(--b); }
   <!-- Controls Panel -->
   <div class="glass glass-panel">
    <label class="f">Exchange
-    <select id="ex"><option value="binance">Binance Futures</option><option value="bybit">Bybit Futures</option></select>
+    <select id="ex"><option value="binance" selected>Binance Futures</option><option value="bybit">Bybit Futures</option></select>
    </label>
    <label class="f">Min 24h Vol
     <select id="mv"><option value="5">$5M</option><option value="10">$10M</option><option value="20" selected>$20M</option><option value="50">$50M</option></select>
    </label>
    <label class="f">Scan Limit
     <select id="tn"><option>50</option><option selected>100</option><option>150</option></select>
+   </label>
+   <label class="f">Volatile (×Avg)
+    <select id="xm"><option value="1">1.0×</option><option value="1.5" selected>1.5×</option><option value="2">2.0×</option></select>
    </label>
    
    <div class="flex-spacer"></div>
@@ -129,15 +151,32 @@ td:first-child a:hover { color: var(--b); }
    <button id="rf">🔄 Sync Data</button>
   </div>
 
-  <!-- Filter Tabs -->
+  <!-- Filter Tabs (Combined) -->
   <div class="glass glass-panel" id="views">
-   <button data-v="all" class="on">📊 All Coins</button>
-   <button data-v="strat1">⭐ 1. Trend Setups</button>
-   <button data-v="strat2">⭐ 2. VWAP Bounces</button>
-   <button data-v="strat3">🔥 3. RSI Reversals</button>
+   <div class="btn-group">
+    <button data-v="all" class="on">📊 All</button>
+   </div>
+   <div class="btn-group" title="Performance Filters">
+    <button data-v="intra">Intraday</button>
+    <button data-v="week">Weekly</button>
+    <button data-v="month">Monthly</button>
+   </div>
+   <div class="btn-group" title="Volatility Filters">
+    <button data-v="vol">24h Vol</button>
+    <button data-v="wvol">7D Vol</button>
+    <button data-v="combo">Strong+Vol</button>
+   </div>
+   <div class="btn-group" title="AI Strategies" style="border:none;">
+    <button data-v="strat1" class="bu">⭐ S1: Trend</button>
+    <button data-v="strat2" class="bu">⭐ S2: VWAP</button>
+    <button data-v="strat3" class="be">🔥 S3: Reversal</button>
+   </div>
    
    <div class="flex-spacer"></div>
-   <button id="cp">📋 Copy TV List</button>
+   <div class="btn-group" style="border:none;">
+    <button id="cp">📋 Copy List</button>
+    <button id="dl">💾 DL .txt</button>
+   </div>
   </div>
 
   <!-- Data Table -->
@@ -156,10 +195,10 @@ td:first-child a:hover { color: var(--b); }
    <div class="acc-content">
     <p>Trade <strong>WITH</strong> the market momentum. The safest way to trade futures.</p>
     <ul>
-     <li><strong>Go Long (Buy) if:</strong> Price is above EMA200 <strong>AND</strong> above VWAP <strong>AND</strong> RSI > 50.</li>
-     <li><strong>Go Short (Sell) if:</strong> Price is below EMA200 <strong>AND</strong> below VWAP <strong>AND</strong> RSI < 50.</li>
+     <li><strong>Long (Buy):</strong> Price > EMA200 <strong>AND</strong> > VWAP <strong>AND</strong> RSI > 50.</li>
+     <li><strong>Short (Sell):</strong> Price < EMA200 <strong>AND</strong> < VWAP <strong>AND</strong> RSI < 50.</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Safe Combo:</strong> Check if the coin also has a "⭐ 2 (VWAP)" badge. Entering a Trend trade right at the VWAP line minimizes your risk. Stop loss just below VWAP.</div>
+    <div class="safe-combo">🛡️ <strong>Combo:</strong> Check if it also has "⭐ 2 (VWAP)". Entering near the VWAP line minimizes risk. Stop loss below VWAP.</div>
    </div>
   </div>
 
@@ -168,38 +207,22 @@ td:first-child a:hover { color: var(--b); }
    <div class="acc-content">
     <p>Institutions buy at VWAP. When price drops to VWAP and holds, it usually bounces back up.</p>
     <ul>
-     <li><strong>Condition:</strong> Look for coins where distance to Intraday VWAP is very small (0% to 1%).</li>
+     <li><strong>Condition:</strong> Distance to Intraday VWAP is very small (0% to 1%).</li>
      <li><strong>Action:</strong> Wait for a green 5m candle at VWAP before going Long.</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Safe Combo:</strong> Never trade a bounce if RSI is already overbought (>65). Wait for confirmation volume.</div>
    </div>
   </div>
 
   <div class="acc-item glass">
    <button class="acc-btn">🔥 3. Extreme Reversals <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Catching falling knives or shorting rockets. High risk, high reward scalping.</p>
+    <p>Catching falling knives or shorting rockets. High risk/reward.</p>
     <ul>
-     <li><strong>Oversold (Long):</strong> RSI drops below 30. Price is crashing but slowing down.</li>
-     <li><strong>Overbought (Short):</strong> RSI goes above 70. Price is pumping hard.</li>
+     <li><strong>Oversold (Long):</strong> RSI < 30. Price crashing but slowing.</li>
+     <li><strong>Overbought (Short):</strong> RSI > 70. Price pumping hard.</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Safe Combo:</strong> NEVER enter blindly when you see the 🔥 badge. Let RSI go below 30, and only enter when it crosses back <strong>UP</strong> above 30. Take quick 1-2% profits.</div>
+    <div class="safe-combo">🛡️ <strong>Combo:</strong> Let RSI go below 30, only enter when it crosses back <strong>UP</strong> above 30. Take quick 1-2% profits.</div>
    </div>
-  </div>
-
-  <div class="acc-item glass">
-   <button class="acc-btn">⚠️ Trading Rules <span class="ico">➕</span></button>
-   <div class="acc-content">
-    <ul>
-     <li><strong>Wait Badge:</strong> If a coin has "⏳ Wait", it lacks momentum or is trapped in a sideways range. Avoid it.</li>
-     <li><strong>Volume:</strong> Only trade coins with >$20M 24h volume to avoid fakeouts.</li>
-     <li><strong>Stop Loss:</strong> Always place a stop loss 1-2% away from entry.</li>
-    </ul>
-   </div>
-  </div>
-  
-  <div class="foot" style="text-align:left; margin-top:20px;">
-   <p style="margin:0; font-size:12px">Built for Educational & Analytics Purposes. Always manage your risk.</p>
   </div>
  </div>
 
@@ -209,9 +232,9 @@ td:first-child a:hover { color: var(--b); }
 try {
 
 const $ = id => document.getElementById(id);
+const DAY = 864e5;
 const TEN_MIN = 600000;
 
-// Accordion Logic
 document.querySelectorAll('.acc-btn').forEach(btn => {
  btn.addEventListener('click', function() {
   const item = this.parentElement;
@@ -219,27 +242,32 @@ document.querySelectorAll('.acc-btn').forEach(btn => {
  });
 });
 
-// Safe Fetch with 10s Timeout (Prevents hanging on blocked ISPs)
+function starts() { 
+ const n = new Date(), d = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()); 
+ return {today: d, week: d-7*DAY, month: d-30*DAY}; 
+}
+
 async function fetchJson(url) {
  const controller = new AbortController();
- const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s max
+ const timeoutId = setTimeout(() => controller.abort(), 12000); 
  try {
   const r = await fetch(url, { signal: controller.signal });
   if(!r.ok) throw new Error('API Error ' + r.status);
   return await r.json();
- } finally {
-  clearTimeout(timeoutId);
- }
+ } finally { clearTimeout(timeoutId); }
 }
 
-// Direct Exchange Links & APIs
 const EX = {
  binance: {
   pre: 'BINANCE',
   link: (s) => `https://www.binance.com/en/futures/${s}`,
   async tickers() {
    const a = await fetchJson('https://fapi.binance.com/fapi/v1/ticker/24hr');
-   return a.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('_')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.priceChangePercent, v: +x.quoteVolume}));
+   return a.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('_')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.priceChangePercent, h: +x.highPrice, l: +x.lowPrice, v: +x.quoteVolume}));
+  },
+  async klines1d(s) {
+   const a = await fetchJson(`https://fapi.binance.com/fapi/v1/klines?symbol=${s}&interval=1d&limit=40`);
+   return a.map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
   },
   async klines5m(s) {
    const a = await fetchJson(`https://fapi.binance.com/fapi/v1/klines?symbol=${s}&interval=5m&limit=288`);
@@ -251,7 +279,11 @@ const EX = {
   link: (s) => `https://www.bybit.com/trade/usdt/${s}`,
   async tickers() {
    const j = await fetchJson('https://api.bybit.com/v5/market/tickers?category=linear');
-   return j.result.list.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('-')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.price24hPcnt*100, v: +x.turnover24h}));
+   return j.result.list.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('-')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.price24hPcnt*100, h: +x.highPrice24h, l: +x.lowPrice24h, v: +x.turnover24h}));
+  },
+  async klines1d(s) {
+   const j = await fetchJson(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${s}&interval=D&limit=40`);
+   return j.result.list.slice().reverse().map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
   },
   async klines5m(s) {
    const j = await fetchJson(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${s}&interval=5&limit=288`);
@@ -260,18 +292,16 @@ const EX = {
  }
 };
 
-let VIEW = 'all', SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
-let KC5M = {};
+let MODE = 'bull', VIEW = 'all', SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
+let KC1D = {}, KC5M = {};
 
-// NOTE: Changed default to 'bybit' because Binance is usually blocked in BD Mobile Networks.
-// Changed localstorage key to 'cvs_ai_v2' to force override old cached binance settings.
-const SET = {ex: 'bybit', mv: '20', tn: '100'}; 
-try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_ai_v2') || '{}')) } catch(e) {}
-['ex','mv','tn'].forEach(k => { 
+const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master') || '{}')) } catch(e) {}
+['ex','mv','tn','xm'].forEach(k => { 
  $(k).value = SET[k] || $(k).value; 
  $(k).onchange = () => { 
   SET[k] = $(k).value; 
-  localStorage.setItem('cvs_ai_v2', JSON.stringify(SET)); 
+  localStorage.setItem('cvs_master', JSON.stringify(SET)); 
   load(); 
  }
 });
@@ -284,9 +314,7 @@ function setStatus(msg, perc = '') {
  const el = $('status');
  if (!el) return;
  if (msg.includes('Error') || msg.includes('failed') || msg.includes('Timeout')) { 
-  el.className = 'status-bar err'; 
-  el.innerHTML = `<span>${msg}</span><span></span>`; 
-  return; 
+  el.className = 'status-bar err'; el.innerHTML = `<span>${msg}</span><span></span>`; return; 
  }
  el.className = 'status-bar';
  el.innerHTML = `<span>${perc === 100 ? '✅' : '⏳'} ${msg}</span><span>${perc ? perc + '%' : ''}</span>`;
@@ -336,7 +364,17 @@ function calcVWAP(klines) {
  return sumV === 0 ? null : sumPV / sumV;
 }
 
-function computeMetrics(t, k5m) {
+function computeMetrics(t, k1d, k5m, S) {
+ // 1D Calcs
+ const done = k1d.filter(k => k.t < S.today).slice(-14);
+ const ar = done.length >= 7 ? done.reduce((a,k) => a+(k.h-k.l)/k.l*100, 0)/done.length : null;
+ const r24 = t.l > 0 ? (t.h-t.l)/t.l*100 : null;
+ const td = k1d.find(k => k.t === S.today), yd = k1d.find(k => k.t === S.today - DAY);
+ const wk = k1d.find(k => k.t === S.week), mo = k1d.find(k => k.t === S.month);
+ const avg = a => a.length ? a.reduce((q,k)=>q+(k.h-k.l)/k.l*100,0)/a.length : null;
+ const wv = avg(k1d.filter(k=>k.t >= S.week+DAY));
+ 
+ // 5m Calcs
  const closes = k5m.map(x => x.c);
  const rsi = calcRSI(closes, 14);
  const ema200 = calcEMA(closes, 200);
@@ -349,74 +387,97 @@ function computeMetrics(t, k5m) {
 
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
 
- // Strategy 1: AI Trend
+ // Strategies
  let s1 = false, s1_dir = '';
  if (score === 3) { s1 = true; s1_dir = 'Long'; }
  else if (score === -3) { s1 = true; s1_dir = 'Short'; }
 
- // Strategy 2: VWAP Bounce (Distance between 0 and 1%)
- let s2 = false;
- if (vwap && Math.abs(vwap_dist) <= 1) { s2 = true; }
-
- // Strategy 3: Extreme Reversal
+ let s2 = false; if (vwap && Math.abs(vwap_dist) <= 1) { s2 = true; }
+ 
  let s3 = false, s3_dir = '';
  if (rsi <= 30) { s3 = true; s3_dir = 'Long'; }
  else if (rsi >= 70) { s3 = true; s3_dir = 'Short'; }
 
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch, v: t.v/1e6,
+  td: td ? (t.p/td.o-1)*100 : null, yd: yd ? (yd.c/yd.o-1)*100 : null,
+  w: wk ? (t.p/wk.o-1)*100 : null, m: mo ? (t.p/mo.o-1)*100 : null,
+  r24, ar, x: (ar && r24 != null) ? r24/ar : null, wv,
   rsi, ema200, vwap, vwap_dist,
   s1, s1_dir, s2, s3, s3_dir
  };
 }
 
 async function load() {
- if(busy) return; busy = true; const ex = EX[SET.ex], now = Date.now();
+ if(busy) return; busy = true; const ex = EX[SET.ex], S = starts(), now = Date.now();
  try {
   setStatus(`Connecting to ${SET.ex.toUpperCase()}...`);
-  
-  // Force DOM to update before heavy network call
   await new Promise(r => setTimeout(r, 100)); 
 
   const all = await ex.tickers();
   let el = all.filter(t => t.v >= SET.mv * 1e6 && t.p > 0).sort((a, b) => b.v - a.v).slice(0, +SET.tn);
 
-  const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
-  if(need5m.length) {
-   let tbl = $('tbl');
-   if(!document.querySelector('table')) tbl.innerHTML = `<div class="status-bar" id="status"></div><div class="empty">Downloading neural market data...</div>`;
-   
-   await pool(need5m, 8, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
-    (d, n) => setStatus(`Computing Indicators & VWAP...`, Math.round((d/n)*100)));
+  // Load 1D Data
+  const need1d = el.filter(t => { const c = KC1D[SET.ex+t.s]; return !c || c.day !== S.today; });
+  if(need1d.length) {
+   await pool(need1d, 8, async t => { KC1D[SET.ex+t.s] = {day: S.today, k: await ex.klines1d(t.s)}; },
+    (d, n) => setStatus(`Loading Daily History...`, Math.round((d/n)*30)));
   }
 
-  ROWS = el.filter(t => KC5M[SET.ex+t.s] && KC5M[SET.ex+t.s].k.length > 200).map(t => computeMetrics(t, KC5M[SET.ex+t.s].k));
+  // Load 5m Data
+  const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
+  if(need5m.length) {
+   await pool(need5m, 8, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
+    (d, n) => setStatus(`Computing Indicators & AI...`, 30 + Math.round((d/n)*70)));
+  }
+
+  ROWS = el.filter(t => KC1D[SET.ex+t.s] && KC5M[SET.ex+t.s] && KC5M[SET.ex+t.s].k.length > 200)
+             .map(t => computeMetrics(t, KC1D[SET.ex+t.s].k, KC5M[SET.ex+t.s].k, S));
   
   let timeStr = new Date().toLocaleTimeString();
   setStatus(`Engine Synced at ${timeStr}`, 100);
   render();
  } catch(e) {
   if(e.message.includes('abort') || e.message.includes('fetch')) {
-   setStatus('❌ Connection Timeout! ISP Blocked? Try switching Exchange to Bybit.', true);
+   setStatus('❌ Connection Timeout! ISP Blocked? Try switching Exchange.', true);
   } else {
    setStatus('❌ Connection failed: ' + e.message, true);
   }
  } finally { busy = false; }
 }
 
+function dirD() { return MODE === 'bear' ? -1 : 1; }
 function defSort() {
+ const D = dirD();
  const smap = { 
-  all: {k:'v', d:-1}, strat1: {k:'v', d:-1}, strat2: {k:'vwap_dist', d:1}, strat3: {k:'rsi', d:1}
+  all: {k:'v', d:-1}, intra: {k:'ch', d:-D}, week: {k:'w', d:-D}, month: {k:'m', d:-D}, 
+  vol: {k:'x', d:-D}, wvol: {k:'wv', d:-D}, combo: {k:'x', d:-D},
+  strat1: {k:'v', d:-1}, strat2: {k:'vwap_dist', d:1}, strat3: {k:'rsi', d:1}
  };
  return smap[VIEW] || {k:'v', d:-1};
 }
 
+const VL={
+ bull:{intra:'Intraday Gainers',week:'Weekly Gainers',month:'Monthly Gainers',vol:'Volatile (24h)',wvol:'Volatile (7D)',combo:'Strong + Volatile'},
+ bear:{intra:'Intraday Losers',week:'Weekly Losers',month:'Monthly Losers',vol:'Volatile (Down)',wvol:'Volatile (7D Down)',combo:'Weak + Volatile'}
+};
+
 function pick() {
+ const N = +SET.tn, xm = +SET.xm, D = dirD();
+ const dirOk = v => v != null && (D > 0 ? v > 0 : v < 0);
+ const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => D*(b[key]-a[key])).slice(0, N).map(r => r.s));
+ const W = top('w'), M = top('m');
  let a = ROWS;
  
  if(VIEW === 'strat1') a = a.filter(r => r.s1);
  else if(VIEW === 'strat2') a = a.filter(r => r.s2);
  else if(VIEW === 'strat3') a = a.filter(r => r.s3);
+ else if(VIEW === 'intra') a = a.filter(r => r.ch != null).sort((p,q) => D*(q.ch-p.ch)).slice(0, 30);
+ else if(VIEW === 'wvol') a = a.filter(r => r.wv != null && dirOk(r.w)).sort((p,q) => q.wv-p.wv).slice(0, 30);
+ else if(VIEW === 'week') a = a.filter(r => W.has(r.s));
+ else if(VIEW === 'month') a = a.filter(r => M.has(r.s));
+ else if(VIEW === 'vol') a = a.filter(r => r.x != null && dirOk(r.ch)).sort((p,q) => q.x-p.x).slice(0, 30);
+ else if(VIEW === 'combo') a = a.filter(r => (W.has(r.s) || M.has(r.s)) && r.x != null && r.x >= xm);
 
  const {k, d} = SORT;
  return a.sort((p,q) => { 
@@ -427,7 +488,19 @@ function pick() {
  });
 }
 
-const COLS = [['base','Coin'], ['p','Price'], ['ch','24h %'], ['rsi','RSI (5m)'], ['vwap','Intraday VWAP'], ['ema200','EMA (200)'], ['strats','Strategies Matched']];
+function boxes() {
+ const mk = (title, key, dir, cls) => {
+  const a = ROWS.filter(r => r[key] != null).sort((p,q) => dir*(q[key]-p[key])).slice(0, 4);
+  return `<div class="bx glass ${cls}"><h3>${title}</h3>` + a.map(r => `<div class="r"><a target="_blank" href="${EX[SET.ex].link(r.s)}">${r.base}</a>${pc(r[key])}</div>`).join('') + `</div>`;
+ };
+ $('boxes').innerHTML = mk('Today · Top Gainers','td',1,'up') + mk('Today · Top Losers','td',-1,'dn') + mk('Yesterday · Top Gainers','yd',1,'up') + mk('Yesterday · Top Losers','yd',-1,'dn');
+}
+
+const COLS = [
+ ['base','Coin'], ['p','Price'], ['ch','24h %'], ['td','Today %'], ['w','7D %'], ['m','30D %'],
+ ['rsi','RSI (5m)'], ['vwap','VWAP'], ['ema200','EMA 200'], ['strats','AI Strats'], 
+ ['x','×Avg'], ['v','Vol $M']
+];
 
 function render() {
  if(!ROWS.length) return;
@@ -437,10 +510,11 @@ function render() {
  $('sc-s2').textContent = ROWS.filter(r => r.s2).length;
  $('sc-s3').textContent = ROWS.filter(r => r.s3).length;
  
+ boxes();
  const a = pick(), exURL = EX[SET.ex].link;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
-  $('tbl').innerHTML = st + '<div class="empty">No coins match this strategy right now. Check again later.</div>'; 
+  $('tbl').innerHTML = st + '<div class="empty">No coins match this specific filter right now.</div>'; 
   return; 
  }
  
@@ -448,7 +522,6 @@ function render() {
  h += '<table><thead><tr>' + COLS.map(c => `<th data-k="${c[0]}" class="${SORT.k===c[0]?'s':''}">${c[1]}${SORT.k===c[0]?(SORT.d<0?' ↓':' ↑'):''}</th>`).join('') + '</tr></thead><tbody>';
  
  for(const r of a) {
-  
   let rsiUI = r.rsi == null ? '—' : r.rsi.toFixed(1);
   if(r.rsi <= 30) rsiUI = `<span class="pos fw600">${rsiUI}</span>`;
   else if(r.rsi >= 70) rsiUI = `<span class="neg fw600">${rsiUI}</span>`;
@@ -459,25 +532,25 @@ function render() {
    vwapUI = `<span>${px(r.vwap)}</span> <span class="${dist>=0?'pos':'neg'} sm" style="margin-left:4px">(${dist>0?'+':''}${dist.toFixed(2)}%)</span>`;
   }
 
-  // Generate Strategy Badges based on matches
   let setupUI = '';
   if (r.s1) setupUI += `<span class="badge ${r.s1_dir === 'Long' ? 'badge-g' : 'badge-r'}">⭐ 1 (${r.s1_dir})</span>`;
   if (r.s2) setupUI += `<span class="badge badge-b">⭐ 2 (VWAP)</span>`;
   if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 3 (${r.s3_dir})</span>`;
-
-  if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait / Chop</span>';
-
-  // Use the direct Binance/Bybit link based on the selected exchange
-  let coinLink = exURL(r.s);
+  if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait</span>';
 
   h += `<tr>
-   <td><a target="_blank" href="${coinLink}"><img src="https://assets.coincap.io/assets/icons/${r.base.toLowerCase()}@2x.png" onerror="this.style.display='none'" style="width:20px;height:20px;border-radius:50%"> ${r.base}</a></td>
+   <td><a target="_blank" href="${exURL(r.s)}"><img src="https://assets.coincap.io/assets/icons/${r.base.toLowerCase()}@2x.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%"> ${r.base}</a></td>
    <td>${px(r.p)}</td>
    <td>${pc(r.ch)}</td>
+   <td>${pc(r.td)}</td>
+   <td>${pc(r.w)}</td>
+   <td>${pc(r.m)}</td>
    <td>${rsiUI}</td>
    <td>${vwapUI}</td>
    <td><span style="color:var(--mut)">${px(r.ema200)}</span></td>
    <td style="text-align:left">${setupUI}</td>
+   <td class="${r.x>=SET.xm?'hot':''}">${r.x==null?'—':r.x.toFixed(2)+'×'}</td>
+   <td style="color:var(--mut)">${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
  }
  $('tbl').innerHTML = h + '</tbody></table>';
@@ -485,35 +558,54 @@ function render() {
  $('tbl').querySelectorAll('th').forEach(th => {
   th.onclick = () => {
    const k = th.dataset.k; 
-   if (k === 'strats') SORT = SORT.k === 's1' ? {k:'s1', d: -SORT.d} : {k:'s1', d: -1}; // Just a fallback sort
+   if (k === 'strats') SORT = SORT.k === 's1' ? {k:'s1', d: -SORT.d} : {k:'s1', d: -1};
    else SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi' ? 1 : -1}; 
    render();
   }
  });
 }
 
-document.querySelectorAll('#views [data-v]').forEach(b => {
+function updateLabels() {
+ document.querySelectorAll('[title="Performance Filters"] button, [title="Volatility Filters"] button').forEach(b => { 
+  if(VL[MODE] && VL[MODE][b.dataset.v]) b.textContent = VL[MODE][b.dataset.v]; 
+ });
+ $('mBull').classList.toggle('on', MODE==='bull');
+ $('mBear').classList.toggle('on', MODE==='bear');
+}
+
+document.querySelectorAll('#views button[data-v]').forEach(b => {
  b.onclick = () => {
   VIEW = b.dataset.v; 
-  document.querySelectorAll('#views [data-v]').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('#views button[data-v]').forEach(x => x.classList.remove('on'));
   b.classList.add('on');
   SORT = defSort(); render();
  }
 });
 
+$('mBull').onclick = () => { MODE = 'bull'; updateLabels(); SORT = defSort(); render(); };
+$('mBear').onclick = () => { MODE = 'bear'; updateLabels(); SORT = defSort(); render(); };
+
+function getTVList() { return pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); }
+
 $('cp').onclick = async () => {
- const t = pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(',');
- if(!t) return;
+ const t = getTVList(); if(!t) return;
  try { await navigator.clipboard.writeText(t); } catch(e) {
   const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
  }
- $('cp').textContent = '📋 Copied ✓'; setTimeout(() => $('cp').textContent = '📋 Copy TV List', 1500);
+ $('cp').textContent = '📋 Copied!'; setTimeout(() => $('cp').textContent = '📋 Copy List', 1500);
+};
+
+$('dl').onclick = () => {
+ const t = getTVList(); if(!t) return;
+ const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], {type:'text/plain'}));
+ a.download = `crypto-watchlist-${MODE}-${VIEW}.txt`; document.body.appendChild(a); a.click(); a.remove();
 };
 
 $('rf').onclick = load;
 $('au').onclick = () => { AUTO = !AUTO; $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); $('au').classList.toggle('on', AUTO); };
 
 setInterval(() => { if(AUTO && !document.hidden) load(); }, TEN_MIN);
+updateLabels();
 load();
 
 } catch(err) {
