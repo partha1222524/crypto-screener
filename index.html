@@ -43,9 +43,10 @@ select { padding: 7px 10px; cursor: pointer; }
 .bx { padding: 12px; position: relative; overflow: hidden; }
 .bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
-.bx .r { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.bx .r { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
 .bx .r:last-child { border-bottom: none; }
 .bx .r a { font-weight: 600; color: #fff; text-decoration: none; }
+.bx .r a:hover { color: var(--b); }
 
 /* Dashboard Stats */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 15px; }
@@ -64,8 +65,10 @@ th:hover { color: #fff; } th.s { color: var(--b); }
 th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 11; }
 td:first-child { background: var(--surface); backdrop-filter: blur(12px); font-weight: 600; font-size: 14px; border-right: 1px solid var(--line); }
 tr:hover td { background: rgba(255,255,255,0.03); }
-td:first-child a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
-td:first-child a:hover { color: var(--b); }
+td:first-child a.coin-link { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+td:first-child a.coin-link:hover { color: var(--b); }
+.tv-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 12px; text-decoration: none; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+.tv-btn:hover { background: rgba(59,130,246,0.3); border-color: var(--b); }
 
 /* Badges & Utilities */
 .pos { color: var(--g); } .neg { color: var(--r); } .hot { color: var(--y); font-weight: 700; }
@@ -111,7 +114,7 @@ td:first-child a:hover { color: var(--b); }
   <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
    <div>
     <h1>Crypto Master Screener</h1>
-    <div class="desc">Ultimate Dashboard • All Features & AI Strategies Integrated</div>
+    <div class="desc">Ultimate Dashboard • Direct TradingView Integration</div>
    </div>
    <div class="btn-group" id="mode" style="border:none;">
     <button id="mBull" class="on bu">🟢 Bullish Mode</button>
@@ -224,6 +227,17 @@ td:first-child a:hover { color: var(--b); }
     <div class="safe-combo">🛡️ <strong>Combo:</strong> Let RSI go below 30, only enter when it crosses back <strong>UP</strong> above 30. Take quick 1-2% profits.</div>
    </div>
   </div>
+  
+  <div class="acc-item glass">
+   <button class="acc-btn">⚠️ Golden Rules <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <ul>
+     <li><strong>Click the 📈 Icon:</strong> To open TradingView chart directly.</li>
+     <li><strong>No Conflicts:</strong> If a coin is highly oversold (<30 RSI), S3 Reversal overrides S1 Trend to prevent shorting at the absolute bottom.</li>
+     <li><strong>Stop Loss:</strong> Always place a stop loss 1-2% away from entry.</li>
+    </ul>
+   </div>
+  </div>
  </div>
 
 </div>
@@ -261,6 +275,7 @@ const EX = {
  binance: {
   pre: 'BINANCE',
   link: (s) => `https://www.binance.com/en/futures/${s}`,
+  tvLink: (s) => `https://www.tradingview.com/chart/?symbol=BINANCE:${s}.P`,
   async tickers() {
    const a = await fetchJson('https://fapi.binance.com/fapi/v1/ticker/24hr');
    return a.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('_')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.priceChangePercent, h: +x.highPrice, l: +x.lowPrice, v: +x.quoteVolume}));
@@ -277,6 +292,7 @@ const EX = {
  bybit: {
   pre: 'BYBIT',
   link: (s) => `https://www.bybit.com/trade/usdt/${s}`,
+  tvLink: (s) => `https://www.tradingview.com/chart/?symbol=BYBIT:${s}.P`,
   async tickers() {
    const j = await fetchJson('https://api.bybit.com/v5/market/tickers?category=linear');
    return j.result.list.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('-')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.price24hPcnt*100, h: +x.highPrice24h, l: +x.lowPrice24h, v: +x.turnover24h}));
@@ -380,23 +396,28 @@ function computeMetrics(t, k1d, k5m, S) {
  const ema200 = calcEMA(closes, 200);
  const vwap = calcVWAP(k5m.slice(-72)); 
 
- let score = 0;
- if(ema200 && t.p > ema200) score++; else score--;
- if(vwap && t.p > vwap) score++; else score--;
- if(rsi > 50) score++; else score--;
-
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
 
- // Strategies
+ // --- STRICT MUTUALLY EXCLUSIVE STRATEGIES ---
  let s1 = false, s1_dir = '';
- if (score === 3) { s1 = true; s1_dir = 'Long'; }
- else if (score === -3) { s1 = true; s1_dir = 'Short'; }
-
- let s2 = false; if (vwap && Math.abs(vwap_dist) <= 1) { s2 = true; }
- 
+ let s2 = false;
  let s3 = false, s3_dir = '';
- if (rsi <= 30) { s3 = true; s3_dir = 'Long'; }
- else if (rsi >= 70) { s3 = true; s3_dir = 'Short'; }
+
+ // Strategy 3: Extreme Reversal OVERRIDES everything else
+ if (rsi <= 30) { 
+  s3 = true; s3_dir = 'Long'; 
+ } else if (rsi >= 70) { 
+  s3 = true; s3_dir = 'Short'; 
+ } 
+ // Strategy 1 & 2: Only valid if RSI is NOT extreme (prevents conflicting signals)
+ else {
+  // VWAP Bounce
+  if (vwap && Math.abs(vwap_dist) <= 1.5) { s2 = true; }
+  
+  // Trend Following
+  if (t.p > ema200 && t.p > vwap && rsi > 50) { s1 = true; s1_dir = 'Long'; }
+  if (t.p < ema200 && t.p < vwap && rsi < 50) { s1 = true; s1_dir = 'Short'; }
+ }
 
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch, v: t.v/1e6,
@@ -491,7 +512,14 @@ function pick() {
 function boxes() {
  const mk = (title, key, dir, cls) => {
   const a = ROWS.filter(r => r[key] != null).sort((p,q) => dir*(q[key]-p[key])).slice(0, 4);
-  return `<div class="bx glass ${cls}"><h3>${title}</h3>` + a.map(r => `<div class="r"><a target="_blank" href="${EX[SET.ex].link(r.s)}">${r.base}</a>${pc(r[key])}</div>`).join('') + `</div>`;
+  return `<div class="bx glass ${cls}"><h3>${title}</h3>` + a.map(r => `
+   <div class="r">
+    <div style="display:flex;gap:5px;align-items:center;">
+     <a target="_blank" href="${EX[SET.ex].link(r.s)}">${r.base}</a>
+     <a target="_blank" href="${EX[SET.ex].tvLink(r.s)}" class="tv-btn" title="Open TradingView">📈</a>
+    </div>
+    ${pc(r[key])}
+   </div>`).join('') + `</div>`;
  };
  $('boxes').innerHTML = mk('Today · Top Gainers','td',1,'up') + mk('Today · Top Losers','td',-1,'dn') + mk('Yesterday · Top Gainers','yd',1,'up') + mk('Yesterday · Top Losers','yd',-1,'dn');
 }
@@ -511,7 +539,7 @@ function render() {
  $('sc-s3').textContent = ROWS.filter(r => r.s3).length;
  
  boxes();
- const a = pick(), exURL = EX[SET.ex].link;
+ const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
   $('tbl').innerHTML = st + '<div class="empty">No coins match this specific filter right now.</div>'; 
@@ -536,10 +564,15 @@ function render() {
   if (r.s1) setupUI += `<span class="badge ${r.s1_dir === 'Long' ? 'badge-g' : 'badge-r'}">⭐ 1 (${r.s1_dir})</span>`;
   if (r.s2) setupUI += `<span class="badge badge-b">⭐ 2 (VWAP)</span>`;
   if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 3 (${r.s3_dir})</span>`;
-  if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait</span>';
+  if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait / Chop</span>';
 
   h += `<tr>
-   <td><a target="_blank" href="${exURL(r.s)}"><img src="https://assets.coincap.io/assets/icons/${r.base.toLowerCase()}@2x.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%"> ${r.base}</a></td>
+   <td>
+    <div style="display:flex; align-items:center; gap:8px;">
+     <a class="coin-link" target="_blank" href="${exURL(r.s)}" title="Open in Exchange"><img src="https://assets.coincap.io/assets/icons/${r.base.toLowerCase()}@2x.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%"> ${r.base}</a>
+     <a target="_blank" href="${tvURL(r.s)}" class="tv-btn" title="Open TradingView Chart">📈</a>
+    </div>
+   </td>
    <td>${px(r.p)}</td>
    <td>${pc(r.ch)}</td>
    <td>${pc(r.td)}</td>
