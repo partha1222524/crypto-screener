@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Pro Screener | Buy & Sell Signals</title>
+<title>Crypto Pro Screener | Ultimate Dashboard</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 :root {
@@ -12,10 +12,10 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--tx); font: 13px/1.5 'Inter', sans-serif; }
-.wrap { max-width: 1200px; margin: 0 auto; padding: 20px 15px 50px; }
+.wrap { max-width: 1250px; margin: 0 auto; padding: 20px 15px 50px; }
 h1 { font-size: 22px; margin: 0 0 5px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(41, 98, 255, 0.3); }
 .mut { color: var(--mut); } .sm { font-size: 12px; }
-.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 15px 0; background: var(--card); padding: 12px; border-radius: 10px; border: 1px solid var(--line); }
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; background: var(--card); padding: 12px; border-radius: 10px; border: 1px solid var(--line); }
 button, select, input { background: var(--bg); color: var(--tx); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; transition: all 0.2s; }
 button { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 button:hover { border-color: var(--b); background: var(--bg-hov); }
@@ -25,13 +25,13 @@ button.be.on { background: rgba(246, 70, 93, 0.15); border-color: var(--r); colo
 label.f { display: flex; flex-direction: column; font-size: 11px; color: var(--mut); gap: 4px; }
 select:focus { outline: none; border-color: var(--b); }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 15px 0; }
-.st { background: linear-gradient(180deg, var(--card) 0%, var(--bg) 100%); border: 1px solid var(--line); border-radius: 10px; padding: 12px; text-align: center; }
-.st b { display: block; font-size: 20px; color: #fff; margin-bottom: 2px; }
+.st { background: linear-gradient(180deg, var(--card) 0%, var(--bg) 100%); border: 1px solid var(--line); border-radius: 10px; padding: 10px; text-align: center; }
+.st b { display: block; font-size: 18px; color: #fff; margin-bottom: 2px; }
 .st span { color: var(--mut); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
 .status { padding: 10px 15px; border-radius: 8px; background: rgba(41, 98, 255, 0.1); border: 1px solid rgba(41, 98, 255, 0.3); margin: 10px 0; font-size: 13px; color: #82a5ff; font-weight: 600; display: flex; justify-content: space-between; }
 .status.err { background: rgba(246, 70, 93, 0.1); border-color: rgba(246, 70, 93, 0.3); color: var(--r); }
 .tw { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
-table { border-collapse: collapse; width: 100%; min-width: 950px; }
+table { border-collapse: collapse; width: 100%; min-width: 1100px; }
 th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
 th { background: var(--card); color: var(--mut); font-weight: 600; font-size: 11px; text-transform: uppercase; cursor: pointer; user-select: none; position: sticky; top: 0; z-index: 10; }
 th:hover { color: #fff; } th.s { color: var(--b); }
@@ -42,7 +42,7 @@ td:first-child a { color: #fff; text-decoration: none; } td:first-child a:hover 
 .badge-g { background: rgba(14,203,129,0.15); color: var(--g); padding: 3px 6px; border-radius: 4px; font-weight: 600; }
 .badge-r { background: rgba(246,70,93,0.15); color: var(--r); padding: 3px 6px; border-radius: 4px; font-weight: 600; }
 .empty { padding: 30px; text-align: center; color: var(--mut); font-size: 14px; }
-.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 15px 0; }
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 15px 0; }
 .bx { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
 .bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
@@ -54,14 +54,23 @@ td:first-child a { color: #fff; text-decoration: none; } td:first-child a:hover 
 </head>
 <body>
 <div class="wrap">
-<h1>Crypto Pro Screener ⚡</h1>
-<div class="mut sm">Live Signals: 5m RSI & EMA 200 (Top 100 Coins • Refreshes every 10 mins)</div>
+<h1>Crypto Pro Screener ⚡ <span class="mut sm">Ultimate Edition</span></h1>
+<div class="mut sm">Live 5-min RSI, EMA 200, Performance & Volatility Tracker (Refreshes every 10 mins)</div>
 
+<!-- 4 Performance Boxes (Restored) -->
+<div class="boxes" id="boxes"></div>
+
+<!-- RSI Stats (Restored) -->
+<div class="stats" id="stats"></div>
+
+<!-- Main Settings -->
 <div class="bar">
  <label class="f">Exchange
   <select id="ex"><option value="binance">Binance Futures</option><option value="bybit">Bybit Futures</option></select></label>
  <label class="f">Min 24h Vol
   <select id="mv"><option value="5">$5M</option><option value="10">$10M</option><option value="20" selected>$20M</option><option value="50">$50M</option></select></label>
+ <label class="f">Top N
+  <select id="tn"><option>10</option><option>20</option><option selected>30</option><option>50</option><option>100</option></select></label>
  <label class="f">Volatile (×Avg)
   <select id="xm"><option value="1">1.0×</option><option value="1.5" selected>1.5×</option><option value="2">2.0×</option></select></label>
  <span style="flex:1"></span>
@@ -69,18 +78,37 @@ td:first-child a { color: #fff; text-decoration: none; } td:first-child a:hover 
  <button id="au" class="on">⏱ Auto 10m: ON</button>
 </div>
 
-<div class="bar" id="views">
- <button data-v="all" class="on">📊 All 100 Coins</button>
+<!-- Bull/Bear Mode (Restored) -->
+<div class="bar" id="mode">
+ <button id="mBull" class="on bu">🟢 Bullish Mode</button>
+ <button id="mBear" class="be">🔴 Bearish Mode</button>
+</div>
+
+<!-- Performance & Volatility Views (Restored) -->
+<div class="bar" id="views-perf">
+ <span class="mut sm" style="margin-right:5px">Performance:</span>
+ <button data-v="intra">Intraday</button>
+ <button data-v="week">Weekly</button>
+ <button data-v="month">Monthly</button>
+ <button data-v="vol">Volatile (24h)</button>
+ <button data-v="wvol">Volatile (7D)</button>
+ <button data-v="combo">Strong + Volatile</button>
+</div>
+
+<!-- RSI Signals Views (New) -->
+<div class="bar" id="views-rsi">
+ <span class="mut sm" style="margin-right:5px">Signals:</span>
+ <button data-v="all" class="on">📊 All Coins</button>
  <button data-v="os30" class="bu">🟢 Strong Buy (RSI < 30)</button>
  <button data-v="os40" class="bu">🟢 Buy (RSI < 40)</button>
  <button data-v="ob60" class="be">🔴 Sell (RSI > 60)</button>
  <button data-v="ob70" class="be">🔴 Strong Sell (RSI > 70)</button>
  <span style="flex:1"></span>
  <button id="cp">📋 Copy TV List</button>
+ <button id="dl">💾 Download .txt</button>
 </div>
 
 <div class="status" id="status"><span>Ready to load...</span><span></span></div>
-<div class="stats" id="stats"></div>
 <div class="tw" id="tbl"><div class="empty">Loading market data... Please wait.</div></div>
 
 <div class="foot">Data: Direct Exchange API. Note: Processing Top 100 coins. In Signal column: 🟢 = Price Above EMA 200, 🔴 = Price Below EMA 200.</div>
@@ -103,7 +131,6 @@ const EX = {
    return a.map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
   },
   async klines5m(s) {
-   // Fetch 250 limit to accurately calculate EMA 200
    const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${s}&interval=5m&limit=250`); if(!r.ok) return []; const a = await r.json();
    return a.map(k => ({c: +k[4]}));
   }
@@ -125,17 +152,17 @@ const EX = {
  }
 };
 
-let VIEW = 'all', SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
+let MODE = 'bull', VIEW = 'all', SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
 let KC1D = {}, KC5M = {};
-const SET = {ex: 'binance', mv: '20', xm: '1.5'};
+const SET = {ex: 'binance', mv: '20', tn: '30', xm: '1.5'};
 try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_pro') || '{}')) } catch(e) {}
-['ex','mv','xm'].forEach(k => { $(k).value = SET[k] || $(k).value; $(k).onchange = () => { SET[k] = $(k).value; localStorage.setItem('cvs_pro', JSON.stringify(SET)); k==='ex'||k==='mv'?load():render(); }});
+['ex','mv','tn','xm'].forEach(k => { $(k).value = SET[k] || $(k).value; $(k).onchange = () => { SET[k] = $(k).value; localStorage.setItem('cvs_pro', JSON.stringify(SET)); k==='ex'||k==='mv'?load():render(); }});
 
 const f1 = v => v == null ? '—' : (+v).toFixed(1);
 const px = v => v == null ? '—' : (+v).toPrecision(5).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
 const pc = v => v == null ? '—' : `<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${(+v).toFixed(1)}%</span>`;
 const timeStr = () => new Date().toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata', hour: '2-digit', minute:'2-digit', second:'2-digit'});
-function starts() { const n = new Date(), d = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()); return {today: d, week: d-7*DAY}; }
+function starts() { const n = new Date(), d = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()); return {today: d, week: d-7*DAY, month: d-30*DAY}; }
 
 function setStatus(msg, perc = '') {
  const el = $('status');
@@ -171,7 +198,6 @@ function calcRSI(closes, period=14) {
  return rsi;
 }
 
-// Updated to EMA 200 calculation
 function calcEMA(closes, period=200) {
  if(closes.length < period) return null;
  const k = 2 / (period + 1);
@@ -184,10 +210,20 @@ function computeMetrics(t, k1d, k5m, S) {
  const done = k1d.filter(k => k.t < S.today).slice(-14);
  const ar = done.length >= 7 ? done.reduce((a,k) => a+(k.h-k.l)/k.l*100, 0)/done.length : null;
  const r24 = t.l > 0 ? (t.h-t.l)/t.l*100 : null;
+ 
+ const td = k1d.find(k => k.t === S.today), yd = k1d.find(k => k.t === S.today - DAY);
+ const wk = k1d.find(k => k.t === S.week), mo = k1d.find(k => k.t === S.month);
+ 
+ const avg = a => a.length ? a.reduce((q,k)=>q+(k.h-k.l)/k.l*100,0)/a.length : null;
+ const wv = avg(k1d.filter(k=>k.t >= S.week+DAY));
+ const mvl = avg(k1d.filter(k=>k.t >= S.month+DAY));
+
  const closes = k5m.map(x => x.c);
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch,
-  r24, ar, x: (ar && r24 != null) ? r24/ar : null,
+  td: td ? (t.p/td.o-1)*100 : null, yd: yd ? (yd.c/yd.o-1)*100 : null,
+  w: wk ? (t.p/wk.o-1)*100 : null, m: mo ? (t.p/mo.o-1)*100 : null,
+  r24, ar, x: (ar && r24 != null) ? r24/ar : null, wv, mvl,
   rsi: calcRSI(closes, 14), ema200: calcEMA(closes, 200), v: t.v/1e6
  };
 }
@@ -208,7 +244,7 @@ async function load() {
   const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
   if(need5m.length) {
    await pool(need5m, 5, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
-    (d, n) => setStatus(`Calculating Live RSI/EMA 200...`, Math.round((d/n)*100)));
+    (d, n) => setStatus(`Calculating Live RSI/EMA...`, Math.round((d/n)*100)));
   }
 
   ROWS = el.filter(t => KC1D[SET.ex+t.s] && KC5M[SET.ex+t.s]).map(t => computeMetrics(t, KC1D[SET.ex+t.s].k, KC5M[SET.ex+t.s].k, S));
@@ -219,24 +255,59 @@ async function load() {
  } finally { busy = false; }
 }
 
+function dirD() { return MODE === 'bear' ? -1 : 1; }
 function defSort() {
- const smap = { all: {k:'v', d:-1}, os30: {k:'rsi', d:1}, os40: {k:'rsi', d:1}, ob60: {k:'rsi', d:-1}, ob70: {k:'rsi', d:-1} };
- return smap[VIEW] || {k:'v', d:-1};
+ const D = dirD();
+ const smap = { 
+  intra: {k:'ch', d:-D}, week: {k:'w', d:-D}, month: {k:'m', d:-D}, vol: {k:'x', d:-D}, wvol: {k:'wv', d:-D}, combo: {k:'x', d:-D},
+  all: {k:'v', d:-1}, os30: {k:'rsi', d:1}, os40: {k:'rsi', d:1}, ob60: {k:'rsi', d:-1}, ob70: {k:'rsi', d:-1} 
+ };
+ return smap[VIEW] || {k:'ch', d:-1};
+}
+
+const VL={
+ bull:{intra:'Intraday Gainers',week:'Weekly Gainers',month:'Monthly Gainers',vol:'Volatile (24h)',wvol:'Volatile (7D)',combo:'Strong + Volatile'},
+ bear:{intra:'Intraday Losers',week:'Weekly Losers',month:'Monthly Losers',vol:'Volatile (Down)',wvol:'Volatile (7D Down)',combo:'Weak + Volatile'}
+};
+
+function labels() {
+ document.querySelectorAll('#views-perf [data-v]').forEach(b => { if(VL[MODE][b.dataset.v]) b.textContent = VL[MODE][b.dataset.v]; });
+ $('mBull').classList.toggle('on', MODE==='bull');
+ $('mBear').classList.toggle('on', MODE==='bear');
 }
 
 function pick() {
+ const N = +SET.tn, xm = +SET.xm, D = dirD();
+ const dirOk = v => v != null && (D > 0 ? v > 0 : v < 0);
+ const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => D*(b[key]-a[key])).slice(0, N).map(r => r.s));
+ const W = top('w'), M = top('m');
  let a = [];
+
  if(VIEW === 'all') a = ROWS;
  else if(VIEW === 'os30') a = ROWS.filter(r => r.rsi != null && r.rsi <= 30);
  else if(VIEW === 'os40') a = ROWS.filter(r => r.rsi != null && r.rsi <= 40);
  else if(VIEW === 'ob60') a = ROWS.filter(r => r.rsi != null && r.rsi >= 60);
  else if(VIEW === 'ob70') a = ROWS.filter(r => r.rsi != null && r.rsi >= 70);
+ else if(VIEW === 'intra') a = ROWS.filter(r => r.ch != null).sort((p,q) => D*(q.ch-p.ch)).slice(0, N);
+ else if(VIEW === 'wvol') a = ROWS.filter(r => r.wv != null && dirOk(r.w)).sort((p,q) => q.wv-p.wv).slice(0, N);
+ else if(VIEW === 'week') a = ROWS.filter(r => W.has(r.s));
+ else if(VIEW === 'month') a = ROWS.filter(r => M.has(r.s));
+ else if(VIEW === 'vol') a = ROWS.filter(r => r.x != null && dirOk(r.ch)).sort((p,q) => q.x-p.x).slice(0, N);
+ else if(VIEW === 'combo') a = ROWS.filter(r => (W.has(r.s) || M.has(r.s)) && r.x != null && r.x >= xm);
 
  const {k, d} = SORT;
  return a.sort((p,q) => { const A = p[k], B = q[k]; if(A==null) return 1; if(B==null) return -1; return typeof A==='string' ? d*A.localeCompare(B) : d*(A-B); });
 }
 
-const COLS = [['base','Coin'], ['p','Price'], ['ch','24h %'], ['rsi','RSI (5m)'], ['ema200','EMA (200)'], ['signal','Signal (RSI+Trend)'], ['x','Volatility (×Avg)'], ['v','Vol 24h $M']];
+function boxes() {
+ const mk = (title, key, dir, cls) => {
+  const a = ROWS.filter(r => r[key] != null).sort((p,q) => dir*(q[key]-p[key])).slice(0, 4);
+  return `<div class="bx ${cls}"><h3>${title}</h3>` + a.map(r => `<div class="r"><a target="_blank" href="https://www.tradingview.com/chart/?symbol=${EX[SET.ex].pre}:${r.s}.P">${r.base}</a>${pc(r[key])}</div>`).join('') + `</div>`;
+ };
+ $('boxes').innerHTML = mk('Today · Top Gainers','td',1,'up') + mk('Today · Top Losers','td',-1,'dn') + mk('Yesterday · Top Gainers','yd',1,'up') + mk('Yesterday · Top Losers','yd',-1,'dn');
+}
+
+const COLS = [['base','Coin'], ['p','Price'], ['ch','24h %'], ['rsi','RSI (5m)'], ['ema200','EMA (200)'], ['signal','Signal (RSI+Trend)'], ['td','Today %'], ['yd','Yday %'], ['w','7D %'], ['m','30D %'], ['x','Volatility (×Avg)'], ['wv','7D Vol %'], ['v','Vol 24h $M']];
 
 function formatRSI(v) {
  if(v == null) return '—';
@@ -256,11 +327,11 @@ function formatEMA(p, ema) {
 function formatSignal(rsi, p, ema) {
  if (rsi == null) return '—';
  let res = '';
- if (rsi <= 30) res = '<span class="badge-g">Strong Buy 🚀</span>';
- else if (rsi <= 40) res = '<span style="color:var(--g);font-weight:600">Buy 🟢</span>';
- else if (rsi >= 70) res = '<span class="badge-r">Strong Sell 🩸</span>';
- else if (rsi >= 60) res = '<span style="color:var(--r);font-weight:600">Sell 🔴</span>';
- else res = '<span class="mut">Neutral ⚪</span>';
+ if (rsi <= 30) res = '<span class="badge-g">Strong Buy</span>';
+ else if (rsi <= 40) res = '<span style="color:var(--g);font-weight:600">Buy</span>';
+ else if (rsi >= 70) res = '<span class="badge-r">Strong Sell</span>';
+ else if (rsi >= 60) res = '<span style="color:var(--r);font-weight:600">Sell</span>';
+ else res = '<span class="mut">Neutral</span>';
 
  if (ema != null) res += (p > ema) ? ' <span title="Price Above EMA 200 (Uptrend)">🟢</span>' : ' <span title="Price Below EMA 200 (Downtrend)">🔴</span>';
  return res;
@@ -281,6 +352,7 @@ function render() {
   <div class="st"><b>${ss}</b><span style="color:var(--r)">Strong Sell (>70)</span></div>
  `;
  
+ boxes();
  const a = pick(), pre = EX[SET.ex].pre;
  if(!a.length) { $('tbl').innerHTML = '<div class="empty">No coins match this filter currently.</div>'; return; }
  
@@ -293,7 +365,12 @@ function render() {
    <td>${formatRSI(r.rsi)}</td>
    <td>${formatEMA(r.p, r.ema200)}</td>
    <td style="text-align:left">${formatSignal(r.rsi, r.p, r.ema200)}</td>
+   <td>${pc(r.td)}</td>
+   <td>${pc(r.yd)}</td>
+   <td>${pc(r.w)}</td>
+   <td>${pc(r.m)}</td>
    <td class="${r.x>=SET.xm?'hot':''}">${r.x==null?'—':r.x.toFixed(2)+'×'}</td>
+   <td>${f1(r.wv)}</td>
    <td>${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
  }
@@ -306,28 +383,39 @@ function render() {
  });
 }
 
-document.querySelectorAll('#views [data-v]').forEach(b => b.onclick = () => {
+document.querySelectorAll('[data-v]').forEach(b => b.onclick = () => {
  VIEW = b.dataset.v; 
- document.querySelectorAll('#views [data-v]').forEach(x => x.classList.remove('on', 'bu', 'be'));
+ document.querySelectorAll('[data-v]').forEach(x => x.classList.remove('on', 'bu', 'be'));
  b.classList.add('on');
- if(VIEW === 'os30' || VIEW === 'os40') b.classList.add('bu');
- if(VIEW === 'ob60' || VIEW === 'ob70') b.classList.add('be');
+ if(['os30','os40'].includes(VIEW)) b.classList.add('bu');
+ if(['ob60','ob70'].includes(VIEW)) b.classList.add('be');
  SORT = defSort(); render();
 });
 
+$('mBull').onclick = () => { MODE = 'bull'; labels(); SORT = defSort(); render(); };
+$('mBear').onclick = () => { MODE = 'bear'; labels(); SORT = defSort(); render(); };
+
+function tvList() { return pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); }
+
 $('cp').onclick = async () => {
- const t = pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(',');
- if(!t) return;
+ const t = tvList(); if(!t) return;
  try { await navigator.clipboard.writeText(t); } catch(e) {
   const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
  }
  $('cp').textContent = '📋 Copied ✓'; setTimeout(() => $('cp').textContent = '📋 Copy TV List', 1500);
 };
 
+$('dl').onclick = () => {
+ const t = tvList(); if(!t) return;
+ const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], {type:'text/plain'}));
+ a.download = `crypto-watchlist-${MODE}-${VIEW}.txt`; document.body.appendChild(a); a.click(); a.remove();
+};
+
 $('rf').onclick = load;
 $('au').onclick = () => { AUTO = !AUTO; $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); $('au').classList.toggle('on', AUTO); };
 
 setInterval(() => { if(AUTO && !document.hidden) load(); }, TEN_MIN);
+labels();
 load();
 </script>
 </body>
