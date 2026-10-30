@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Master Screener | Pro Strategies & Confluence</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Crypto Master Screener | Developed by Partha</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
  --bg: #09090b; --surface: rgba(24, 24, 27, 0.6); --surface-hover: rgba(39, 39, 42, 0.8);
@@ -14,14 +14,19 @@
  --b: #3b82f6; --b-glow: rgba(59, 130, 246, 0.2);
  --y: #f59e0b; --y-glow: rgba(245, 158, 11, 0.2);
  --p: #a855f7; --p-glow: rgba(168, 85, 247, 0.2);
+ --c: #2dd4bf; --c-glow: rgba(45, 212, 191, 0.2);
 }
 * { box-sizing: border-box; }
 body { margin: 0; background-color: var(--bg); background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05), transparent 60%); color: var(--tx); font: 14px/1.5 'Outfit', sans-serif; min-height: 100vh; }
 .main-layout { display: flex; flex-direction: column; gap: 20px; max-width: 98%; margin: 0 auto; padding: 20px 10px 60px; }
 @media(min-width: 1200px) { .main-layout { flex-direction: row; align-items: flex-start; } .left-content { flex: 1; min-width: 0; } .right-sidebar { width: 350px; flex-shrink: 0; position: sticky; top: 20px; } }
 
+/* Header & Branding */
+.header-wrapper { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
 h1 { font-size: 28px; margin: 0 0 5px; font-weight: 700; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
-.desc { color: var(--mut); font-size: 13px; margin-bottom: 20px; }
+.desc { color: var(--mut); font-size: 13px; }
+.branding { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 2px; padding: 6px 12px; background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+.branding span { color: var(--b); }
 
 /* Glassmorphism Classes */
 .glass { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 12px; }
@@ -35,31 +40,24 @@ button.on { background: rgba(59, 130, 246, 0.15); border-color: var(--b); color:
 button.bu.on { background: var(--g-glow); border-color: var(--g); color: var(--g); }
 button.be.on { background: var(--r-glow); border-color: var(--r); color: var(--r); }
 button.pu.on { background: var(--p-glow); border-color: var(--p); color: #c084fc; }
+button.cu.on { background: var(--c-glow); border-color: var(--c); color: var(--c); }
 label.f { display: flex; flex-direction: column; font-size: 11px; color: var(--mut); gap: 4px; font-weight: 500; }
 select { padding: 7px 10px; cursor: pointer; }
 .btn-group { display: flex; gap: 8px; align-items: center; border-right: 1px solid var(--line); padding-right: 10px; margin-right: 5px; }
 .btn-group:last-child { border-right: none; }
 
-/* Dashboard Stats & Boxes */
-.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 15px; }
-.bx { padding: 12px; position: relative; overflow: hidden; }
-.bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
-.bx .r { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
-.bx .r:last-child { border-bottom: none; }
-.bx .r a { font-weight: 600; color: #fff; text-decoration: none; transition: color 0.2s; }
-.bx .r a:hover { color: var(--b); }
-
+/* Dashboard Stats */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 15px; }
 .st { padding: 12px; text-align: left; position: relative; overflow: hidden; border-radius: 8px; }
 .st::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--mut); }
 .st.s-1::before { background: var(--g); } .st.s-2::before { background: var(--b); } 
-.st.s-3::before { background: var(--r); } .st.s-4::before { background: var(--y); } .st.s-5::before { background: var(--p); }
+.st.s-3::before { background: var(--r); } .st.s-4::before { background: var(--y); } 
+.st.s-5::before { background: var(--p); } .st.s-6::before { background: var(--c); }
 .st span { display: block; color: var(--mut); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 .st b { font-size: 18px; color: #fff; line-height: 1; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 
 /* Table Design */
-.tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin-top: 10px; border-radius: 12px; }
+.tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin: 10px 0 25px 0; border-radius: 12px; }
 table { border-collapse: collapse; width: 100%; min-width: 1500px; text-align: right; }
 th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-size: 13px; }
 th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
@@ -80,11 +78,23 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .badge-b { background: var(--b-glow); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
 .badge-y { background: var(--y-glow); color: var(--y); border: 1px solid rgba(245, 158, 11, 0.3); }
 .badge-p { background: var(--p-glow); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-c { background: var(--c-glow); color: var(--c); border: 1px solid rgba(45, 212, 191, 0.3); }
 .badge-n { background: rgba(255,255,255,0.05); color: var(--mut); border: 1px solid rgba(255,255,255,0.1); }
 .pulse { animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 .pulse-y { animation: pulseY 2s infinite; }
 @keyframes pulseY { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
+
+/* Performance Boxes (Now at bottom) */
+.boxes-title { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #fff; }
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.bx { padding: 12px; position: relative; overflow: hidden; }
+.bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
+.bx .r { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+.bx .r:last-child { border-bottom: none; }
+.bx .r a { font-weight: 600; color: #fff; text-decoration: none; transition: color 0.2s; }
+.bx .r a:hover { color: var(--b); }
 
 /* Sidebar Accordion */
 .sb-title { font-size: 17px; font-weight: 600; margin: 0 0 15px; color: #fff; display: flex; align-items: center; gap: 8px; }
@@ -95,16 +105,17 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .acc-item.active .acc-btn .ico { transform: rotate(45deg); color: var(--b); }
 .acc-item.active { border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); }
 .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 12px; font-size: 12px; color: var(--mut); line-height: 1.6; }
-.acc-item.active .acc-content { max-height: 800px; padding: 0 12px 12px; }
+.acc-item.active .acc-content { max-height: 900px; padding: 0 12px 12px; }
 .acc-content ul { padding-left: 15px; margin: 5px 0; }
 .safe-combo { background: rgba(255, 255, 255, 0.05); border-left: 3px solid var(--b); padding: 8px 10px; border-radius: 4px; margin-top: 10px; color: #e4e4e7; }
 
-/* Status Bar & Misc */
+/* Status Bar & Footer */
 .flex-spacer { flex: 1; }
 .empty { padding: 40px; text-align: center; color: var(--mut); font-size: 14px; }
 .status-bar { display: flex; justify-content: space-between; padding: 10px 15px; font-size: 12px; color: var(--b); font-weight: 500; }
 .status-bar.err { color: var(--r); }
-.foot { margin-top: 20px; font-size: 12px; color: var(--mut); text-align: center; }
+.foot { margin-top: 40px; font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--mut); text-align: center; border-top: 1px solid var(--line); padding-top: 20px; }
+.foot span { color: #fff; }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -116,25 +127,21 @@ td:first-child a.coin-link:hover { color: var(--b); }
 <div class="main-layout">
  
  <div class="left-content">
-  <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
+  <div class="header-wrapper">
    <div>
     <h1>Crypto Master Screener</h1>
-    <div class="desc">Ultimate Dashboard • 5 Pro Strategies & Confluence Matrix</div>
+    <div class="desc">Ultimate Dashboard • 6 Pro Strategies & Confluence Matrix</div>
    </div>
-   <div class="btn-group" id="mode" style="border:none;">
-    <button id="mBull" class="on bu">🟢 Bullish Mode</button>
-    <button id="mBear" class="be">🔴 Bearish Mode</button>
-   </div>
+   <div class="branding">DEVELOPED BY <span>PARTHA</span></div>
   </div>
-
-  <div class="boxes" id="boxes"></div>
 
   <div class="stats" id="stats">
    <div class="st glass"><span id="sc-t">Scanned</span><b id="sc-v">--</b></div>
    <div class="st glass s-1"><span>⭐ 1. Trend</span><b id="sc-s1" class="pos">--</b></div>
    <div class="st glass s-2"><span>⭐ 2. VWAP</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
    <div class="st glass s-3"><span>🔥 3. Reversal</span><b id="sc-s3" class="neg">--</b></div>
-   <div class="st glass s-4"><span>⭐ 4. EMA Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
+   <div class="st glass s-4"><span>⭐ 4. Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
+   <div class="st glass s-6"><span>🚀 6. Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
    <div class="st glass s-5"><span>🔥 5. RSI Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
   </div>
 
@@ -154,7 +161,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
    
    <div class="flex-spacer"></div>
    
-   <button id="au" class="on">⏱ Auto 10m: ON</button>
+   <button id="au">⏱ Auto 10m: OFF</button>
    <button id="rf">🔄 Sync Data</button>
   </div>
 
@@ -170,6 +177,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
     <button data-strat="2" class="bu">⭐ 2</button>
     <button data-strat="3" class="be">🔥 3</button>
     <button data-strat="4" class="bu" style="color:var(--y); border-color:var(--y);">⭐ 4</button>
+    <button data-strat="6" class="cu">🚀 6</button>
     <button data-strat="5" class="pu">🔥 5</button>
    </div>
 
@@ -191,6 +199,12 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="status-bar" id="status"><span>⏳ Initiating terminal...</span><span></span></div>
    <div class="empty">Scanning market depth... Please wait.</div>
   </div>
+
+  <!-- Performance Boxes moved to Bottom -->
+  <div class="boxes-title">📈 Top Market Movers</div>
+  <div class="boxes" id="boxes"></div>
+  
+  <div class="foot">DEVELOPED BY <span>PARTHA</span></div>
  </div>
 
  <!-- Right Sidebar -->
@@ -231,13 +245,25 @@ td:first-child a.coin-link:hover { color: var(--b); }
   </div>
 
   <div class="acc-item glass">
-   <button class="acc-btn" style="color:var(--y);">⭐ 4. EMA 200 Pullback <span class="ico">➕</span></button>
+   <button class="acc-btn" style="color:var(--y);">⭐ 4. Pullback (At the Line) <span class="ico">➕</span></button>
    <div class="acc-content">
     <p>Wait for a retracement to the main trendline.</p>
     <ul>
-     <li><strong>Short Setup:</strong> Trend is Down (Price < EMA200). Price pulls back UP, touches or gets very close to EMA200, and RSI > 50. Wait for Red candle rejection.</li>
-     <li><strong>Long Setup:</strong> Trend is Up. Price pulls back DOWN to EMA200. RSI < 50. Wait for Green candle bounce.</li>
+     <li><strong>Short Setup:</strong> Trend Down. Price pulls UP very close to EMA200. RSI > 50. Wait for rejection.</li>
+     <li><strong>Long Setup:</strong> Trend Up. Price pulls DOWN close to EMA200. RSI < 50. Wait for bounce.</li>
     </ul>
+   </div>
+  </div>
+  
+  <div class="acc-item glass">
+   <button class="acc-btn" style="color:var(--c);">🚀 6. Bounce (Trend Continuation) <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <p>The safest entry: <strong>After</strong> the Pullback rejection.</p>
+    <ul>
+     <li><strong>Long Entry:</strong> Price pulled back to EMA200, successfully bounced off, and is now moving UP again (0.5% to 2.5% above EMA). RSI crossing back above 50.</li>
+     <li><strong>Short Entry:</strong> Price hit EMA200, got rejected, and is now falling DOWN again (-0.5% to -2.5% below EMA). RSI crossing back below 50.</li>
+    </ul>
+    <div class="safe-combo">🛡️ <strong>Pro Tip:</strong> Enter when you see S6 combined with 🔥 High Vol Spike!</div>
    </div>
   </div>
 
@@ -246,19 +272,8 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="acc-content">
     <p>Spotting fake breakouts and trend exhaustion.</p>
     <ul>
-     <li><strong>Bearish Div (Short):</strong> Price makes a <i>Higher High</i>, but RSI makes a <i>Lower High</i>. Trend is losing strength.</li>
-     <li><strong>Bullish Div (Long):</strong> Price makes a <i>Lower Low</i>, but RSI makes a <i>Higher Low</i>. Reversal imminent.</li>
-    </ul>
-   </div>
-  </div>
-  
-  <div class="acc-item glass">
-   <button class="acc-btn">⚠️ Trading Rules <span class="ico">➕</span></button>
-   <div class="acc-content">
-    <ul>
-     <li><strong>Confluence:</strong> Combine filters! E.g., S1 + S2 means Trend entry right at VWAP (Safest). S4 + S5 means EMA Pullback with Divergence (Sniper Short).</li>
-     <li><strong>Volume Spike:</strong> Column shows 🔥 High if recent volume is 2.5x higher than average. Great for breakout confirmation!</li>
-     <li><strong>Stop Loss:</strong> Always use SL 1-2% away from entry.</li>
+     <li><strong>Bearish Div (Short):</strong> Price makes a Higher High, but RSI makes a Lower High.</li>
+     <li><strong>Bullish Div (Long):</strong> Price makes a Lower Low, but RSI makes a Higher Low.</li>
     </ul>
    </div>
   </div>
@@ -332,7 +347,7 @@ const EX = {
  }
 };
 
-let MODE = 'bull', VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
+let VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = false, busy = false;
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
@@ -406,25 +421,16 @@ function calcVWAP(klines) {
 }
 
 function detectDivergence(klines, rsiArr) {
- // Basic Divergence Check over last 12 candles
  if (klines.length < 15 || rsiArr.length < 15) return {s5: false, s5_dir: ''};
- 
  const len = klines.length;
  const recentP = klines[len-1].c, recentRSI = rsiArr[len-1];
- 
- // Find a previous peak/valley in the last 12 candles
  let prevHighP = 0, prevHighRSI = 0, prevLowP = Infinity, prevLowRSI = 100;
  for(let i = len-12; i < len-2; i++) {
   if (klines[i].h > prevHighP) { prevHighP = klines[i].h; prevHighRSI = rsiArr[i]; }
   if (klines[i].l < prevLowP) { prevLowP = klines[i].l; prevLowRSI = rsiArr[i]; }
  }
-
- // Bearish Div: Price made Higher High, but RSI made Lower High (and was overbought)
  if (recentP > prevHighP && recentRSI < prevHighRSI && prevHighRSI > 65) return {s5: true, s5_dir: 'Short'};
- 
- // Bullish Div: Price made Lower Low, but RSI made Higher Low (and was oversold)
  if (recentP < prevLowP && recentRSI > prevLowRSI && prevLowRSI < 35) return {s5: true, s5_dir: 'Long'};
-
  return {s5: false, s5_dir: ''};
 }
 
@@ -443,7 +449,6 @@ function computeMetrics(t, k1d, k5m, S) {
  const ema200 = calcEMA(closes, 200);
  const vwap = calcVWAP(k5m.slice(-72)); 
 
- // Volume Spike
  const vols = k5m.map(x => x.v);
  const avgVol = vols.reduce((a,b)=>a+b,0) / vols.length;
  const recentVol = vols.slice(-3).reduce((a,b)=>a+b,0) / 3;
@@ -452,34 +457,34 @@ function computeMetrics(t, k1d, k5m, S) {
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
  let ema_dist = ema200 ? ((t.p - ema200) / ema200) * 100 : 100;
 
- // --- STRATEGIES LOGIC ---
+ let score = 0;
+ if(ema200 && t.p > ema200) score++; else score--;
+ if(vwap && t.p > vwap) score++; else score--;
+ if(rsi > 50) score++; else score--;
+
  let s1 = false, s1_dir = '';
  let s2 = false;
  let s3 = false, s3_dir = '';
  let s4 = false, s4_dir = '';
- let s5 = false, s5_dir = '';
+ let s6 = false, s6_dir = '';
 
- // Strategy 3: Extreme Reversal
  if (rsi <= 30) { s3 = true; s3_dir = 'Long'; } 
  else if (rsi >= 70) { s3 = true; s3_dir = 'Short'; } 
  else {
-  // Strategy 2: VWAP Bounce (Valid if RSI is NOT extreme)
   if (vwap && Math.abs(vwap_dist) <= 1.5) { s2 = true; }
   
-  // Strategy 1: Trend Following
   if (t.p > ema200 && t.p > vwap && rsi > 50) { s1 = true; s1_dir = 'Long'; }
   if (t.p < ema200 && t.p < vwap && rsi < 50) { s1 = true; s1_dir = 'Short'; }
   
-  // Strategy 4: EMA 200 Pullback
-  // Short Pullback: Trend is Down, Price pulls UP close to EMA200, RSI>50
   if (ema_dist > -1.5 && ema_dist <= 0.5 && t.p < vwap && rsi > 50) { s4 = true; s4_dir = 'Short'; }
-  // Long Pullback: Trend is Up, Price pulls DOWN close to EMA200, RSI<50
   if (ema_dist < 1.5 && ema_dist >= -0.5 && t.p > vwap && rsi < 50) { s4 = true; s4_dir = 'Long'; }
+
+  if (ema_dist > 0.5 && ema_dist < 2.5 && rsi >= 50 && rsi <= 65 && t.p > vwap) { s6 = true; s6_dir = 'Long'; }
+  if (ema_dist < -0.5 && ema_dist > -2.5 && rsi <= 50 && rsi >= 35 && t.p < vwap) { s6 = true; s6_dir = 'Short'; }
  }
 
- // Strategy 5: RSI Divergence
  const div = detectDivergence(k5m, rsiArr);
- s5 = div.s5; s5_dir = div.s5_dir;
+ let s5 = div.s5, s5_dir = div.s5_dir;
 
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch, v: t.v/1e6,
@@ -487,7 +492,7 @@ function computeMetrics(t, k1d, k5m, S) {
   w: wk ? (t.p/wk.o-1)*100 : null, m: mo ? (t.p/mo.o-1)*100 : null,
   r24, ar, x: (ar && r24 != null) ? r24/ar : null, wv,
   rsi, ema200, vwap, vwap_dist, vSpike,
-  s1, s1_dir, s2, s3, s3_dir, s4, s4_dir, s5, s5_dir
+  s1, s1_dir, s2, s3, s3_dir, s4, s4_dir, s5, s5_dir, s6, s6_dir
  };
 }
 
@@ -509,7 +514,7 @@ async function load() {
   const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
   if(need5m.length) {
    await pool(need5m, 8, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
-    (d, n) => setStatus(`Computing 5 Pro Strategies...`, 30 + Math.round((d/n)*70)));
+    (d, n) => setStatus(`Computing 6 Pro Strategies...`, 30 + Math.round((d/n)*70)));
   }
 
   ROWS = el.filter(t => KC1D[SET.ex+t.s] && KC5M[SET.ex+t.s] && KC5M[SET.ex+t.s].k.length > 200)
@@ -527,27 +532,19 @@ async function load() {
  } finally { busy = false; }
 }
 
-function dirD() { return MODE === 'bear' ? -1 : 1; }
 function defSort() {
- const D = dirD();
  const smap = { 
-  all: {k:'v', d:-1}, intra: {k:'ch', d:-D}, week: {k:'w', d:-D}, month: {k:'m', d:-D}, vol: {k:'x', d:-D}
+  all: {k:'v', d:-1}, intra: {k:'ch', d:-1}, week: {k:'w', d:-1}, month: {k:'m', d:-1}, vol: {k:'x', d:-1}
  };
  return smap[VIEW] || {k:'v', d:-1};
 }
 
-const VL={
- bull:{intra:'Intraday Gainers',week:'Weekly Gainers',month:'Monthly Gainers', vol:'24h Volatile'},
- bear:{intra:'Intraday Losers',week:'Weekly Losers',month:'Monthly Losers', vol:'24h Volatile (Dn)'}
-};
-
 function pick() {
- const N = +SET.tn, xm = +SET.xm, D = dirD();
- const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => D*(b[key]-a[key])).slice(0, N).map(r => r.s));
+ const N = +SET.tn, xm = +SET.xm;
+ const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => (b[key]-a[key])).slice(0, N).map(r => r.s));
  const W = top('w'), M = top('m');
  let a = ROWS;
 
- // --- MULTI-SELECT STRATEGY FILTER LOGIC ---
  if (ACTIVE_STRATS.length > 0) {
   a = a.filter(r => {
    let match = true;
@@ -556,13 +553,14 @@ function pick() {
    if (ACTIVE_STRATS.includes('3') && !r.s3) match = false;
    if (ACTIVE_STRATS.includes('4') && !r.s4) match = false;
    if (ACTIVE_STRATS.includes('5') && !r.s5) match = false;
+   if (ACTIVE_STRATS.includes('6') && !r.s6) match = false;
    return match;
   });
  } 
- else if(VIEW === 'intra') a = a.filter(r => r.ch != null).sort((p,q) => D*(q.ch-p.ch)).slice(0, 30);
+ else if(VIEW === 'intra') a = a.filter(r => r.ch != null).sort((p,q) => (q.ch-p.ch)).slice(0, 30);
  else if(VIEW === 'week') a = a.filter(r => W.has(r.s));
  else if(VIEW === 'month') a = a.filter(r => M.has(r.s));
- else if(VIEW === 'vol') a = a.filter(r => r.x != null && r.x >= xm && (D > 0 ? r.ch > 0 : r.ch < 0)).sort((p,q) => q.x-p.x).slice(0, 30);
+ else if(VIEW === 'vol') a = a.filter(r => r.x != null && r.x >= xm).sort((p,q) => q.x-p.x).slice(0, 30);
 
  const {k, d} = SORT;
  return a.sort((p,q) => { 
@@ -602,13 +600,14 @@ function render() {
  $('sc-s2').textContent = ROWS.filter(r => r.s2).length;
  $('sc-s3').textContent = ROWS.filter(r => r.s3).length;
  $('sc-s4').textContent = ROWS.filter(r => r.s4).length;
+ $('sc-s6').textContent = ROWS.filter(r => r.s6).length;
  $('sc-s5').textContent = ROWS.filter(r => r.s5).length;
  
  boxes();
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
-  let msg = ACTIVE_STRATS.length > 1 ? `No coins currently match Strategy [${ACTIVE_STRATS.join(' + ')}] confluence. Try fewer combinations.` : 'No coins match this specific filter right now.';
+  let msg = ACTIVE_STRATS.length > 1 ? `No coins match Strategy [${ACTIVE_STRATS.join(' + ')}] confluence.` : 'No coins match this specific filter right now.';
   $('tbl').innerHTML = st + `<div class="empty">${msg}</div>`; 
   return; 
  }
@@ -631,6 +630,7 @@ function render() {
   if (r.s1) setupUI += `<span class="badge ${r.s1_dir === 'Long' ? 'badge-g' : 'badge-r'}">⭐ 1 (${r.s1_dir})</span>`;
   if (r.s2) setupUI += `<span class="badge badge-b">⭐ 2 (VWAP)</span>`;
   if (r.s4) setupUI += `<span class="badge ${r.s4_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-y">⭐ 4 (${r.s4_dir})</span>`;
+  if (r.s6) setupUI += `<span class="badge ${r.s6_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-c pulse">🚀 6 (${r.s6_dir})</span>`;
   if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 3 (${r.s3_dir})</span>`;
   if (r.s5) setupUI += `<span class="badge ${r.s5_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-p pulse">🔥 5 (${r.s5_dir})</span>`;
   
@@ -666,14 +666,6 @@ function render() {
    render();
   }
  });
-}
-
-function updateLabels() {
- document.querySelectorAll('[title="Performance Filters"] button').forEach(b => { 
-  if(VL[MODE] && VL[MODE][b.dataset.v]) b.textContent = VL[MODE][b.dataset.v]; 
- });
- $('mBull').classList.toggle('on', MODE==='bull');
- $('mBear').classList.toggle('on', MODE==='bear');
 }
 
 document.querySelectorAll('button[data-v]').forEach(b => {
@@ -712,9 +704,6 @@ document.querySelectorAll('#strat-filters button').forEach(b => {
  }
 });
 
-$('mBull').onclick = () => { MODE = 'bull'; updateLabels(); SORT = defSort(); render(); };
-$('mBear').onclick = () => { MODE = 'bear'; updateLabels(); SORT = defSort(); render(); };
-
 function getTVList() { return pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); }
 
 $('cp').onclick = async () => {
@@ -728,14 +717,24 @@ $('cp').onclick = async () => {
 $('dl').onclick = () => {
  const t = getTVList(); if(!t) return;
  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], {type:'text/plain'}));
- a.download = `crypto-watchlist-${MODE}-${VIEW}.txt`; document.body.appendChild(a); a.click(); a.remove();
+ a.download = `crypto-watchlist-${VIEW}.txt`; document.body.appendChild(a); a.click(); a.remove();
+};
+
+let autoInterval = null;
+$('au').onclick = () => { 
+ AUTO = !AUTO; 
+ $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); 
+ $('au').classList.toggle('on', AUTO); 
+ if(AUTO) {
+  autoInterval = setInterval(() => { if(!document.hidden) load(); }, TEN_MIN);
+ } else {
+  clearInterval(autoInterval);
+ }
 };
 
 $('rf').onclick = load;
-$('au').onclick = () => { AUTO = !AUTO; $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); $('au').classList.toggle('on', AUTO); };
 
-setInterval(() => { if(AUTO && !document.hidden) load(); }, TEN_MIN);
-updateLabels();
+// Initial Load
 load();
 
 } catch(err) {
