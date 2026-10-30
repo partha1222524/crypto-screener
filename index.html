@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Master Screener | Developed by Partha</title>
+<title>Crypto Master Screener | Pro & Regular Strategies</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -21,18 +21,17 @@ body { margin: 0; background-color: var(--bg); background-image: radial-gradient
 .main-layout { display: flex; flex-direction: column; gap: 20px; max-width: 98%; margin: 0 auto; padding: 20px 10px 60px; }
 @media(min-width: 1200px) { .main-layout { flex-direction: row; align-items: flex-start; } .left-content { flex: 1; min-width: 0; } .right-sidebar { width: 350px; flex-shrink: 0; position: sticky; top: 20px; } }
 
-/* Header & Branding */
+/* Header */
 .header-wrapper { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
 h1 { font-size: 28px; margin: 0 0 5px; font-weight: 700; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
 .desc { color: var(--mut); font-size: 13px; }
 .branding { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 2px; padding: 6px 12px; background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
 .branding span { color: var(--b); }
 
-/* Glassmorphism Classes */
+/* Glass Panels & Buttons */
 .glass { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 12px; }
 .glass-panel { padding: 12px 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 
-/* Buttons & Inputs */
 button, select { background: rgba(255,255,255,0.05); color: var(--tx); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-weight: 500; font-size: 12px; transition: all 0.3s ease; outline: none; }
 button { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 button:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
@@ -41,38 +40,44 @@ button.bu.on { background: var(--g-glow); border-color: var(--g); color: var(--g
 button.be.on { background: var(--r-glow); border-color: var(--r); color: var(--r); }
 button.pu.on { background: var(--p-glow); border-color: var(--p); color: #c084fc; }
 button.cu.on { background: var(--c-glow); border-color: var(--c); color: var(--c); }
+button.yu.on { background: var(--y-glow); border-color: var(--y); color: var(--y); }
 label.f { display: flex; flex-direction: column; font-size: 11px; color: var(--mut); gap: 4px; font-weight: 500; }
 select { padding: 7px 10px; cursor: pointer; }
-.btn-group { display: flex; gap: 8px; align-items: center; border-right: 1px solid var(--line); padding-right: 10px; margin-right: 5px; }
+.btn-group { display: flex; gap: 8px; align-items: center; border-right: 1px solid var(--line); padding-right: 10px; margin-right: 5px; flex-wrap: wrap; }
 .btn-group:last-child { border-right: none; }
 
 /* Dashboard Stats */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 15px; }
 .st { padding: 12px; text-align: left; position: relative; overflow: hidden; border-radius: 8px; }
 .st::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--mut); }
-.st.s-1::before { background: var(--g); } .st.s-2::before { background: var(--b); } 
+.st.s-1::before { background: var(--b); } .st.s-2::before { background: var(--g); } 
 .st.s-3::before { background: var(--r); } .st.s-4::before { background: var(--y); } 
 .st.s-5::before { background: var(--p); } .st.s-6::before { background: var(--c); }
 .st span { display: block; color: var(--mut); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 .st b { font-size: 18px; color: #fff; line-height: 1; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 
-/* Table Design */
+/* Table Design with Alignment Fixes */
 .tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin: 10px 0 25px 0; border-radius: 12px; }
-table { border-collapse: collapse; width: 100%; min-width: 1500px; text-align: right; }
-th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-size: 13px; }
-th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+table { border-collapse: collapse; width: 100%; min-width: 1400px; text-align: right; }
+th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; vertical-align: middle; }
+th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); white-space: nowrap; }
 th:hover { color: #fff; } th.s { color: var(--b); }
-th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 11; }
-td:first-child { background: var(--surface); backdrop-filter: blur(12px); font-weight: 600; font-size: 14px; border-right: 1px solid var(--line); }
-tr:hover td { background: rgba(255,255,255,0.03); }
-td:first-child a.coin-link { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+
+/* Column Specific Alignments */
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 11; background: var(--surface); backdrop-filter: blur(12px); border-right: 1px solid var(--line); white-space: nowrap; }
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.td-strats { text-align: left; max-width: 300px; white-space: normal; line-height: 2; } /* Fixed Strategy Wrap */
+
+tr:hover td { background: rgba(255,255,255,0.04); }
+td:first-child a.coin-link { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; transition: color 0.2s; }
 td:first-child a.coin-link:hover { color: var(--b); }
-.tv-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 12px; text-decoration: none; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; }
+.tv-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2px 6px; font-size: 12px; text-decoration: none; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; }
 .tv-btn:hover { background: rgba(59,130,246,0.3); border-color: var(--b); }
 
-/* Badges & Utilities */
-.pos { color: var(--g); } .neg { color: var(--r); } .hot { color: var(--y); font-weight: 700; }
-.badge { padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; margin-bottom: 2px; }
+/* Badges & Scores */
+.pos { color: var(--g); } .neg { color: var(--r); } 
+.badge { padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; margin-bottom: 4px; white-space: nowrap; }
 .badge-g { background: var(--g-glow); color: var(--g); border: 1px solid rgba(16,185,129,0.3); }
 .badge-r { background: var(--r-glow); color: var(--r); border: 1px solid rgba(239,68,68,0.3); }
 .badge-b { background: var(--b-glow); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
@@ -82,10 +87,14 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .badge-n { background: rgba(255,255,255,0.05); color: var(--mut); border: 1px solid rgba(255,255,255,0.1); }
 .pulse { animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
-.pulse-y { animation: pulseY 2s infinite; }
-@keyframes pulseY { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
 
-/* Performance Boxes (Now at bottom) */
+/* Score Gauge */
+.score-gauge { display: flex; gap: 4px; align-items: center; }
+.score-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+.score-dot.active-g { background: var(--g); box-shadow: 0 0 5px var(--g); }
+.score-dot.active-r { background: var(--r); box-shadow: 0 0 5px var(--r); }
+
+/* Performance Boxes (Bottom) */
 .boxes-title { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #fff; }
 .boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 20px; }
 .bx { padding: 12px; position: relative; overflow: hidden; }
@@ -105,7 +114,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .acc-item.active .acc-btn .ico { transform: rotate(45deg); color: var(--b); }
 .acc-item.active { border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); }
 .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 12px; font-size: 12px; color: var(--mut); line-height: 1.6; }
-.acc-item.active .acc-content { max-height: 900px; padding: 0 12px 12px; }
+.acc-item.active .acc-content { max-height: 1200px; padding: 0 12px 12px; }
 .acc-content ul { padding-left: 15px; margin: 5px 0; }
 .safe-combo { background: rgba(255, 255, 255, 0.05); border-left: 3px solid var(--b); padding: 8px 10px; border-radius: 4px; margin-top: 10px; color: #e4e4e7; }
 
@@ -130,21 +139,23 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="header-wrapper">
    <div>
     <h1>Crypto Master Screener</h1>
-    <div class="desc">Ultimate Dashboard • 6 Pro Strategies & Confluence Matrix</div>
+    <div class="desc">Pro AI Confluence & Regular Strategy Matrix</div>
    </div>
    <div class="branding">DEVELOPED BY <span>PARTHA</span></div>
   </div>
 
+  <!-- Summary Stats -->
   <div class="stats" id="stats">
    <div class="st glass"><span id="sc-t">Scanned</span><b id="sc-v">--</b></div>
-   <div class="st glass s-1"><span>⭐ 1. Trend</span><b id="sc-s1" class="pos">--</b></div>
-   <div class="st glass s-2"><span>⭐ 2. VWAP</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
-   <div class="st glass s-3"><span>🔥 3. Reversal</span><b id="sc-s3" class="neg">--</b></div>
-   <div class="st glass s-4"><span>⭐ 4. Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
-   <div class="st glass s-6"><span>🚀 6. Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
-   <div class="st glass s-5"><span>🔥 5. RSI Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
+   <div class="st glass s-1"><span>🔥 Score 3 (Strong)</span><b id="sc-s3" class="pos">--</b></div>
+   <div class="st glass s-2"><span>⭐ Score 2 (Good)</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
+   <div class="st glass s-3"><span>🔥 S3 Reversals</span><b id="sc-rev" class="neg">--</b></div>
+   <div class="st glass s-4"><span>⭐ S4 EMA Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
+   <div class="st glass s-6"><span>🚀 S6 EMA Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
+   <div class="st glass s-5"><span>🔥 S5 RSI Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
   </div>
 
+  <!-- Settings -->
   <div class="glass glass-panel">
    <label class="f">Exchange
     <select id="ex"><option value="binance" selected>Binance Futures</option><option value="bybit">Bybit Futures</option></select>
@@ -165,59 +176,71 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <button id="rf">🔄 Sync Data</button>
   </div>
 
-  <!-- MULTI-SELECT FILTER TABS -->
+  <!-- FILTERS (Combine View Mode & Active Strats) -->
   <div class="glass glass-panel" id="views">
    <div class="btn-group">
     <button data-v="all" class="on">📊 All Coins (Reset)</button>
    </div>
    
-   <div class="btn-group" title="Strategy Confluence Filters (Multi-Select)" id="strat-filters">
-    <span class="mut" style="font-size:11px; margin-right:4px;">Filter Strats:</span>
-    <button data-strat="1" class="bu">⭐ 1</button>
-    <button data-strat="2" class="bu">⭐ 2</button>
-    <button data-strat="3" class="be">🔥 3</button>
-    <button data-strat="4" class="bu" style="color:var(--y); border-color:var(--y);">⭐ 4</button>
-    <button data-strat="6" class="cu">🚀 6</button>
-    <button data-strat="5" class="pu">🔥 5</button>
+   <div class="btn-group" title="AI Pro Score Filters" id="score-filters">
+    <span class="mut" style="font-size:11px; margin-right:4px;">Pro AI Score:</span>
+    <button data-v="score3" class="bu">🔥 Score 3</button>
+    <button data-v="score2" class="bu" style="color:var(--b); border-color:var(--b);">⭐ Score 2</button>
    </div>
 
-   <div class="btn-group" title="Performance Filters">
-    <button data-v="intra">Intraday</button>
-    <button data-v="week">Weekly</button>
-    <button data-v="month">Monthly</button>
-    <button data-v="vol">24h Vol</button>
+   <div class="btn-group" title="Regular Strategy Filters (Multi-Select)" id="strat-filters">
+    <span class="mut" style="font-size:11px; margin-right:4px;">Regular Strats:</span>
+    <button data-strat="1" class="bu">1</button>
+    <button data-strat="2" class="bu">2</button>
+    <button data-strat="3" class="be">3</button>
+    <button data-strat="4" class="yu">4</button>
+    <button data-strat="5" class="pu">5</button>
+    <button data-strat="6" class="cu">6</button>
    </div>
    
    <div class="flex-spacer"></div>
    <div class="btn-group" style="border:none;">
     <button id="cp">📋 Copy List</button>
-    <button id="dl">💾 DL .txt</button>
    </div>
   </div>
 
+  <!-- Data Table -->
   <div class="glass tw" id="tbl">
    <div class="status-bar" id="status"><span>⏳ Initiating terminal...</span><span></span></div>
    <div class="empty">Scanning market depth... Please wait.</div>
   </div>
 
-  <!-- Performance Boxes moved to Bottom -->
+  <!-- Performance Boxes -->
   <div class="boxes-title">📈 Top Market Movers</div>
   <div class="boxes" id="boxes"></div>
   
   <div class="foot">DEVELOPED BY <span>PARTHA</span></div>
  </div>
 
- <!-- Right Sidebar -->
+ <!-- Right Sidebar (Strategies Explained in Bengali/English mix) -->
  <div class="right-sidebar">
-  <div class="sb-title">🧠 Pro Strategies Guide</div>
+  <div class="sb-title">🧠 Strategy Guide</div>
   
   <div class="acc-item glass active">
-   <button class="acc-btn">⭐ 1. Trend Follower <span class="ico">➕</span></button>
+   <button class="acc-btn">🎯 AI Confluence Score (0-3) <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Trade <strong>WITH</strong> the market momentum.</p>
+    <p>প্রতিটি কয়েনকে ৩টি বিষয়ের ওপর ভিত্তি করে <strong>0 থেকে 3</strong> এর মধ্যে একটি স্কোর দেওয়া হয়: <em>Trend (EMA200), Liquidity (VWAP), এবং Momentum (Volume/RSI).</em></p>
     <ul>
-     <li><strong>Long (Buy):</strong> Price > EMA200 <strong>AND</strong> > VWAP <strong>AND</strong> RSI > 50.</li>
-     <li><strong>Short (Sell):</strong> Price < EMA200 <strong>AND</strong> < VWAP <strong>AND</strong> RSI < 50.</li>
+     <li><strong>Score 3 (🔥 Strong):</strong> সব ইন্ডিকেটর একই দিকে কনফার্ম করছে। (Safest Trade)।</li>
+     <li><strong>Score 2 (⭐ Good):</strong> প্রাইস ট্রেন্ডের দিকে আছে কিন্তু পুলব্যাক করছে বা VWAP থেকে বাউন্স নিচ্ছে।</li>
+     <li><strong>Score 0-1 (⚠️ Weak):</strong> মার্কেট Choppy বা সাইডওয়েজ। <em>এগুলো ইগনোর করা ভালো।</em></li>
+    </ul>
+    <div class="safe-combo">💡 <strong>Pro Tip:</strong> 'Score 3' ফিল্টারের সাথে 'Regular Strat S4 বা S6' মিলিয়ে ট্রেড করলে সেরা এন্ট্রি পাওয়া যায়।</div>
+   </div>
+  </div>
+
+  <div class="acc-item glass">
+   <button class="acc-btn">⭐ 1. VWAP + Trend Setup <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <p>মার্কেটের মূল ট্রেন্ডের সাথে ট্রেড করা।</p>
+    <ul>
+     <li><strong>Long (Buy):</strong> প্রাইস EMA 200 এবং VWAP দুটোরই উপরে আছে এবং RSI > 50.</li>
+     <li><strong>Short (Sell):</strong> প্রাইস EMA 200 এবং VWAP দুটোরই নিচে আছে এবং RSI < 50.</li>
     </ul>
    </div>
   </div>
@@ -225,58 +248,59 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="acc-item glass">
    <button class="acc-btn">⭐ 2. VWAP Bounce <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Price respects the VWAP line as Support/Resistance.</p>
+    <p>ইনস্টিটিউশনাল ট্রেডারদের জোন।</p>
     <ul>
-     <li><strong>Condition:</strong> Price is very close to Intraday VWAP (0% to 1.5% distance).</li>
-     <li><strong>Action:</strong> Wait for a strong rejection candle at VWAP before entry.</li>
+     <li><strong>Condition:</strong> প্রাইস VWAP লাইনের খুব কাছাকাছি (০% থেকে ১.৫%) থাকলে এই ব্যাজ দেখায়।</li>
+     <li><strong>Action:</strong> TradingView-তে দেখুন সেখানে বাউন্স বা রিজেকশন ক্যান্ডেল তৈরি হচ্ছে কি না।</li>
     </ul>
    </div>
   </div>
 
   <div class="acc-item glass">
-   <button class="acc-btn">🔥 3. Extreme Reversals <span class="ico">➕</span></button>
+   <button class="acc-btn" style="color:var(--r);">🔥 3. Extreme Reversals <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Catching extreme overbought/oversold conditions.</p>
+    <p>মার্কেট অতিরিক্ত ওভারবট (Overbought) বা ওভারসোল্ড (Oversold)।</p>
     <ul>
-     <li><strong>Oversold (Long):</strong> RSI < 30. Price crashing but slowing.</li>
-     <li><strong>Overbought (Short):</strong> RSI > 70. Price pumping hard.</li>
+     <li><strong>Long Reversal (Oversold):</strong> RSI < 30. (শর্ট করা থামান)।</li>
+     <li><strong>Short Reversal (Overbought):</strong> RSI > 70. (লং করা থামান)।</li>
+    </ul>
+    <div class="safe-combo">🛡️ <strong>Rule:</strong> RSI 30 এর নিচে গেলেই বাই করবেন না। অপেক্ষা করুন কখন RSI আবার 30 এর উপরে উঠে আসে।</div>
+   </div>
+  </div>
+
+  <div class="acc-item glass">
+   <button class="acc-btn" style="color:var(--y);">⭐ 4. EMA 200 Pullback <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <p>প্রাইস মূল ট্রেন্ড লাইনে (EMA 200) ফিরে এসে বিশ্রাম নিচ্ছে।</p>
+    <ul>
+     <li><strong>Short Setup:</strong> ট্রেন্ড ডাউন। প্রাইস উপরে উঠে EMA200 এর কাছে এসে ধাক্কা খাচ্ছে। RSI > 50।</li>
+     <li><strong>Long Setup:</strong> ট্রেন্ড আপ। প্রাইস নিচে নেমে EMA200 এর কাছে এসে সাপোর্ট নিচ্ছে। RSI < 50।</li>
     </ul>
    </div>
   </div>
 
   <div class="acc-item glass">
-   <button class="acc-btn" style="color:var(--y);">⭐ 4. Pullback (At the Line) <span class="ico">➕</span></button>
+   <button class="acc-btn" style="color:var(--c);">🚀 6. EMA Bounce (Continuation)<span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Wait for a retracement to the main trendline.</p>
+    <p>সবচেয়ে সেফ এন্ট্রি। পুলব্যাকের পর প্রাইস আবার আগের ট্রেন্ডে ছুটতে শুরু করেছে।</p>
     <ul>
-     <li><strong>Short Setup:</strong> Trend Down. Price pulls UP very close to EMA200. RSI > 50. Wait for rejection.</li>
-     <li><strong>Long Setup:</strong> Trend Up. Price pulls DOWN close to EMA200. RSI < 50. Wait for bounce.</li>
+     <li><strong>Long Entry:</strong> প্রাইস EMA200 থেকে সফলভাবে বাউন্স করে উপরে ওঠা শুরু করেছে। RSI 50 পার হচ্ছে।</li>
+     <li><strong>Short Entry:</strong> প্রাইস EMA200 থেকে রিজেক্ট খেয়ে নিচে নামা শুরু করেছে। RSI 50 এর নিচে নামছে।</li>
     </ul>
-   </div>
-  </div>
-  
-  <div class="acc-item glass">
-   <button class="acc-btn" style="color:var(--c);">🚀 6. Bounce (Trend Continuation) <span class="ico">➕</span></button>
-   <div class="acc-content">
-    <p>The safest entry: <strong>After</strong> the Pullback rejection.</p>
-    <ul>
-     <li><strong>Long Entry:</strong> Price pulled back to EMA200, successfully bounced off, and is now moving UP again (0.5% to 2.5% above EMA). RSI crossing back above 50.</li>
-     <li><strong>Short Entry:</strong> Price hit EMA200, got rejected, and is now falling DOWN again (-0.5% to -2.5% below EMA). RSI crossing back below 50.</li>
-    </ul>
-    <div class="safe-combo">🛡️ <strong>Pro Tip:</strong> Enter when you see S6 combined with 🔥 High Vol Spike!</div>
    </div>
   </div>
 
   <div class="acc-item glass">
-   <button class="acc-btn" style="color:#c084fc;">🔥 5. RSI Divergence <span class="ico">➕</span></button>
+   <button class="acc-btn" style="color:var(--p);">🔥 5. RSI Divergence <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Spotting fake breakouts and trend exhaustion.</p>
+    <p>ফেক ব্রেকআউট এবং রিভার্সাল ধরার সেরা উপায়।</p>
     <ul>
-     <li><strong>Bearish Div (Short):</strong> Price makes a Higher High, but RSI makes a Lower High.</li>
-     <li><strong>Bullish Div (Long):</strong> Price makes a Lower Low, but RSI makes a Higher Low.</li>
+     <li><strong>Bearish Div (Short):</strong> চার্টে প্রাইস নতুন High বানাচ্ছে, কিন্তু RSI আগের চেয়ে Low দেখাচ্ছে।</li>
+     <li><strong>Bullish Div (Long):</strong> চার্টে প্রাইস নতুন Low বানাচ্ছে, কিন্তু RSI আগের চেয়ে High দেখাচ্ছে।</li>
     </ul>
    </div>
   </div>
+
  </div>
 
 </div>
@@ -351,12 +375,12 @@ let VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = 
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
-try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master') || '{}')) } catch(e) {}
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v3') || '{}')) } catch(e) {}
 ['ex','mv','tn','xm'].forEach(k => { 
  $(k).value = SET[k] || $(k).value; 
  $(k).onchange = () => { 
   SET[k] = $(k).value; 
-  localStorage.setItem('cvs_master', JSON.stringify(SET)); 
+  localStorage.setItem('cvs_master_v3', JSON.stringify(SET)); 
   load(); 
  }
 });
@@ -435,13 +459,7 @@ function detectDivergence(klines, rsiArr) {
 }
 
 function computeMetrics(t, k1d, k5m, S) {
- const done = k1d.filter(k => k.t < S.today).slice(-14);
- const ar = done.length >= 7 ? done.reduce((a,k) => a+(k.h-k.l)/k.l*100, 0)/done.length : null;
- const r24 = t.l > 0 ? (t.h-t.l)/t.l*100 : null;
  const td = k1d.find(k => k.t === S.today), yd = k1d.find(k => k.t === S.today - DAY);
- const wk = k1d.find(k => k.t === S.week), mo = k1d.find(k => k.t === S.month);
- const avg = a => a.length ? a.reduce((q,k)=>q+(k.h-k.l)/k.l*100,0)/a.length : null;
- const wv = avg(k1d.filter(k=>k.t >= S.week+DAY));
  
  const closes = k5m.map(x => x.c);
  const rsiArr = calcRSIArray(closes, 14);
@@ -449,6 +467,7 @@ function computeMetrics(t, k1d, k5m, S) {
  const ema200 = calcEMA(closes, 200);
  const vwap = calcVWAP(k5m.slice(-72)); 
 
+ // Volume Spike
  const vols = k5m.map(x => x.v);
  const avgVol = vols.reduce((a,b)=>a+b,0) / vols.length;
  const recentVol = vols.slice(-3).reduce((a,b)=>a+b,0) / 3;
@@ -457,11 +476,15 @@ function computeMetrics(t, k1d, k5m, S) {
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
  let ema_dist = ema200 ? ((t.p - ema200) / ema200) * 100 : 100;
 
+ // Confluence Score (0 to 3)
  let score = 0;
- if(ema200 && t.p > ema200) score++; else score--;
- if(vwap && t.p > vwap) score++; else score--;
- if(rsi > 50) score++; else score--;
+ let dir = '';
+ 
+ if (t.p > ema200) { score++; dir = 'Long'; } else if (t.p < ema200) { score++; dir = 'Short'; }
+ if (t.p > vwap && dir === 'Long') { score++; } else if (t.p < vwap && dir === 'Short') { score++; }
+ if (vSpike || (dir === 'Long' && rsi > 50) || (dir === 'Short' && rsi < 50)) { score++; }
 
+ // 6 Strategies Logic
  let s1 = false, s1_dir = '';
  let s2 = false;
  let s3 = false, s3_dir = '';
@@ -486,12 +509,14 @@ function computeMetrics(t, k1d, k5m, S) {
  const div = detectDivergence(k5m, rsiArr);
  let s5 = div.s5, s5_dir = div.s5_dir;
 
+ // Ensure S3 overrides score context visually
+ let isReversal = s3;
+
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch, v: t.v/1e6,
   td: td ? (t.p/td.o-1)*100 : null, yd: yd ? (yd.c/yd.o-1)*100 : null,
-  w: wk ? (t.p/wk.o-1)*100 : null, m: mo ? (t.p/mo.o-1)*100 : null,
-  r24, ar, x: (ar && r24 != null) ? r24/ar : null, wv,
   rsi, ema200, vwap, vwap_dist, vSpike,
+  score, dir, isReversal,
   s1, s1_dir, s2, s3, s3_dir, s4, s4_dir, s5, s5_dir, s6, s6_dir
  };
 }
@@ -514,7 +539,7 @@ async function load() {
   const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
   if(need5m.length) {
    await pool(need5m, 8, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
-    (d, n) => setStatus(`Computing 6 Pro Strategies...`, 30 + Math.round((d/n)*70)));
+    (d, n) => setStatus(`Computing Strategies & Scores...`, 30 + Math.round((d/n)*70)));
   }
 
   ROWS = el.filter(t => KC1D[SET.ex+t.s] && KC5M[SET.ex+t.s] && KC5M[SET.ex+t.s].k.length > 200)
@@ -534,17 +559,22 @@ async function load() {
 
 function defSort() {
  const smap = { 
-  all: {k:'v', d:-1}, intra: {k:'ch', d:-1}, week: {k:'w', d:-1}, month: {k:'m', d:-1}, vol: {k:'x', d:-1}
+  all: {k:'v', d:-1}, score3: {k:'score', d:-1}, score2: {k:'score', d:-1}
  };
- return smap[VIEW] || {k:'v', d:-1};
+ return smap[VIEW] || {k:'score', d:-1}; 
 }
 
 function pick() {
- const N = +SET.tn, xm = +SET.xm;
- const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => (b[key]-a[key])).slice(0, N).map(r => r.s));
- const W = top('w'), M = top('m');
  let a = ROWS;
 
+ // Handle specific VIEW toggles first
+ if (VIEW === 'score3') {
+  a = a.filter(r => r.score === 3 && !r.isReversal);
+ } else if (VIEW === 'score2') {
+  a = a.filter(r => r.score === 2 && !r.isReversal);
+ }
+
+ // Then apply multiple Strategy filters
  if (ACTIVE_STRATS.length > 0) {
   a = a.filter(r => {
    let match = true;
@@ -557,10 +587,6 @@ function pick() {
    return match;
   });
  } 
- else if(VIEW === 'intra') a = a.filter(r => r.ch != null).sort((p,q) => (q.ch-p.ch)).slice(0, 30);
- else if(VIEW === 'week') a = a.filter(r => W.has(r.s));
- else if(VIEW === 'month') a = a.filter(r => M.has(r.s));
- else if(VIEW === 'vol') a = a.filter(r => r.x != null && r.x >= xm).sort((p,q) => q.x-p.x).slice(0, 30);
 
  const {k, d} = SORT;
  return a.sort((p,q) => { 
@@ -578,7 +604,6 @@ function boxes() {
    <div class="r">
     <div style="display:flex;gap:5px;align-items:center;">
      <a target="_blank" href="${EX[SET.ex].link(r.s)}">${r.base}</a>
-     <a target="_blank" href="${EX[SET.ex].tvLink(r.s)}" class="tv-btn" title="Open TradingView">📈</a>
     </div>
     ${pc(r[key])}
    </div>`).join('') + `</div>`;
@@ -587,18 +612,18 @@ function boxes() {
 }
 
 const COLS = [
- ['base','Coin'], ['p','Price'], ['ch','24h %'], ['td','Today %'], 
- ['rsi','RSI (5m)'], ['vwap','VWAP'], ['ema200','EMA 200'], 
- ['strats','Pro Strategies Matched'], ['vSpike','Vol Spike'], ['v','Vol $M']
+ ['base','Coin'], ['p','Price'], ['ch','24h %'],
+ ['rsi','RSI (5m)'], ['vwap_dist','VWAP Dist.'], ['ema200','EMA 200'], 
+ ['score','AI Pro Score'], ['strats','Matched Strategies'], ['vSpike','Vol Spike'], ['v','Vol $M']
 ];
 
 function render() {
  if(!ROWS.length) return;
  
  $('sc-v').textContent = ROWS.length;
- $('sc-s1').textContent = ROWS.filter(r => r.s1).length;
- $('sc-s2').textContent = ROWS.filter(r => r.s2).length;
- $('sc-s3').textContent = ROWS.filter(r => r.s3).length;
+ $('sc-s3').textContent = ROWS.filter(r => r.score === 3 && !r.isReversal).length;
+ $('sc-s2').textContent = ROWS.filter(r => r.score === 2 && !r.isReversal).length;
+ $('sc-rev').textContent = ROWS.filter(r => r.s3).length;
  $('sc-s4').textContent = ROWS.filter(r => r.s4).length;
  $('sc-s6').textContent = ROWS.filter(r => r.s6).length;
  $('sc-s5').textContent = ROWS.filter(r => r.s5).length;
@@ -607,13 +632,16 @@ function render() {
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
-  let msg = ACTIVE_STRATS.length > 1 ? `No coins match Strategy [${ACTIVE_STRATS.join(' + ')}] confluence.` : 'No coins match this specific filter right now.';
+  let msg = 'No coins match this specific filter combination right now. Try selecting "All Coins".';
   $('tbl').innerHTML = st + `<div class="empty">${msg}</div>`; 
   return; 
  }
  
  let h = $('status') ? $('status').outerHTML : '';
- h += '<table><thead><tr>' + COLS.map(c => `<th data-k="${c[0]}" class="${SORT.k===c[0]?'s':''}">${c[1]}${SORT.k===c[0]?(SORT.d<0?' ↓':' ↑'):''}</th>`).join('') + '</tr></thead><tbody>';
+ h += '<table><thead><tr>' + COLS.map((c, i) => {
+  let alignClass = (i===0 || i===6 || i===7) ? 'text-left' : (i===8 ? 'text-center' : '');
+  return `<th data-k="${c[0]}" class="${SORT.k===c[0]?'s':''} ${alignClass}">${c[1]}${SORT.k===c[0]?(SORT.d<0?' ↓':' ↑'):''}</th>`;
+ }).join('') + '</tr></thead><tbody>';
  
  for(const r of a) {
   let rsiUI = r.rsi == null ? '—' : r.rsi.toFixed(1);
@@ -623,23 +651,42 @@ function render() {
   let vwapUI = '—';
   if(r.vwap) {
    let dist = r.vwap_dist;
-   vwapUI = `<span>${px(r.vwap)}</span> <span class="${dist>=0?'pos':'neg'} sm" style="margin-left:4px">(${dist>0?'+':''}${dist.toFixed(2)}%)</span>`;
+   vwapUI = `<span class="${dist>=0?'pos':'neg'} sm">(${dist>0?'+':''}${dist.toFixed(2)}%)</span>`;
   }
 
+  // AI Score Gauge Output
+  let scoreUI = '';
+  let dotClass = r.dir === 'Long' ? 'active-g' : 'active-r';
+  let dots = `<div class="score-gauge">` + 
+             `<div class="score-dot ${r.score >= 1 ? dotClass : ''}"></div>` +
+             `<div class="score-dot ${r.score >= 2 ? dotClass : ''}"></div>` +
+             `<div class="score-dot ${r.score >= 3 ? dotClass : ''}"></div>` +
+             `</div>`;
+
+  if (r.isReversal) {
+   scoreUI = `<div style="display:flex;align-items:center;gap:8px;">${dots} <span class="badge ${r.dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 Reversal</span></div>`;
+  } else if (r.score === 3) {
+   scoreUI = `<div style="display:flex;align-items:center;gap:8px;">${dots} <span class="badge ${r.dir === 'Long' ? 'badge-g' : 'badge-r'}">⭐ Strong ${r.dir}</span></div>`;
+  } else if (r.score === 2) {
+   scoreUI = `<div style="display:flex;align-items:center;gap:8px;">${dots} <span class="badge badge-b">⭐ Good ${r.dir}</span></div>`;
+  } else {
+   scoreUI = `<div style="display:flex;align-items:center;gap:8px;">${dots} <span class="badge badge-n">⚠️ Weak</span></div>`;
+  }
+
+  // 6 Strategies Badges
   let setupUI = '';
-  if (r.s1) setupUI += `<span class="badge ${r.s1_dir === 'Long' ? 'badge-g' : 'badge-r'}">⭐ 1 (${r.s1_dir})</span>`;
-  if (r.s2) setupUI += `<span class="badge badge-b">⭐ 2 (VWAP)</span>`;
-  if (r.s4) setupUI += `<span class="badge ${r.s4_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-y">⭐ 4 (${r.s4_dir})</span>`;
-  if (r.s6) setupUI += `<span class="badge ${r.s6_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-c pulse">🚀 6 (${r.s6_dir})</span>`;
-  if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 3 (${r.s3_dir})</span>`;
-  if (r.s5) setupUI += `<span class="badge ${r.s5_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-p pulse">🔥 5 (${r.s5_dir})</span>`;
-  
-  if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait / Chop</span>';
+  if (r.s1) setupUI += `<span class="badge ${r.s1_dir === 'Long' ? 'badge-g' : 'badge-r'}">S1 (${r.s1_dir})</span>`;
+  if (r.s2) setupUI += `<span class="badge badge-b">S2 (VWAP)</span>`;
+  if (r.s4) setupUI += `<span class="badge ${r.s4_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-y">S4 Pullback</span>`;
+  if (r.s6) setupUI += `<span class="badge ${r.s6_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-c">S6 Bounce</span>`;
+  if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">S3 Reverse</span>`;
+  if (r.s5) setupUI += `<span class="badge ${r.s5_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-p pulse">S5 Div</span>`;
+  if (setupUI === '') setupUI = '<span class="mut">—</span>';
 
   let vSpikeUI = r.vSpike ? '<span class="badge badge-y pulse-y">🔥 High</span>' : '<span class="mut">—</span>';
 
   h += `<tr>
-   <td>
+   <td class="text-left">
     <div style="display:flex; align-items:center; gap:8px;">
      <a class="coin-link" target="_blank" href="${exURL(r.s)}" title="Open in Exchange"><img src="https://assets.coincap.io/assets/icons/${r.base.toLowerCase()}@2x.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:50%"> ${r.base}</a>
      <a target="_blank" href="${tvURL(r.s)}" class="tv-btn" title="Open TradingView Chart">📈</a>
@@ -647,12 +694,12 @@ function render() {
    </td>
    <td>${px(r.p)}</td>
    <td>${pc(r.ch)}</td>
-   <td>${pc(r.td)}</td>
    <td>${rsiUI}</td>
    <td>${vwapUI}</td>
    <td><span style="color:var(--mut)">${px(r.ema200)}</span></td>
-   <td style="text-align:left">${setupUI}</td>
-   <td>${vSpikeUI}</td>
+   <td class="text-left">${scoreUI}</td>
+   <td class="td-strats">${setupUI}</td>
+   <td class="text-center">${vSpikeUI}</td>
    <td style="color:var(--mut)">${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
  }
@@ -661,8 +708,7 @@ function render() {
  $('tbl').querySelectorAll('th').forEach(th => {
   th.onclick = () => {
    const k = th.dataset.k; 
-   if (k === 'strats') SORT = SORT.k === 's1' ? {k:'s1', d: -SORT.d} : {k:'s1', d: -1};
-   else SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi' ? 1 : -1}; 
+   SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi'||k==='strats' ? 1 : -1}; 
    render();
   }
  });
@@ -684,7 +730,7 @@ document.querySelectorAll('button[data-v]').forEach(b => {
 document.querySelectorAll('#strat-filters button').forEach(b => {
  b.onclick = () => {
   document.querySelector('button[data-v="all"]').classList.remove('on');
-  document.querySelectorAll('[title="Performance Filters"] button').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('#score-filters button').forEach(x => x.classList.remove('on'));
   VIEW = 'custom';
   
   const stratNum = b.dataset.strat;
@@ -704,7 +750,10 @@ document.querySelectorAll('#strat-filters button').forEach(b => {
  }
 });
 
-function getTVList() { return pick().map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); }
+function getTVList() { 
+ const a = pick();
+ return a.map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); 
+}
 
 $('cp').onclick = async () => {
  const t = getTVList(); if(!t) return;
@@ -712,12 +761,6 @@ $('cp').onclick = async () => {
   const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
  }
  $('cp').textContent = '📋 Copied!'; setTimeout(() => $('cp').textContent = '📋 Copy List', 1500);
-};
-
-$('dl').onclick = () => {
- const t = getTVList(); if(!t) return;
- const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], {type:'text/plain'}));
- a.download = `crypto-watchlist-${VIEW}.txt`; document.body.appendChild(a); a.click(); a.remove();
 };
 
 let autoInterval = null;
@@ -733,8 +776,6 @@ $('au').onclick = () => {
 };
 
 $('rf').onclick = load;
-
-// Initial Load
 load();
 
 } catch(err) {
