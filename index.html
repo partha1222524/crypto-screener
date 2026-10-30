@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Master Screener | AI & Performance Dashboard</title>
+<title>Crypto Master Screener | Confluence & Momentum Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -38,17 +38,16 @@ select { padding: 7px 10px; cursor: pointer; }
 .btn-group { display: flex; gap: 8px; align-items: center; border-right: 1px solid var(--line); padding-right: 10px; margin-right: 5px; }
 .btn-group:last-child { border-right: none; }
 
-/* Performance Boxes */
+/* Dashboard Stats & Boxes */
 .boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 15px; }
 .bx { padding: 12px; position: relative; overflow: hidden; }
 .bx h3 { margin: 0 0 10px; font-size: 11px; color: var(--mut); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .bx.up { border-top: 3px solid var(--g); } .bx.dn { border-top: 3px solid var(--r); }
 .bx .r { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
 .bx .r:last-child { border-bottom: none; }
-.bx .r a { font-weight: 600; color: #fff; text-decoration: none; }
+.bx .r a { font-weight: 600; color: #fff; text-decoration: none; transition: color 0.2s; }
 .bx .r a:hover { color: var(--b); }
 
-/* Dashboard Stats */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 15px; }
 .st { padding: 15px; text-align: left; position: relative; overflow: hidden; }
 .st::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--mut); border-radius: 4px 0 0 4px; }
@@ -58,7 +57,7 @@ select { padding: 7px 10px; cursor: pointer; }
 
 /* Table Design */
 .tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin-top: 10px; border-radius: 12px; }
-table { border-collapse: collapse; width: 100%; min-width: 1400px; text-align: right; }
+table { border-collapse: collapse; width: 100%; min-width: 1500px; text-align: right; }
 th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); white-space: nowrap; font-size: 13px; }
 th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
 th:hover { color: #fff; } th.s { color: var(--b); }
@@ -72,10 +71,11 @@ td:first-child a.coin-link:hover { color: var(--b); }
 
 /* Badges & Utilities */
 .pos { color: var(--g); } .neg { color: var(--r); } .hot { color: var(--y); font-weight: 700; }
-.badge { padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; }
+.badge { padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; margin-bottom: 2px; }
 .badge-g { background: var(--g-glow); color: var(--g); border: 1px solid rgba(16,185,129,0.3); }
 .badge-r { background: var(--r-glow); color: var(--r); border: 1px solid rgba(239,68,68,0.3); }
 .badge-b { background: var(--b-glow); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+.badge-y { background: rgba(245, 158, 11, 0.15); color: var(--y); border: 1px solid rgba(245, 158, 11, 0.3); }
 .badge-n { background: rgba(255,255,255,0.05); color: var(--mut); border: 1px solid rgba(255,255,255,0.1); }
 .pulse { animation: pulse 2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
@@ -100,7 +100,6 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .status-bar.err { color: var(--r); }
 .foot { margin-top: 20px; font-size: 12px; color: var(--mut); text-align: center; }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
@@ -114,7 +113,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
    <div>
     <h1>Crypto Master Screener</h1>
-    <div class="desc">Ultimate Dashboard • Direct TradingView Integration</div>
+    <div class="desc">Ultimate Dashboard • Confluence Multi-Filter & Volume Spikes</div>
    </div>
    <div class="btn-group" id="mode" style="border:none;">
     <button id="mBull" class="on bu">🟢 Bullish Mode</button>
@@ -122,10 +121,8 @@ td:first-child a.coin-link:hover { color: var(--b); }
    </div>
   </div>
 
-  <!-- Performance Boxes -->
   <div class="boxes" id="boxes"></div>
 
-  <!-- Stats Row -->
   <div class="stats" id="stats">
    <div class="st glass"><span id="sc-t">Analyzed Coins</span><b id="sc-v">--</b></div>
    <div class="st glass s-1"><span>⭐ Strat 1 Matches</span><b id="sc-s1" class="pos">--</b></div>
@@ -133,7 +130,6 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="st glass s-3"><span>🔥 Strat 3 Matches</span><b id="sc-s3" style="color:#f59e0b">--</b></div>
   </div>
 
-  <!-- Controls Panel -->
   <div class="glass glass-panel">
    <label class="f">Exchange
     <select id="ex"><option value="binance" selected>Binance Futures</option><option value="bybit">Bybit Futures</option></select>
@@ -154,25 +150,23 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <button id="rf">🔄 Sync Data</button>
   </div>
 
-  <!-- Filter Tabs (Combined) -->
+  <!-- MULTI-SELECT FILTER TABS -->
   <div class="glass glass-panel" id="views">
    <div class="btn-group">
-    <button data-v="all" class="on">📊 All</button>
+    <button data-v="all" class="on">📊 All Coins (Reset)</button>
    </div>
-   <div class="btn-group" title="Performance Filters">
+   
+   <div class="btn-group" title="Strategy Confluence Filters (Multi-Select)" id="strat-filters">
+    <span class="mut" style="font-size:11px; margin-right:4px;">Filter By:</span>
+    <button data-strat="1" class="bu">⭐ S1: Trend</button>
+    <button data-strat="2" class="bu">⭐ S2: VWAP</button>
+    <button data-strat="3" class="be">🔥 S3: Reversal</button>
+   </div>
+
+   <div class="btn-group" title="Performance Filters (Single)">
     <button data-v="intra">Intraday</button>
     <button data-v="week">Weekly</button>
     <button data-v="month">Monthly</button>
-   </div>
-   <div class="btn-group" title="Volatility Filters">
-    <button data-v="vol">24h Vol</button>
-    <button data-v="wvol">7D Vol</button>
-    <button data-v="combo">Strong+Vol</button>
-   </div>
-   <div class="btn-group" title="AI Strategies" style="border:none;">
-    <button data-v="strat1" class="bu">⭐ S1: Trend</button>
-    <button data-v="strat2" class="bu">⭐ S2: VWAP</button>
-    <button data-v="strat3" class="be">🔥 S3: Reversal</button>
    </div>
    
    <div class="flex-spacer"></div>
@@ -182,35 +176,45 @@ td:first-child a.coin-link:hover { color: var(--b); }
    </div>
   </div>
 
-  <!-- Data Table -->
   <div class="glass tw" id="tbl">
    <div class="status-bar" id="status"><span>⏳ Initiating terminal...</span><span></span></div>
    <div class="empty">Scanning market depth... Please wait.</div>
   </div>
  </div>
 
- <!-- Right Sidebar (Strategies) -->
+ <!-- Right Sidebar -->
  <div class="right-sidebar">
   <div class="sb-title">🧠 Intraday Strategies</div>
   
   <div class="acc-item glass active">
+   <button class="acc-btn">🎯 Multi-Filter Confluence <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <p>Select multiple strategies at once to find high-probability setups!</p>
+    <ul>
+     <li><strong>S1 + S2:</strong> Entering a Trend trade right at the VWAP line minimizes risk.</li>
+     <li><strong>S2 + S3:</strong> Price crashed to VWAP and became extremely oversold. High chance of bounce.</li>
+    </ul>
+    <div class="safe-combo">💡 Click multiple S1, S2, S3 buttons above to combine filters. Click "All Coins" to reset.</div>
+   </div>
+  </div>
+
+  <div class="acc-item glass">
    <button class="acc-btn">⭐ 1. Trend Follower <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Trade <strong>WITH</strong> the market momentum. The safest way to trade futures.</p>
+    <p>Trade <strong>WITH</strong> the market momentum.</p>
     <ul>
      <li><strong>Long (Buy):</strong> Price > EMA200 <strong>AND</strong> > VWAP <strong>AND</strong> RSI > 50.</li>
      <li><strong>Short (Sell):</strong> Price < EMA200 <strong>AND</strong> < VWAP <strong>AND</strong> RSI < 50.</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Combo:</strong> Check if it also has "⭐ 2 (VWAP)". Entering near the VWAP line minimizes risk. Stop loss below VWAP.</div>
    </div>
   </div>
 
   <div class="acc-item glass">
    <button class="acc-btn">⭐ 2. VWAP Bounce <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Institutions buy at VWAP. When price drops to VWAP and holds, it usually bounces back up.</p>
+    <p>Institutions buy at VWAP. When price drops to VWAP and holds, it bounces.</p>
     <ul>
-     <li><strong>Condition:</strong> Distance to Intraday VWAP is very small (0% to 1%).</li>
+     <li><strong>Condition:</strong> Distance to Intraday VWAP is very small (0% to 1.5%).</li>
      <li><strong>Action:</strong> Wait for a green 5m candle at VWAP before going Long.</li>
     </ul>
    </div>
@@ -219,21 +223,20 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="acc-item glass">
    <button class="acc-btn">🔥 3. Extreme Reversals <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>Catching falling knives or shorting rockets. High risk/reward.</p>
+    <p>Catching falling knives or shorting rockets.</p>
     <ul>
      <li><strong>Oversold (Long):</strong> RSI < 30. Price crashing but slowing.</li>
      <li><strong>Overbought (Short):</strong> RSI > 70. Price pumping hard.</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Combo:</strong> Let RSI go below 30, only enter when it crosses back <strong>UP</strong> above 30. Take quick 1-2% profits.</div>
    </div>
   </div>
   
   <div class="acc-item glass">
-   <button class="acc-btn">⚠️ Golden Rules <span class="ico">➕</span></button>
+   <button class="acc-btn">⚠️ Trading Rules <span class="ico">➕</span></button>
    <div class="acc-content">
     <ul>
-     <li><strong>Click the 📈 Icon:</strong> To open TradingView chart directly.</li>
-     <li><strong>No Conflicts:</strong> If a coin is highly oversold (<30 RSI), S3 Reversal overrides S1 Trend to prevent shorting at the absolute bottom.</li>
+     <li><strong>Volume Spike:</strong> The new "Vol Spike" column shows 🔥 if recent volume is 2x higher than average. Great for confirming breakouts!</li>
+     <li><strong>No Conflicts:</strong> If a coin is highly oversold (<30 RSI), S3 Reversal overrides S1 Trend to prevent shorting the bottom.</li>
      <li><strong>Stop Loss:</strong> Always place a stop loss 1-2% away from entry.</li>
     </ul>
    </div>
@@ -308,7 +311,7 @@ const EX = {
  }
 };
 
-let MODE = 'bull', VIEW = 'all', SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
+let MODE = 'bull', VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = true, busy = false;
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
@@ -381,7 +384,6 @@ function calcVWAP(klines) {
 }
 
 function computeMetrics(t, k1d, k5m, S) {
- // 1D Calcs
  const done = k1d.filter(k => k.t < S.today).slice(-14);
  const ar = done.length >= 7 ? done.reduce((a,k) => a+(k.h-k.l)/k.l*100, 0)/done.length : null;
  const r24 = t.l > 0 ? (t.h-t.l)/t.l*100 : null;
@@ -390,31 +392,32 @@ function computeMetrics(t, k1d, k5m, S) {
  const avg = a => a.length ? a.reduce((q,k)=>q+(k.h-k.l)/k.l*100,0)/a.length : null;
  const wv = avg(k1d.filter(k=>k.t >= S.week+DAY));
  
- // 5m Calcs
  const closes = k5m.map(x => x.c);
  const rsi = calcRSI(closes, 14);
  const ema200 = calcEMA(closes, 200);
  const vwap = calcVWAP(k5m.slice(-72)); 
 
+ // Volume Spike Check (Recent 3 candles vs average of last 24h)
+ const vols = k5m.map(x => x.v);
+ const avgVol = vols.reduce((a,b)=>a+b,0) / vols.length;
+ const recentVol = vols.slice(-3).reduce((a,b)=>a+b,0) / 3;
+ const vSpike = (recentVol > avgVol * 2.5); // 2.5x higher than average
+
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
+ let score = 0;
+ if(ema200 && t.p > ema200) score++; else score--;
+ if(vwap && t.p > vwap) score++; else score--;
+ if(rsi > 50) score++; else score--;
 
  // --- STRICT MUTUALLY EXCLUSIVE STRATEGIES ---
  let s1 = false, s1_dir = '';
  let s2 = false;
  let s3 = false, s3_dir = '';
 
- // Strategy 3: Extreme Reversal OVERRIDES everything else
- if (rsi <= 30) { 
-  s3 = true; s3_dir = 'Long'; 
- } else if (rsi >= 70) { 
-  s3 = true; s3_dir = 'Short'; 
- } 
- // Strategy 1 & 2: Only valid if RSI is NOT extreme (prevents conflicting signals)
+ if (rsi <= 30) { s3 = true; s3_dir = 'Long'; } 
+ else if (rsi >= 70) { s3 = true; s3_dir = 'Short'; } 
  else {
-  // VWAP Bounce
   if (vwap && Math.abs(vwap_dist) <= 1.5) { s2 = true; }
-  
-  // Trend Following
   if (t.p > ema200 && t.p > vwap && rsi > 50) { s1 = true; s1_dir = 'Long'; }
   if (t.p < ema200 && t.p < vwap && rsi < 50) { s1 = true; s1_dir = 'Short'; }
  }
@@ -424,7 +427,7 @@ function computeMetrics(t, k1d, k5m, S) {
   td: td ? (t.p/td.o-1)*100 : null, yd: yd ? (yd.c/yd.o-1)*100 : null,
   w: wk ? (t.p/wk.o-1)*100 : null, m: mo ? (t.p/mo.o-1)*100 : null,
   r24, ar, x: (ar && r24 != null) ? r24/ar : null, wv,
-  rsi, ema200, vwap, vwap_dist,
+  rsi, ema200, vwap, vwap_dist, vSpike,
   s1, s1_dir, s2, s3, s3_dir
  };
 }
@@ -438,14 +441,12 @@ async function load() {
   const all = await ex.tickers();
   let el = all.filter(t => t.v >= SET.mv * 1e6 && t.p > 0).sort((a, b) => b.v - a.v).slice(0, +SET.tn);
 
-  // Load 1D Data
   const need1d = el.filter(t => { const c = KC1D[SET.ex+t.s]; return !c || c.day !== S.today; });
   if(need1d.length) {
    await pool(need1d, 8, async t => { KC1D[SET.ex+t.s] = {day: S.today, k: await ex.klines1d(t.s)}; },
     (d, n) => setStatus(`Loading Daily History...`, Math.round((d/n)*30)));
   }
 
-  // Load 5m Data
   const need5m = el.filter(t => { const c = KC5M[SET.ex+t.s]; return !c || (now - c.time > 570000); });
   if(need5m.length) {
    await pool(need5m, 8, async t => { KC5M[SET.ex+t.s] = {time: now, k: await ex.klines5m(t.s)}; },
@@ -471,34 +472,36 @@ function dirD() { return MODE === 'bear' ? -1 : 1; }
 function defSort() {
  const D = dirD();
  const smap = { 
-  all: {k:'v', d:-1}, intra: {k:'ch', d:-D}, week: {k:'w', d:-D}, month: {k:'m', d:-D}, 
-  vol: {k:'x', d:-D}, wvol: {k:'wv', d:-D}, combo: {k:'x', d:-D},
-  strat1: {k:'v', d:-1}, strat2: {k:'vwap_dist', d:1}, strat3: {k:'rsi', d:1}
+  all: {k:'v', d:-1}, intra: {k:'ch', d:-D}, week: {k:'w', d:-D}, month: {k:'m', d:-D}
  };
  return smap[VIEW] || {k:'v', d:-1};
 }
 
 const VL={
- bull:{intra:'Intraday Gainers',week:'Weekly Gainers',month:'Monthly Gainers',vol:'Volatile (24h)',wvol:'Volatile (7D)',combo:'Strong + Volatile'},
- bear:{intra:'Intraday Losers',week:'Weekly Losers',month:'Monthly Losers',vol:'Volatile (Down)',wvol:'Volatile (7D Down)',combo:'Weak + Volatile'}
+ bull:{intra:'Intraday Gainers',week:'Weekly Gainers',month:'Monthly Gainers'},
+ bear:{intra:'Intraday Losers',week:'Weekly Losers',month:'Monthly Losers'}
 };
 
 function pick() {
  const N = +SET.tn, xm = +SET.xm, D = dirD();
- const dirOk = v => v != null && (D > 0 ? v > 0 : v < 0);
  const top = (key) => new Set(ROWS.filter(r => r[key] != null).sort((a,b) => D*(b[key]-a[key])).slice(0, N).map(r => r.s));
  const W = top('w'), M = top('m');
  let a = ROWS;
- 
- if(VIEW === 'strat1') a = a.filter(r => r.s1);
- else if(VIEW === 'strat2') a = a.filter(r => r.s2);
- else if(VIEW === 'strat3') a = a.filter(r => r.s3);
+
+ // --- MULTI-SELECT STRATEGY FILTER LOGIC ---
+ if (ACTIVE_STRATS.length > 0) {
+  a = a.filter(r => {
+   let match = true;
+   if (ACTIVE_STRATS.includes('1') && !r.s1) match = false;
+   if (ACTIVE_STRATS.includes('2') && !r.s2) match = false;
+   if (ACTIVE_STRATS.includes('3') && !r.s3) match = false;
+   return match;
+  });
+ } 
+ // Only apply standard views if no strats are active
  else if(VIEW === 'intra') a = a.filter(r => r.ch != null).sort((p,q) => D*(q.ch-p.ch)).slice(0, 30);
- else if(VIEW === 'wvol') a = a.filter(r => r.wv != null && dirOk(r.w)).sort((p,q) => q.wv-p.wv).slice(0, 30);
  else if(VIEW === 'week') a = a.filter(r => W.has(r.s));
  else if(VIEW === 'month') a = a.filter(r => M.has(r.s));
- else if(VIEW === 'vol') a = a.filter(r => r.x != null && dirOk(r.ch)).sort((p,q) => q.x-p.x).slice(0, 30);
- else if(VIEW === 'combo') a = a.filter(r => (W.has(r.s) || M.has(r.s)) && r.x != null && r.x >= xm);
 
  const {k, d} = SORT;
  return a.sort((p,q) => { 
@@ -525,9 +528,9 @@ function boxes() {
 }
 
 const COLS = [
- ['base','Coin'], ['p','Price'], ['ch','24h %'], ['td','Today %'], ['w','7D %'], ['m','30D %'],
- ['rsi','RSI (5m)'], ['vwap','VWAP'], ['ema200','EMA 200'], ['strats','AI Strats'], 
- ['x','×Avg'], ['v','Vol $M']
+ ['base','Coin'], ['p','Price'], ['ch','24h %'], ['td','Today %'], 
+ ['rsi','RSI (5m)'], ['vwap','VWAP'], ['ema200','EMA 200'], 
+ ['strats','AI Strats Matched'], ['vSpike','Vol Spike'], ['v','Vol $M']
 ];
 
 function render() {
@@ -542,7 +545,8 @@ function render() {
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
-  $('tbl').innerHTML = st + '<div class="empty">No coins match this specific filter right now.</div>'; 
+  let msg = ACTIVE_STRATS.length > 1 ? `No coins currently match Strategy ${ACTIVE_STRATS.join(' + ')} together. Try selecting fewer combinations.` : 'No coins match this specific filter right now.';
+  $('tbl').innerHTML = st + `<div class="empty">${msg}</div>`; 
   return; 
  }
  
@@ -566,6 +570,8 @@ function render() {
   if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">🔥 3 (${r.s3_dir})</span>`;
   if (setupUI === '') setupUI = '<span class="badge badge-n">⏳ Wait / Chop</span>';
 
+  let vSpikeUI = r.vSpike ? '<span class="badge badge-y pulse">🔥 High</span>' : '<span class="mut">—</span>';
+
   h += `<tr>
    <td>
     <div style="display:flex; align-items:center; gap:8px;">
@@ -576,13 +582,11 @@ function render() {
    <td>${px(r.p)}</td>
    <td>${pc(r.ch)}</td>
    <td>${pc(r.td)}</td>
-   <td>${pc(r.w)}</td>
-   <td>${pc(r.m)}</td>
    <td>${rsiUI}</td>
    <td>${vwapUI}</td>
    <td><span style="color:var(--mut)">${px(r.ema200)}</span></td>
    <td style="text-align:left">${setupUI}</td>
-   <td class="${r.x>=SET.xm?'hot':''}">${r.x==null?'—':r.x.toFixed(2)+'×'}</td>
+   <td>${vSpikeUI}</td>
    <td style="color:var(--mut)">${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
  }
@@ -599,19 +603,51 @@ function render() {
 }
 
 function updateLabels() {
- document.querySelectorAll('[title="Performance Filters"] button, [title="Volatility Filters"] button').forEach(b => { 
+ document.querySelectorAll('[title="Performance Filters (Single)"] button').forEach(b => { 
   if(VL[MODE] && VL[MODE][b.dataset.v]) b.textContent = VL[MODE][b.dataset.v]; 
  });
  $('mBull').classList.toggle('on', MODE==='bull');
  $('mBear').classList.toggle('on', MODE==='bear');
 }
 
-document.querySelectorAll('#views button[data-v]').forEach(b => {
+// Single Select Filters (All, Intraday, Week, Month)
+document.querySelectorAll('button[data-v]').forEach(b => {
  b.onclick = () => {
+  if (b.dataset.v === 'all') {
+   ACTIVE_STRATS = []; // Reset strats
+   document.querySelectorAll('#strat-filters button').forEach(x => x.classList.remove('on'));
+  }
   VIEW = b.dataset.v; 
-  document.querySelectorAll('#views button[data-v]').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('button[data-v]').forEach(x => x.classList.remove('on'));
   b.classList.add('on');
   SORT = defSort(); render();
+ }
+});
+
+// Multi-Select Strategy Filters
+document.querySelectorAll('#strat-filters button').forEach(b => {
+ b.onclick = () => {
+  // Turn off "All" button
+  document.querySelector('button[data-v="all"]').classList.remove('on');
+  document.querySelectorAll('[title="Performance Filters (Single)"] button').forEach(x => x.classList.remove('on'));
+  VIEW = 'custom';
+  
+  const stratNum = b.dataset.strat;
+  if (ACTIVE_STRATS.includes(stratNum)) {
+   ACTIVE_STRATS = ACTIVE_STRATS.filter(s => s !== stratNum);
+   b.classList.remove('on');
+  } else {
+   ACTIVE_STRATS.push(stratNum);
+   b.classList.add('on');
+  }
+  
+  // If no strats left, default to All
+  if (ACTIVE_STRATS.length === 0) {
+   VIEW = 'all';
+   document.querySelector('button[data-v="all"]').classList.add('on');
+  }
+  
+  render();
  }
 });
 
