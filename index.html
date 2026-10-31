@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Master Screener | Pro & Regular Strategies</title>
+<title>Crypto Master Screener | Spot & Futures Terminal</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -32,6 +32,9 @@ h1 { font-size: 28px; margin: 0 0 5px; font-weight: 700; background: linear-grad
 .glass { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 12px; }
 .glass-panel { padding: 12px 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 
+/* Fix for Select Dropdown Options */
+select option { background-color: #151a23; color: #fff; font-weight: 500; }
+
 button, select { background: rgba(255,255,255,0.05); color: var(--tx); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-weight: 500; font-size: 12px; transition: all 0.3s ease; outline: none; }
 button { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 button:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
@@ -56,9 +59,9 @@ select { padding: 7px 10px; cursor: pointer; }
 .st span { display: block; color: var(--mut); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 .st b { font-size: 18px; color: #fff; line-height: 1; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 
-/* Table Design with Alignment Fixes */
+/* Table Design */
 .tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin: 10px 0 25px 0; border-radius: 12px; }
-table { border-collapse: collapse; width: 100%; min-width: 1400px; text-align: right; }
+table { border-collapse: collapse; width: 100%; min-width: 1650px; text-align: right; }
 th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; vertical-align: middle; }
 th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); white-space: nowrap; }
 th:hover { color: #fff; } th.s { color: var(--b); }
@@ -67,7 +70,8 @@ th:hover { color: #fff; } th.s { color: var(--b); }
 th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 11; background: var(--surface); backdrop-filter: blur(12px); border-right: 1px solid var(--line); white-space: nowrap; }
 .text-left { text-align: left !important; }
 .text-center { text-align: center !important; }
-.td-strats { text-align: left; max-width: 300px; white-space: normal; line-height: 2; } /* Fixed Strategy Wrap */
+.td-strats { text-align: left; max-width: 250px; white-space: normal; line-height: 2; }
+.td-verdict { text-align: left; max-width: 280px; white-space: normal; line-height: 1.4; font-size: 12px; font-weight: 500; }
 
 tr:hover td { background: rgba(255,255,255,0.04); }
 td:first-child a.coin-link { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; transition: color 0.2s; }
@@ -139,7 +143,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="header-wrapper">
    <div>
     <h1>Crypto Master Screener</h1>
-    <div class="desc">Pro AI Confluence & Regular Strategy Matrix</div>
+    <div class="desc">Futures & Spot Terminal • AI Confluence Matrix</div>
    </div>
    <div class="branding">DEVELOPED BY <span>PARTHA</span></div>
   </div>
@@ -151,14 +155,19 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="st glass s-2"><span>⭐ Score 2 (Good)</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
    <div class="st glass s-3"><span>🔥 S3 Reversals</span><b id="sc-rev" class="neg">--</b></div>
    <div class="st glass s-4"><span>⭐ S4 EMA Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
-   <div class="st glass s-6"><span>🚀 S6 EMA Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
    <div class="st glass s-5"><span>🔥 S5 RSI Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
+   <div class="st glass s-6"><span>🚀 S6 EMA Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
   </div>
 
   <!-- Settings -->
   <div class="glass glass-panel">
-   <label class="f">Exchange
-    <select id="ex"><option value="binance" selected>Binance Futures</option><option value="bybit">Bybit Futures</option></select>
+   <label class="f">Exchange & Market
+    <select id="ex">
+     <option value="binance" selected>Binance Futures</option>
+     <option value="binance_spot">Binance Spot</option>
+     <option value="bybit">Bybit Futures</option>
+     <option value="bybit_spot">Bybit Spot</option>
+    </select>
    </label>
    <label class="f">Min 24h Vol
     <select id="mv"><option value="5">$5M</option><option value="10">$10M</option><option value="20" selected>$20M</option><option value="50">$50M</option></select>
@@ -176,7 +185,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <button id="rf">🔄 Sync Data</button>
   </div>
 
-  <!-- FILTERS (Combine View Mode & Active Strats) -->
+  <!-- FILTERS -->
   <div class="glass glass-panel" id="views">
    <div class="btn-group">
     <button data-v="all" class="on">📊 All Coins (Reset)</button>
@@ -217,20 +226,20 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="foot">DEVELOPED BY <span>PARTHA</span></div>
  </div>
 
- <!-- Right Sidebar (Strategies Explained in Bengali/English mix) -->
+ <!-- Right Sidebar -->
  <div class="right-sidebar">
   <div class="sb-title">🧠 Strategy Guide</div>
   
   <div class="acc-item glass active">
-   <button class="acc-btn">🎯 AI Confluence Score (0-3) <span class="ico">➕</span></button>
+   <button class="acc-btn">🎯 AI Confluence Score & Verdict <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>প্রতিটি কয়েনকে ৩টি বিষয়ের ওপর ভিত্তি করে <strong>0 থেকে 3</strong> এর মধ্যে একটি স্কোর দেওয়া হয়: <em>Trend (EMA200), Liquidity (VWAP), এবং Momentum (Volume/RSI).</em></p>
+    <p>প্রতিটি কয়েনকে ৩টি বিষয়ের ওপর ভিত্তি করে <strong>0 থেকে 3</strong> এর মধ্যে একটি স্কোর দেওয়া হয়। নতুন <strong>AI Verdict</strong> কলামটি আপনাকে ঠিক কী করতে হবে তা বলে দেবে!</p>
     <ul>
      <li><strong>Score 3 (🔥 Strong):</strong> সব ইন্ডিকেটর একই দিকে কনফার্ম করছে। (Safest Trade)।</li>
      <li><strong>Score 2 (⭐ Good):</strong> প্রাইস ট্রেন্ডের দিকে আছে কিন্তু পুলব্যাক করছে বা VWAP থেকে বাউন্স নিচ্ছে।</li>
-     <li><strong>Score 0-1 (⚠️ Weak):</strong> মার্কেট Choppy বা সাইডওয়েজ। <em>এগুলো ইগনোর করা ভালো।</em></li>
+     <li><strong>Score 0-1 (⚠️ Weak):</strong> মার্কেট Choppy বা সাইডওয়েজ।</li>
     </ul>
-    <div class="safe-combo">💡 <strong>Pro Tip:</strong> 'Score 3' ফিল্টারের সাথে 'Regular Strat S4 বা S6' মিলিয়ে ট্রেড করলে সেরা এন্ট্রি পাওয়া যায়।</div>
+    <div class="safe-combo">💡 <strong>Pro Tip:</strong> টেবিলে "AI Verdict (Action)" কলামের লেখাটি ফলো করুন। এটি একাধিক স্ট্র্যাটেজির কম্বিনেশন বুঝে সেরা সিদ্ধান্ত দেখায়।</div>
    </div>
   </div>
 
@@ -259,12 +268,11 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="acc-item glass">
    <button class="acc-btn" style="color:var(--r);">🔥 3. Extreme Reversals <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>মার্কেট অতিরিক্ত ওভারবট (Overbought) বা ওভারসোল্ড (Oversold)।</p>
+    <p>মার্কেট অতিরিক্ত ওভারবট বা ওভারসোল্ড।</p>
     <ul>
      <li><strong>Long Reversal (Oversold):</strong> RSI < 30. (শর্ট করা থামান)।</li>
      <li><strong>Short Reversal (Overbought):</strong> RSI > 70. (লং করা থামান)।</li>
     </ul>
-    <div class="safe-combo">🛡️ <strong>Rule:</strong> RSI 30 এর নিচে গেলেই বাই করবেন না। অপেক্ষা করুন কখন RSI আবার 30 এর উপরে উঠে আসে।</div>
    </div>
   </div>
 
@@ -278,6 +286,17 @@ td:first-child a.coin-link:hover { color: var(--b); }
     </ul>
    </div>
   </div>
+  
+  <div class="acc-item glass">
+   <button class="acc-btn" style="color:var(--p);">🔥 5. RSI Divergence <span class="ico">➕</span></button>
+   <div class="acc-content">
+    <p>ফেক ব্রেকআউট এবং রিভার্সাল ধরার সেরা উপায়।</p>
+    <ul>
+     <li><strong>Bearish Div (Short):</strong> চার্টে প্রাইস নতুন High বানাচ্ছে, কিন্তু RSI আগের চেয়ে Low দেখাচ্ছে।</li>
+     <li><strong>Bullish Div (Long):</strong> চার্টে প্রাইস নতুন Low বানাচ্ছে, কিন্তু RSI আগের চেয়ে High দেখাচ্ছে।</li>
+    </ul>
+   </div>
+  </div>
 
   <div class="acc-item glass">
    <button class="acc-btn" style="color:var(--c);">🚀 6. EMA Bounce (Continuation)<span class="ico">➕</span></button>
@@ -286,17 +305,6 @@ td:first-child a.coin-link:hover { color: var(--b); }
     <ul>
      <li><strong>Long Entry:</strong> প্রাইস EMA200 থেকে সফলভাবে বাউন্স করে উপরে ওঠা শুরু করেছে। RSI 50 পার হচ্ছে।</li>
      <li><strong>Short Entry:</strong> প্রাইস EMA200 থেকে রিজেক্ট খেয়ে নিচে নামা শুরু করেছে। RSI 50 এর নিচে নামছে।</li>
-    </ul>
-   </div>
-  </div>
-
-  <div class="acc-item glass">
-   <button class="acc-btn" style="color:var(--p);">🔥 5. RSI Divergence <span class="ico">➕</span></button>
-   <div class="acc-content">
-    <p>ফেক ব্রেকআউট এবং রিভার্সাল ধরার সেরা উপায়।</p>
-    <ul>
-     <li><strong>Bearish Div (Short):</strong> চার্টে প্রাইস নতুন High বানাচ্ছে, কিন্তু RSI আগের চেয়ে Low দেখাচ্ছে।</li>
-     <li><strong>Bullish Div (Long):</strong> চার্টে প্রাইস নতুন Low বানাচ্ছে, কিন্তু RSI আগের চেয়ে High দেখাচ্ছে।</li>
     </ul>
    </div>
   </div>
@@ -352,6 +360,23 @@ const EX = {
    return a.map(k => ({h: +k[2], l: +k[3], c: +k[4], v: +k[5]})); 
   }
  },
+ binance_spot: {
+  pre: 'BINANCE',
+  link: (s) => `https://www.binance.com/en/trade/${s}?type=spot`,
+  tvLink: (s) => `https://www.tradingview.com/chart/?symbol=BINANCE:${s}`,
+  async tickers() {
+   const a = await fetchJson('https://api.binance.com/api/v3/ticker/24hr');
+   return a.filter(x => x.symbol.endsWith('USDT')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.priceChangePercent, h: +x.highPrice, l: +x.lowPrice, v: +x.quoteVolume}));
+  },
+  async klines1d(s) {
+   const a = await fetchJson(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=1d&limit=40`);
+   return a.map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
+  },
+  async klines5m(s) {
+   const a = await fetchJson(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=5m&limit=288`);
+   return a.map(k => ({h: +k[2], l: +k[3], c: +k[4], v: +k[5]})); 
+  }
+ },
  bybit: {
   pre: 'BYBIT',
   link: (s) => `https://www.bybit.com/trade/usdt/${s}`,
@@ -368,6 +393,23 @@ const EX = {
    const j = await fetchJson(`https://api.bybit.com/v5/market/kline?category=linear&symbol=${s}&interval=5&limit=288`);
    return j.result.list.slice().reverse().map(k => ({h: +k[2], l: +k[3], c: +k[4], v: +k[5]}));
   }
+ },
+ bybit_spot: {
+  pre: 'BYBIT',
+  link: (s) => `https://www.bybit.com/en/trade/spot/${s}`,
+  tvLink: (s) => `https://www.tradingview.com/chart/?symbol=BYBIT:${s}`,
+  async tickers() {
+   const j = await fetchJson('https://api.bybit.com/v5/market/tickers?category=spot');
+   return j.result.list.filter(x => x.symbol.endsWith('USDT') && !x.symbol.includes('-')).map(x => ({s: x.symbol, p: +x.lastPrice, ch: +x.price24hPcnt*100, h: +x.highPrice24h, l: +x.lowPrice24h, v: +x.turnover24h}));
+  },
+  async klines1d(s) {
+   const j = await fetchJson(`https://api.bybit.com/v5/market/kline?category=spot&symbol=${s}&interval=D&limit=40`);
+   return j.result.list.slice().reverse().map(k => ({t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4]}));
+  },
+  async klines5m(s) {
+   const j = await fetchJson(`https://api.bybit.com/v5/market/kline?category=spot&symbol=${s}&interval=5&limit=288`);
+   return j.result.list.slice().reverse().map(k => ({h: +k[2], l: +k[3], c: +k[4], v: +k[5]}));
+  }
  }
 };
 
@@ -375,12 +417,12 @@ let VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = 
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
-try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v3') || '{}')) } catch(e) {}
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v4') || '{}')) } catch(e) {}
 ['ex','mv','tn','xm'].forEach(k => { 
  $(k).value = SET[k] || $(k).value; 
  $(k).onchange = () => { 
   SET[k] = $(k).value; 
-  localStorage.setItem('cvs_master_v3', JSON.stringify(SET)); 
+  localStorage.setItem('cvs_master_v4', JSON.stringify(SET)); 
   load(); 
  }
 });
@@ -509,14 +551,33 @@ function computeMetrics(t, k1d, k5m, S) {
  const div = detectDivergence(k5m, rsiArr);
  let s5 = div.s5, s5_dir = div.s5_dir;
 
- // Ensure S3 overrides score context visually
  let isReversal = s3;
+
+ // --- AI Verdict Logic ---
+ let verdict = '<span class="mut">Wait for setup</span>';
+ if (s3) {
+  verdict = dir === 'Long' ? '🔥 Oversold! Watch for bounce.' : '🔥 Overbought! Watch for drop.';
+ } else if (s1 && s6) {
+  verdict = `🚀 Golden Entry (${dir})! Trend + Bounce.`;
+ } else if (s1 && s2) {
+  verdict = `⭐ Safe Entry (${dir})! Trend + VWAP.`;
+ } else if (s5) {
+  verdict = `⚠️ Divergence! Watch for reversal.`;
+ } else if (s4) {
+  verdict = `⏳ Pullback ongoing. Wait for rejection.`;
+ } else if (score === 3) {
+  verdict = `🟢 Strong Momentum. Buy on dips.`;
+ } else if (score === 2) {
+  verdict = `🟡 Good setup. Wait for confirmation.`;
+ } else {
+  verdict = `🛑 Choppy/Weak. Avoid trading.`;
+ }
 
  return {
   s: t.s, base: t.s.replace(/USDT$/, ''), p: t.p, ch: t.ch, v: t.v/1e6,
   td: td ? (t.p/td.o-1)*100 : null, yd: yd ? (yd.c/yd.o-1)*100 : null,
   rsi, ema200, vwap, vwap_dist, vSpike,
-  score, dir, isReversal,
+  score, dir, isReversal, verdict,
   s1, s1_dir, s2, s3, s3_dir, s4, s4_dir, s5, s5_dir, s6, s6_dir
  };
 }
@@ -524,7 +585,7 @@ function computeMetrics(t, k1d, k5m, S) {
 async function load() {
  if(busy) return; busy = true; const ex = EX[SET.ex], S = starts(), now = Date.now();
  try {
-  setStatus(`Connecting to ${SET.ex.toUpperCase()}...`);
+  setStatus(`Connecting to ${SET.ex.toUpperCase().replace('_', ' ')}...`);
   await new Promise(r => setTimeout(r, 100)); 
 
   const all = await ex.tickers();
@@ -567,14 +628,12 @@ function defSort() {
 function pick() {
  let a = ROWS;
 
- // Handle specific VIEW toggles first
  if (VIEW === 'score3') {
   a = a.filter(r => r.score === 3 && !r.isReversal);
  } else if (VIEW === 'score2') {
   a = a.filter(r => r.score === 2 && !r.isReversal);
  }
 
- // Then apply multiple Strategy filters
  if (ACTIVE_STRATS.length > 0) {
   a = a.filter(r => {
    let match = true;
@@ -614,7 +673,7 @@ function boxes() {
 const COLS = [
  ['base','Coin'], ['p','Price'], ['ch','24h %'],
  ['rsi','RSI (5m)'], ['vwap_dist','VWAP Dist.'], ['ema200','EMA 200'], 
- ['score','AI Pro Score'], ['strats','Matched Strategies'], ['vSpike','Vol Spike'], ['v','Vol $M']
+ ['score','AI Pro Score'], ['strats','Matched Strategies'], ['verdict','AI Verdict (Action)'], ['vSpike','Indicators'], ['v','Vol $M']
 ];
 
 function render() {
@@ -623,6 +682,7 @@ function render() {
  $('sc-v').textContent = ROWS.length;
  $('sc-s3').textContent = ROWS.filter(r => r.score === 3 && !r.isReversal).length;
  $('sc-s2').textContent = ROWS.filter(r => r.score === 2 && !r.isReversal).length;
+ $('sc-s1').textContent = ROWS.filter(r => r.score <= 1).length;
  $('sc-rev').textContent = ROWS.filter(r => r.s3).length;
  $('sc-s4').textContent = ROWS.filter(r => r.s4).length;
  $('sc-s6').textContent = ROWS.filter(r => r.s6).length;
@@ -632,14 +692,14 @@ function render() {
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
-  let msg = 'No coins match this specific filter combination right now. Try selecting "All Coins".';
+  let msg = 'No coins match this specific filter right now. Try selecting "All Coins".';
   $('tbl').innerHTML = st + `<div class="empty">${msg}</div>`; 
   return; 
  }
  
  let h = $('status') ? $('status').outerHTML : '';
  h += '<table><thead><tr>' + COLS.map((c, i) => {
-  let alignClass = (i===0 || i===6 || i===7) ? 'text-left' : (i===8 ? 'text-center' : '');
+  let alignClass = (i===0 || i===6 || i===7 || i===8) ? 'text-left' : (i===9 ? 'text-center' : '');
   return `<th data-k="${c[0]}" class="${SORT.k===c[0]?'s':''} ${alignClass}">${c[1]}${SORT.k===c[0]?(SORT.d<0?' ↓':' ↑'):''}</th>`;
  }).join('') + '</tr></thead><tbody>';
  
@@ -679,8 +739,8 @@ function render() {
   if (r.s2) setupUI += `<span class="badge badge-b">S2 (VWAP)</span>`;
   if (r.s4) setupUI += `<span class="badge ${r.s4_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-y">S4 Pullback</span>`;
   if (r.s6) setupUI += `<span class="badge ${r.s6_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-c">S6 Bounce</span>`;
-  if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">S3 Reverse</span>`;
   if (r.s5) setupUI += `<span class="badge ${r.s5_dir === 'Long' ? 'badge-g' : 'badge-r'} badge-p pulse">S5 Div</span>`;
+  if (r.s3) setupUI += `<span class="badge ${r.s3_dir === 'Long' ? 'badge-g' : 'badge-r'} pulse">S3 Reverse</span>`;
   if (setupUI === '') setupUI = '<span class="mut">—</span>';
 
   let vSpikeUI = r.vSpike ? '<span class="badge badge-y pulse-y">🔥 High</span>' : '<span class="mut">—</span>';
@@ -699,6 +759,7 @@ function render() {
    <td><span style="color:var(--mut)">${px(r.ema200)}</span></td>
    <td class="text-left">${scoreUI}</td>
    <td class="td-strats">${setupUI}</td>
+   <td class="td-verdict">${r.verdict}</td>
    <td class="text-center">${vSpikeUI}</td>
    <td style="color:var(--mut)">${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
@@ -708,7 +769,7 @@ function render() {
  $('tbl').querySelectorAll('th').forEach(th => {
   th.onclick = () => {
    const k = th.dataset.k; 
-   SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi'||k==='strats' ? 1 : -1}; 
+   SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi'||k==='strats'||k==='vwap_dist'||k==='verdict' ? 1 : -1}; 
    render();
   }
  });
