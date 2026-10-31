@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crypto Master Screener | Spot & Futures Terminal</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Crypto Master Screener | Confluence & Verdict Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
  --bg: #09090b; --surface: rgba(24, 24, 27, 0.6); --surface-hover: rgba(39, 39, 42, 0.8);
@@ -31,8 +31,6 @@ h1 { font-size: 28px; margin: 0 0 5px; font-weight: 700; background: linear-grad
 /* Glass Panels & Buttons */
 .glass { background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: 12px; }
 .glass-panel { padding: 12px 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
-
-/* Fix for Select Dropdown Options */
 select option { background-color: #151a23; color: #fff; font-weight: 500; }
 
 button, select { background: rgba(255,255,255,0.05); color: var(--tx); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-family: inherit; font-weight: 500; font-size: 12px; transition: all 0.3s ease; outline: none; }
@@ -61,7 +59,7 @@ select { padding: 7px 10px; cursor: pointer; }
 
 /* Table Design */
 .tw { overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3); margin: 10px 0 25px 0; border-radius: 12px; }
-table { border-collapse: collapse; width: 100%; min-width: 1650px; text-align: right; }
+table { border-collapse: collapse; width: 100%; min-width: 1700px; text-align: right; }
 th, td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; vertical-align: middle; }
 th { background: rgba(0,0,0,0.4); color: var(--mut); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); white-space: nowrap; }
 th:hover { color: #fff; } th.s { color: var(--b); }
@@ -71,7 +69,7 @@ th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-
 .text-left { text-align: left !important; }
 .text-center { text-align: center !important; }
 .td-strats { text-align: left; max-width: 250px; white-space: normal; line-height: 2; }
-.td-verdict { text-align: left; max-width: 280px; white-space: normal; line-height: 1.4; font-size: 12px; font-weight: 500; }
+.td-verdict { text-align: left; max-width: 320px; white-space: normal; line-height: 1.4; font-size: 13px; font-weight: 500; }
 
 tr:hover td { background: rgba(255,255,255,0.04); }
 td:first-child a.coin-link { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; transition: color 0.2s; }
@@ -97,6 +95,10 @@ td:first-child a.coin-link:hover { color: var(--b); }
 .score-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); }
 .score-dot.active-g { background: var(--g); box-shadow: 0 0 5px var(--g); }
 .score-dot.active-r { background: var(--r); box-shadow: 0 0 5px var(--r); }
+
+/* Signal Text (Verdict) */
+.sig-long { color: var(--g); font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(16,185,129,0.4); }
+.sig-short { color: var(--r); font-weight: 900; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(239,68,68,0.4); }
 
 /* Performance Boxes (Bottom) */
 .boxes-title { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #fff; }
@@ -148,13 +150,15 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="branding">DEVELOPED BY <span>PARTHA</span></div>
   </div>
 
-  <!-- Summary Stats -->
+  <!-- Summary Stats (All 7 Boxes) -->
   <div class="stats" id="stats">
    <div class="st glass"><span id="sc-t">Scanned</span><b id="sc-v">--</b></div>
-   <div class="st glass s-1"><span>🔥 Score 3 (Strong)</span><b id="sc-s3" class="pos">--</b></div>
-   <div class="st glass s-2"><span>⭐ Score 2 (Good)</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
-   <div class="st glass s-3"><span>⚠️ Score 0-1 (Weak)</span><b id="sc-s1" class="neg">--</b></div>
-   <div class="st glass s-5"><span>🔥 RSI Reversals</span><b id="sc-rev" style="color:#c084fc">--</b></div>
+   <div class="st glass s-1"><span>🔥 AI Score 3</span><b id="sc-scr3" class="pos">--</b></div>
+   <div class="st glass s-6"><span>🚀 S6 Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
+   <div class="st glass s-4"><span>⭐ S4 Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
+   <div class="st glass s-5"><span>🔥 S5 Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
+   <div class="st glass s-2"><span>⭐ S2 VWAP</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
+   <div class="st glass s-3"><span>🔥 S3 Reversal</span><b id="sc-s3" class="neg">--</b></div>
   </div>
 
   <!-- Settings -->
@@ -189,14 +193,16 @@ td:first-child a.coin-link:hover { color: var(--b); }
     <button data-v="all" class="on">📊 All Coins (Reset)</button>
    </div>
    
-   <div class="btn-group" title="AI Pro Score Filters" id="score-filters">
-    <span class="mut" style="font-size:11px; margin-right:4px;">Pro AI Score:</span>
-    <button data-v="score3" class="bu">🔥 Score 3</button>
-    <button data-v="score2" class="bu" style="color:var(--b); border-color:var(--b);">⭐ Score 2</button>
+   <!-- Verdict Filters -->
+   <div class="btn-group" title="AI Verdict Action Filters">
+    <span class="mut" style="font-size:11px; margin-right:4px;">Action:</span>
+    <button data-v="v_golden" class="bu">🚀 Golden Entry</button>
+    <button data-v="v_safe" class="bu">⭐ Safe Entry</button>
+    <button data-v="v_div" class="pu">⚠️ Divergence</button>
    </div>
 
-   <div class="btn-group" title="Regular Strategy Filters (Multi-Select)" id="strat-filters">
-    <span class="mut" style="font-size:11px; margin-right:4px;">Regular Strats:</span>
+   <div class="btn-group" title="Regular Strategy Filters" id="strat-filters">
+    <span class="mut" style="font-size:11px; margin-right:4px;">Strats:</span>
     <button data-strat="1" class="bu">1</button>
     <button data-strat="2" class="bu">2</button>
     <button data-strat="3" class="be">3</button>
@@ -229,15 +235,15 @@ td:first-child a.coin-link:hover { color: var(--b); }
   <div class="sb-title">🧠 Strategy Guide</div>
   
   <div class="acc-item glass active">
-   <button class="acc-btn">🎯 AI Confluence Score & Verdict <span class="ico">➕</span></button>
+   <button class="acc-btn">🎯 Best Combinations (Confluence) <span class="ico">➕</span></button>
    <div class="acc-content">
-    <p>প্রতিটি কয়েনকে ৩টি বিষয়ের ওপর ভিত্তি করে <strong>0 থেকে 3</strong> এর মধ্যে একটি স্কোর দেওয়া হয়। নতুন <strong>AI Verdict</strong> কলামটি আপনাকে ঠিক কী করতে হবে তা বলে দেবে!</p>
+    <p>প্রো ট্রেডারদের মতো সেরা কনফ্লুয়েন্স (Confluence) বা এন্ট্রি পাওয়ার জন্য এই কম্বিনেশনগুলো ফিল্টার করুন:</p>
     <ul>
-     <li><strong>Score 3 (🔥 Strong):</strong> সব ইন্ডিকেটর একই দিকে কনফার্ম করছে। (Safest Trade)।</li>
-     <li><strong>Score 2 (⭐ Good):</strong> প্রাইস ট্রেন্ডের দিকে আছে কিন্তু পুলব্যাক করছে বা VWAP থেকে বাউন্স নিচ্ছে।</li>
-     <li><strong>Score 0-1 (⚠️ Weak):</strong> মার্কেট Choppy বা সাইডওয়েজ।</li>
+     <li><strong>🚀 S1 + S6 (Golden Entry):</strong> প্রাইস ট্রেন্ডের দিকে আছে এবং জাস্ট পুলব্যাক থেকে বাউন্স করেছে। (Low Risk, High Reward)</li>
+     <li><strong>⭐ S1 + S2 (Safe Entry):</strong> ট্রেন্ড আপ/ডাউন এবং প্রাইস একদম VWAP সাপোর্টে/রেজিস্ট্যান্সে দাঁড়িয়ে আছে।</li>
+     <li><strong>⚠️ S3 + S5 (Sniper Reversal):</strong> মার্কেট এক্সট্রিম ওভারসোল্ড এবং বুলিশ ডাইভারজেন্স (Divergence) দিচ্ছে। </li>
     </ul>
-    <div class="safe-combo">💡 <strong>Pro Tip:</strong> টেবিলে "AI Verdict (Action)" কলামের লেখাটি ফলো করুন। এটি একাধিক স্ট্র্যাটেজির কম্বিনেশন বুঝে সেরা সিদ্ধান্ত দেখায়।</div>
+    <div class="safe-combo">💡 <strong>Pro Tip:</strong> উপরের "Action" ফিল্টার বাটনগুলো ক্লিক করে এই কম্বিনেশনগুলো এক ক্লিকেই পেয়ে যাবেন!</div>
    </div>
   </div>
 
@@ -258,7 +264,6 @@ td:first-child a.coin-link:hover { color: var(--b); }
     <p>ইনস্টিটিউশনাল ট্রেডারদের জোন।</p>
     <ul>
      <li><strong>Condition:</strong> প্রাইস VWAP লাইনের খুব কাছাকাছি (০% থেকে ১.৫%) থাকলে এই ব্যাজ দেখায়।</li>
-     <li><strong>Action:</strong> TradingView-তে দেখুন সেখানে বাউন্স বা রিজেকশন ক্যান্ডেল তৈরি হচ্ছে কি গঠন হচ্ছে।</li>
     </ul>
    </div>
   </div>
@@ -415,14 +420,14 @@ let VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = 
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
-try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v5') || '{}')) } catch(e) {}
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v6') || '{}')) } catch(e) {}
 ['ex','mv','tn','xm'].forEach(k => { 
  const el = $(k);
  if(el) {
   el.value = SET[k] || el.value; 
   el.onchange = () => { 
    SET[k] = el.value; 
-   localStorage.setItem('cvs_master_v5', JSON.stringify(SET)); 
+   localStorage.setItem('cvs_master_v6', JSON.stringify(SET)); 
    load(); 
   };
  }
@@ -442,7 +447,6 @@ function setStatus(msg, perc = '') {
  el.innerHTML = `<span>${perc === 100 ? '✅' : '⏳'} ${msg}</span><span>${perc ? perc + '%' : ''}</span>`;
 }
 
-// Safe update text helper
 const setText = (id, txt) => { const el = $(id); if(el) el.textContent = txt; };
 
 async function pool(items, concurrency, fn, onProgress) {
@@ -513,7 +517,6 @@ function computeMetrics(t, k1d, k5m, S) {
  const ema200 = calcEMA(closes, 200);
  const vwap = calcVWAP(k5m.slice(-72)); 
 
- // Volume Spike
  const vols = k5m.map(x => x.v);
  const avgVol = vols.reduce((a,b)=>a+b,0) / vols.length;
  const recentVol = vols.slice(-3).reduce((a,b)=>a+b,0) / 3;
@@ -522,7 +525,6 @@ function computeMetrics(t, k1d, k5m, S) {
  let vwap_dist = vwap ? ((t.p - vwap) / vwap) * 100 : 100;
  let ema_dist = ema200 ? ((t.p - ema200) / ema200) * 100 : 100;
 
- // Confluence Score (0 to 3)
  let score = 0;
  let dir = '';
  
@@ -530,7 +532,6 @@ function computeMetrics(t, k1d, k5m, S) {
  if (t.p > vwap && dir === 'Long') { score++; } else if (t.p < vwap && dir === 'Short') { score++; }
  if (vSpike || (dir === 'Long' && rsi > 50) || (dir === 'Short' && rsi < 50)) { score++; }
 
- // 6 Strategies Logic
  let s1 = false, s1_dir = '';
  let s2 = false;
  let s3 = false, s3_dir = '';
@@ -557,22 +558,27 @@ function computeMetrics(t, k1d, k5m, S) {
 
  let isReversal = s3;
 
+ // --- Format BOLD Signal Action ---
+ let vLong = '<strong class="sig-long">LONG 🟢</strong>';
+ let vShort = '<strong class="sig-short">SHORT 🔴</strong>';
+ let dirFmt = dir === 'Long' ? vLong : (dir === 'Short' ? vShort : '');
+
  // --- AI Verdict Logic ---
  let verdict = '<span class="mut">Wait for setup</span>';
  if (s3) {
-  verdict = dir === 'Long' ? '🔥 Oversold! Watch for bounce.' : '🔥 Overbought! Watch for drop.';
+  verdict = dir === 'Long' ? `🔥 Oversold! Watch for ${vLong} bounce.` : `🔥 Overbought! Watch for ${vShort} drop.`;
  } else if (s1 && s6) {
-  verdict = `🚀 Golden Entry (${dir})! Trend + Bounce.`;
+  verdict = `🚀 Golden Entry! Trend + Bounce -> ${dirFmt}`;
  } else if (s1 && s2) {
-  verdict = `⭐ Safe Entry (${dir})! Trend + VWAP.`;
+  verdict = `⭐ Safe Entry! Trend + VWAP -> ${dirFmt}`;
  } else if (s5) {
-  verdict = `⚠️ Divergence! Watch for reversal.`;
+  verdict = `⚠️ Divergence! Watch for reversal -> ${dirFmt}`;
  } else if (s4) {
   verdict = `⏳ Pullback ongoing. Wait for rejection.`;
  } else if (score === 3) {
-  verdict = `🟢 Strong Momentum. Buy on dips.`;
+  verdict = `🟢 Strong Momentum -> ${dirFmt}`;
  } else if (score === 2) {
-  verdict = `🟡 Good setup. Wait for confirmation.`;
+  verdict = `🟡 Good setup -> ${dirFmt}`;
  } else {
   verdict = `🛑 Choppy/Weak. Avoid trading.`;
  }
@@ -624,7 +630,7 @@ async function load() {
 
 function defSort() {
  const smap = { 
-  all: {k:'v', d:-1}, score3: {k:'score', d:-1}, score2: {k:'score', d:-1}
+  all: {k:'v', d:-1}
  };
  return smap[VIEW] || {k:'score', d:-1}; 
 }
@@ -632,11 +638,9 @@ function defSort() {
 function pick() {
  let a = ROWS;
 
- if (VIEW === 'score3') {
-  a = a.filter(r => r.score === 3 && !r.isReversal);
- } else if (VIEW === 'score2') {
-  a = a.filter(r => r.score === 2 && !r.isReversal);
- }
+ if (VIEW === 'v_golden') a = a.filter(r => r.s1 && r.s6);
+ else if (VIEW === 'v_safe') a = a.filter(r => r.s1 && r.s2);
+ else if (VIEW === 'v_div') a = a.filter(r => r.s5);
 
  if (ACTIVE_STRATS.length > 0) {
   a = a.filter(r => {
@@ -685,10 +689,12 @@ function render() {
  if(!ROWS.length) return;
  
  setText('sc-v', ROWS.length);
- setText('sc-s3', ROWS.filter(r => r.score === 3 && !r.isReversal).length);
- setText('sc-s2', ROWS.filter(r => r.score === 2 && !r.isReversal).length);
- setText('sc-s1', ROWS.filter(r => r.score <= 1).length);
- setText('sc-rev', ROWS.filter(r => r.s3).length);
+ setText('sc-scr3', ROWS.filter(r => r.score === 3 && !r.isReversal).length);
+ setText('sc-s6', ROWS.filter(r => r.s6).length);
+ setText('sc-s4', ROWS.filter(r => r.s4).length);
+ setText('sc-s5', ROWS.filter(r => r.s5).length);
+ setText('sc-s2', ROWS.filter(r => r.s2).length);
+ setText('sc-s3', ROWS.filter(r => r.s3).length);
  
  boxes();
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
@@ -796,7 +802,7 @@ document.querySelectorAll('button[data-v]').forEach(b => {
 document.querySelectorAll('#strat-filters button').forEach(b => {
  b.onclick = () => {
   document.querySelector('button[data-v="all"]').classList.remove('on');
-  document.querySelectorAll('#score-filters button').forEach(x => x.classList.remove('on'));
+  document.querySelectorAll('button[data-v]').forEach(x => x.classList.remove('on'));
   VIEW = 'custom';
   
   const stratNum = b.dataset.strat;
