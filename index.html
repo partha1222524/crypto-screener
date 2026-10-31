@@ -53,7 +53,7 @@ select { padding: 7px 10px; cursor: pointer; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 15px; }
 .st { padding: 12px; text-align: left; position: relative; overflow: hidden; border-radius: 8px; }
 .st::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--mut); }
-.st.s-1::before { background: var(--b); } .st.s-2::before { background: var(--g); } 
+.st.s-1::before { background: var(--g); } .st.s-2::before { background: var(--b); } 
 .st.s-3::before { background: var(--r); } .st.s-4::before { background: var(--y); } 
 .st.s-5::before { background: var(--p); } .st.s-6::before { background: var(--c); }
 .st span { display: block; color: var(--mut); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
@@ -154,7 +154,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="st glass s-1"><span>🔥 Score 3 (Strong)</span><b id="sc-s3" class="pos">--</b></div>
    <div class="st glass s-2"><span>⭐ Score 2 (Good)</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
    <div class="st glass s-3"><span>⚠️ Score 0-1 (Weak)</span><b id="sc-s1" class="neg">--</b></div>
-   <div class="st glass s-4"><span>🔥 RSI Reversals</span><b id="sc-rev" style="color:#c084fc">--</b></div>
+   <div class="st glass s-5"><span>🔥 RSI Reversals</span><b id="sc-rev" style="color:#c084fc">--</b></div>
   </div>
 
   <!-- Settings -->
@@ -258,7 +258,7 @@ td:first-child a.coin-link:hover { color: var(--b); }
     <p>ইনস্টিটিউশনাল ট্রেডারদের জোন।</p>
     <ul>
      <li><strong>Condition:</strong> প্রাইস VWAP লাইনের খুব কাছাকাছি (০% থেকে ১.৫%) থাকলে এই ব্যাজ দেখায়।</li>
-     <li><strong>Action:</strong> TradingView-তে দেখুন সেখানে বাউন্স বা রিজেকশন ক্যান্ডেল তৈরি হচ্ছে কি না।</li>
+     <li><strong>Action:</strong> TradingView-তে দেখুন সেখানে বাউন্স বা রিজেকশন ক্যান্ডেল তৈরি হচ্ছে কি গঠন হচ্ছে।</li>
     </ul>
    </div>
   </div>
@@ -417,11 +417,14 @@ let KC1D = {}, KC5M = {};
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
 try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v5') || '{}')) } catch(e) {}
 ['ex','mv','tn','xm'].forEach(k => { 
- $(k).value = SET[k] || $(k).value; 
- $(k).onchange = () => { 
-  SET[k] = $(k).value; 
-  localStorage.setItem('cvs_master_v5', JSON.stringify(SET)); 
-  load(); 
+ const el = $(k);
+ if(el) {
+  el.value = SET[k] || el.value; 
+  el.onchange = () => { 
+   SET[k] = el.value; 
+   localStorage.setItem('cvs_master_v5', JSON.stringify(SET)); 
+   load(); 
+  };
  }
 });
 
@@ -438,6 +441,9 @@ function setStatus(msg, perc = '') {
  el.className = 'status-bar';
  el.innerHTML = `<span>${perc === 100 ? '✅' : '⏳'} ${msg}</span><span>${perc ? perc + '%' : ''}</span>`;
 }
+
+// Safe update text helper
+const setText = (id, txt) => { const el = $(id); if(el) el.textContent = txt; };
 
 async function pool(items, concurrency, fn, onProgress) {
  let i = 0, done = 0;
@@ -665,7 +671,8 @@ function boxes() {
     ${pc(r[key])}
    </div>`).join('') + `</div>`;
  };
- $('boxes').innerHTML = mk('Today · Top Gainers','td',1,'up') + mk('Today · Top Losers','td',-1,'dn') + mk('Yesterday · Top Gainers','yd',1,'up') + mk('Yesterday · Top Losers','yd',-1,'dn');
+ const bx = $('boxes');
+ if(bx) bx.innerHTML = mk('Today · Top Gainers','td',1,'up') + mk('Today · Top Losers','td',-1,'dn') + mk('Yesterday · Top Gainers','yd',1,'up') + mk('Yesterday · Top Losers','yd',-1,'dn');
 }
 
 const COLS = [
@@ -677,21 +684,21 @@ const COLS = [
 function render() {
  if(!ROWS.length) return;
  
- $('sc-v').textContent = ROWS.length;
- $('sc-s3').textContent = ROWS.filter(r => r.score === 3 && !r.isReversal).length;
- $('sc-s2').textContent = ROWS.filter(r => r.score === 2 && !r.isReversal).length;
- $('sc-s1').textContent = ROWS.filter(r => r.score <= 1).length;
- $('sc-rev').textContent = ROWS.filter(r => r.s3).length;
- $('sc-s4').textContent = ROWS.filter(r => r.s4).length;
- $('sc-s6').textContent = ROWS.filter(r => r.s6).length;
- $('sc-s5').textContent = ROWS.filter(r => r.s5).length;
+ setText('sc-v', ROWS.length);
+ setText('sc-s3', ROWS.filter(r => r.score === 3 && !r.isReversal).length);
+ setText('sc-s2', ROWS.filter(r => r.score === 2 && !r.isReversal).length);
+ setText('sc-s1', ROWS.filter(r => r.score <= 1).length);
+ setText('sc-rev', ROWS.filter(r => r.s3).length);
  
  boxes();
  const a = pick(), exURL = EX[SET.ex].link, tvURL = EX[SET.ex].tvLink;
+ const tbl = $('tbl');
+ if(!tbl) return;
+
  if(!a.length) { 
   let st = $('status') ? $('status').outerHTML : '';
   let msg = 'No coins match this specific filter right now. Try selecting "All Coins".';
-  $('tbl').innerHTML = st + `<div class="empty">${msg}</div>`; 
+  tbl.innerHTML = st + `<div class="empty">${msg}</div>`; 
   return; 
  }
  
@@ -762,9 +769,9 @@ function render() {
    <td style="color:var(--mut)">${r.v>=100 ? r.v.toFixed(0) : r.v.toFixed(1)}M</td>
   </tr>`;
  }
- $('tbl').innerHTML = h + '</tbody></table>';
+ tbl.innerHTML = h + '</tbody></table>';
  
- $('tbl').querySelectorAll('th').forEach(th => {
+ tbl.querySelectorAll('th').forEach(th => {
   th.onclick = () => {
    const k = th.dataset.k; 
    SORT = SORT.k === k ? {k, d: -SORT.d} : {k, d: k==='base'||k==='rsi'||k==='strats'||k==='vwap_dist'||k==='verdict' ? 1 : -1}; 
@@ -814,31 +821,40 @@ function getTVList() {
  return a.map(r => `${EX[SET.ex].pre}:${r.s}.P`).join(','); 
 }
 
-$('cp').onclick = async () => {
- const t = getTVList(); if(!t) return;
- try { await navigator.clipboard.writeText(t); } catch(e) {
-  const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
- }
- $('cp').textContent = '📋 Copied!'; setTimeout(() => $('cp').textContent = '📋 Copy List', 1500);
-};
+const cpBtn = $('cp');
+if(cpBtn) {
+ cpBtn.onclick = async () => {
+  const t = getTVList(); if(!t) return;
+  try { await navigator.clipboard.writeText(t); } catch(e) {
+   const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+  }
+  cpBtn.textContent = '📋 Copied!'; setTimeout(() => cpBtn.textContent = '📋 Copy List', 1500);
+ };
+}
 
 let autoInterval = null;
-$('au').onclick = () => { 
- AUTO = !AUTO; 
- $('au').textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); 
- $('au').classList.toggle('on', AUTO); 
- if(AUTO) {
-  autoInterval = setInterval(() => { if(!document.hidden) load(); }, TEN_MIN);
- } else {
-  clearInterval(autoInterval);
- }
-};
+const auBtn = $('au');
+if(auBtn) {
+ auBtn.onclick = () => { 
+  AUTO = !AUTO; 
+  auBtn.textContent = '⏱ Auto 10m: ' + (AUTO ? 'ON' : 'OFF'); 
+  auBtn.classList.toggle('on', AUTO); 
+  if(AUTO) {
+   autoInterval = setInterval(() => { if(!document.hidden) load(); }, TEN_MIN);
+  } else {
+   clearInterval(autoInterval);
+  }
+ };
+}
 
-$('rf').onclick = load;
+const rfBtn = $('rf');
+if(rfBtn) rfBtn.onclick = load;
+
 load();
 
 } catch(err) {
- document.getElementById('status').innerHTML = '<span>❌ Critical Initialization Error: ' + err.message + '</span>';
+ const statusEl = document.getElementById('status');
+ if(statusEl) statusEl.innerHTML = '<span>❌ Critical Initialization Error: ' + err.message + '</span>';
 }
 </script>
 </body>
