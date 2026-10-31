@@ -153,10 +153,8 @@ td:first-child a.coin-link:hover { color: var(--b); }
    <div class="st glass"><span id="sc-t">Scanned</span><b id="sc-v">--</b></div>
    <div class="st glass s-1"><span>🔥 Score 3 (Strong)</span><b id="sc-s3" class="pos">--</b></div>
    <div class="st glass s-2"><span>⭐ Score 2 (Good)</span><b id="sc-s2" style="color:#60a5fa">--</b></div>
-   <div class="st glass s-3"><span>🔥 S3 Reversals</span><b id="sc-rev" class="neg">--</b></div>
-   <div class="st glass s-4"><span>⭐ S4 EMA Pullback</span><b id="sc-s4" style="color:#f59e0b">--</b></div>
-   <div class="st glass s-5"><span>🔥 S5 RSI Div</span><b id="sc-s5" style="color:#c084fc">--</b></div>
-   <div class="st glass s-6"><span>🚀 S6 EMA Bounce</span><b id="sc-s6" style="color:var(--c)">--</b></div>
+   <div class="st glass s-3"><span>⚠️ Score 0-1 (Weak)</span><b id="sc-s1" class="neg">--</b></div>
+   <div class="st glass s-4"><span>🔥 RSI Reversals</span><b id="sc-rev" style="color:#c084fc">--</b></div>
   </div>
 
   <!-- Settings -->
@@ -417,12 +415,12 @@ let VIEW = 'all', ACTIVE_STRATS = [], SORT = {k: 'v', d: -1}, ROWS = [], AUTO = 
 let KC1D = {}, KC5M = {};
 
 const SET = {ex: 'binance', mv: '20', tn: '100', xm: '1.5'}; 
-try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v4') || '{}')) } catch(e) {}
+try { Object.assign(SET, JSON.parse(localStorage.getItem('cvs_master_v5') || '{}')) } catch(e) {}
 ['ex','mv','tn','xm'].forEach(k => { 
  $(k).value = SET[k] || $(k).value; 
  $(k).onchange = () => { 
   SET[k] = $(k).value; 
-  localStorage.setItem('cvs_master_v4', JSON.stringify(SET)); 
+  localStorage.setItem('cvs_master_v5', JSON.stringify(SET)); 
   load(); 
  }
 });
